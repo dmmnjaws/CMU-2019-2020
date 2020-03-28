@@ -23,61 +23,45 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Category:"
+        app:layout_constraintLeft_toLeftOf="@+id/usernameTextView"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.282"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.623" />
+        app:layout_constraintVertical_bias="0.639" />
 
     <TextView
         android:id="@+id/username"
-        android:layout_width="407dp"
-        android:layout_height="20dp"
-        android:onClick="changeUsername"
-        android:text="por o nome da Pessoag"
+        android:layout_width="406dp"
+        android:layout_height="36dp"
         android:gravity="center_horizontal"
+        android:onClick="changeUsername"
+        android:text="o nome da pessoa aqui."
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintHorizontal_bias="0.4"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.587" />
-
-    <Button
-        android:id="@+id/optionsButton"
-        android:layout_width="86dp"
-        android:layout_height="60dp"
-        android:text="Options"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.984"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.004"
-        android:onClick="optionsButtonOnClick"/>
+        app:layout_constraintVertical_bias="0.584" />
 
     <ImageView
-        android:id="@+id/imageView4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:id="@+id/profilePicture"
+        android:layout_width="160dp"
+        android:layout_height="169dp"
         android:layout_gravity="left|center_horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.359"
-        tools:srcCompat="@tools:sample/avatars" />
+        app:layout_constraintVertical_bias="0.258"
+        app:srcCompat="@mipmap/ic_default_profile_picture" />
 
     <Spinner
-        android:id="@+id/spinner"
-        android:layout_width="405dp"
-        android:layout_height="38dp"
+        android:id="@+id/category"
+        android:layout_width="209dp"
+        android:layout_height="40dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="@+id/usernameTextView"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.679" />
+        app:layout_constraintVertical_bias="0.685" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
