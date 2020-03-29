@@ -18,13 +18,20 @@ public class LogInActivity extends AppCompatActivity {
         this.setTitle("FoodIST - Log In");
         this.globalState = (GlobalState) getApplication();
 
+        if (this.globalState.isLogedIn() == true) {
+
+            this.onStop();
+            Intent intent = new Intent(LogInActivity.this, DiningOptionsActivity.class);
+            startActivity(intent);
+
+        }
+
     }
 
     public void logInButtonOnClick(View view) {
         String username = ((EditText) findViewById(R.id.username)).getText().toString();
         String password = ((EditText) findViewById(R.id.password)).getText().toString();
-        this.globalState.setUsername(username);
-        this.globalState.setPassword(password);
+        this.globalState.login(username, password);
         //Log.i("username and password", username + " | " + password);
 
         Intent intent = new Intent(LogInActivity.this, DiningOptionsActivity.class);

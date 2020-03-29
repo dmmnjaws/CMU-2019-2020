@@ -12,6 +12,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.SpinnerAdapter;
+import android.widget.TextView;
 
 public class UserProfileActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
@@ -33,6 +34,8 @@ public class UserProfileActivity extends AppCompatActivity implements AdapterVie
 
         spinner.setSelection(this.globalState.getActualCategoryIndex());
         spinner.setOnItemSelectedListener(this);
+
+        ((TextView) findViewById(R.id.username)).setText(this.globalState.getUsername());
     }
 
     public void changeUsername(View view) {
