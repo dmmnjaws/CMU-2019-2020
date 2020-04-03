@@ -8,6 +8,8 @@ import android.view.View;
 
 public class DiningPlaceActivity extends AppCompatActivity {
 
+    DiningOption diningOption;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

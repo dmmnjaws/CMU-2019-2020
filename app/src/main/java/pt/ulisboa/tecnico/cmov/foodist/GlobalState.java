@@ -2,6 +2,8 @@ package pt.ulisboa.tecnico.cmov.foodist;
 
 import android.app.Application;
 
+import java.util.ArrayList;
+
 public class GlobalState extends Application {
 
     private String username;
@@ -9,12 +11,15 @@ public class GlobalState extends Application {
     private boolean logedIn;
     private String[] categories;
     private int actualCategory;
+    private ArrayList<DiningOption> diningOptions;
 
     public GlobalState(){
         this.categories = new String[] {"Student", "Researcher", "Professor", "Staff", "General Public"};
         this.actualCategory = 0;
         this.logedIn = false;
-        // TO DO fetch everything from MySQLite database
+
+        // TO DO fetch everything below from MySQLite database:
+        this.diningOptions = new ArrayList<>();
     }
 
     public void login(String username, String password){
@@ -61,6 +66,8 @@ public class GlobalState extends Application {
     public String getActualCategory(){
         return this.categories[this.actualCategory];
     }
+
+    public ArrayList<DiningOption> getDiningOptions() { return this.diningOptions; }
 
     public boolean isLogedIn(){
         return this.logedIn;
