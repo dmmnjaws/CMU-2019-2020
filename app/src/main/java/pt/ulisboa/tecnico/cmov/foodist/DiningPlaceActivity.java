@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 
@@ -25,11 +26,15 @@ public class DiningPlaceActivity extends AppCompatActivity {
     protected void onResume () {
         super.onResume();
 
-        DiningOption diningOption = (DiningOption) getIntent().getSerializableExtra("diningOption");
-        this.setTitle("FoodIST - " + diningOption.getName());
+        this.diningOption = (DiningOption) getIntent().getSerializableExtra("diningOption");
+        this.setTitle("FoodIST - " + this.diningOption.getName());
 
         ListView listOfDishes = (ListView) findViewById(R.id.listOfDishes);
-        ArrayList<Dish> dishes = diningOption.getDishes();
+
+        ((TextView) findViewById(R.id.diningOptionName)).setText(this.diningOption.getName());
+        ((TextView) findViewById(R.id.diningOptionAddress)).setText(this.diningOption.getAddress());
+
+        ArrayList<Dish> dishes = this.diningOption.getDishes();
         DishAdapter dishAdapter = new DishAdapter(getApplicationContext(), R.layout.list_row_dish, dishes);
         listOfDishes.setAdapter(dishAdapter);
 
