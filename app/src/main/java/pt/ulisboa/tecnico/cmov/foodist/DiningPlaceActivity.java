@@ -24,6 +24,15 @@ public class DiningPlaceActivity extends AppCompatActivity {
     @Override
     protected void onResume () {
         super.onResume();
+
+        DiningOption diningOption = (DiningOption) getIntent().getSerializableExtra("diningOption");
+        this.setTitle("FoodIST - " + diningOption.getName());
+
+        ListView listOfDishes = (ListView) findViewById(R.id.listOfDishes);
+        ArrayList<Dish> dishes = diningOption.getDishes();
+        DishAdapter dishAdapter = new DishAdapter(getApplicationContext(), R.layout.list_row_dish, dishes);
+        listOfDishes.setAdapter(dishAdapter);
+
     }
 
     public void optionsButtonOnClick(View view) {

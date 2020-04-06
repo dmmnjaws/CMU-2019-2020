@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import java.util.ArrayList;
@@ -26,7 +27,10 @@ public class DiningOptionsActivity extends AppCompatActivity {
         ArrayList<DiningOption> diningOptions = this.globalState.getDiningOptions();
 
         //FOR TEST PURPOSES:
-        diningOptions.add(new DiningOption("Copacabana", "Rua da Joaquina", R.drawable.ic_options_threedots_background));
+        DiningOption copacabana = new DiningOption("Copacabana", "Rua da Joaquina", R.drawable.ic_options_threedots_background);
+        copacabana.addDish(new Dish("Ensopado de Tetas", "20 paus", 1, R.drawable.ic_options_threedots_background));
+        copacabana.addDish(new Dish("Gaijas", "523 paus", 1, R.drawable.ic_options_threedots_background));
+        diningOptions.add(copacabana);
         diningOptions.add(new DiningOption("Jucaca", "Rua da Maria Coxa", R.drawable.ic_options_threedots_background));
         diningOptions.add(new DiningOption("Garfunkle", "Avenida Gay", R.drawable.ic_options_threedots_background));
         diningOptions.add(new DiningOption("Kutxarra", "Rua da Joaquina", R.drawable.ic_options_threedots_background));
@@ -42,7 +46,18 @@ public class DiningOptionsActivity extends AppCompatActivity {
         DiningOptionAdapter diningOptionAdapter = new DiningOptionAdapter(getApplicationContext(), R.layout.list_row_dining_option, diningOptions);
         listOfDiningPlaces.setAdapter(diningOptionAdapter);
 
+        listOfDiningPlaces.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                DiningOption item = (DiningOption) parent.getItemAtPosition(position);
+                Intent intent = new Intent(DiningOptionsActivity.this, DiningPlaceActivity.class);
+                intent.putExtra("diningOption", item);
+                startActivity(intent);
+            }
+
+        });
 
     }
 
@@ -51,4 +66,5 @@ public class DiningOptionsActivity extends AppCompatActivity {
         Intent intent = new Intent(DiningOptionsActivity.this, UserProfileActivity.class);
         startActivity(intent);
     }
+
 }
