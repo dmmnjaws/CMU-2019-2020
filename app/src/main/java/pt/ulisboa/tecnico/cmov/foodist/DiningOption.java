@@ -1,10 +1,13 @@
 package pt.ulisboa.tecnico.cmov.foodist;
 
+import java.util.ArrayList;
+
 public class DiningOption {
 
     private String name;
     private String address;
     private int imageId;
+    private ArrayList<Dish> dishes;
 
     public DiningOption(String name, String address, int imageId){
         this.name = name;
