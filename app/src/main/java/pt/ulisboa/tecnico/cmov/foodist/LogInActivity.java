@@ -18,7 +18,7 @@ public class LogInActivity extends AppCompatActivity {
         this.setTitle("FoodIST - Log In");
         this.globalState = (GlobalState) getApplication();
 
-        if (this.globalState.isLogedIn() == true) {
+        if (this.globalState.isLoggedIn() == true) {
 
             this.onStop();
             Intent intent = new Intent(LogInActivity.this, DiningOptionsActivity.class);

@@ -20,18 +20,18 @@
         android:onClick="optionsButtonOnClick"/>
 
     <TextView
-        android:id="@+id/dishNameTextView"
+        android:id="@+id/dishName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="O nome do prato aqui."
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="@+id/dishCostTextView"
+        app:layout_constraintLeft_toLeftOf="@+id/dishCost"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.139" />
 
     <TextView
-        android:id="@+id/dishCostTextView"
+        android:id="@+id/dishCost"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="O preço do prato aqui."

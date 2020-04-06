@@ -28,8 +28,8 @@ public class DiningOptionsActivity extends AppCompatActivity {
 
         //FOR TEST PURPOSES:
         DiningOption copacabana = new DiningOption("Copacabana", "Rua da Joaquina", R.drawable.ic_options_threedots_background);
-        copacabana.addDish(new Dish("Ensopado de Tetas", "20 paus", 1, R.drawable.ic_options_threedots_background));
-        copacabana.addDish(new Dish("Gaijas", "523 paus", 1, R.drawable.ic_options_threedots_background));
+        copacabana.addDish(new Dish("Ensopado de Tetas", "20 paus", 1, R.drawable.ic_options_threedots_background,"Bras"));
+        copacabana.addDish(new Dish("Gaijas", "523 paus", 1, R.drawable.ic_options_threedots_background,this.globalState.getUsername()));
         diningOptions.add(copacabana);
         diningOptions.add(new DiningOption("Jucaca", "Rua da Maria Coxa", R.drawable.ic_options_threedots_background));
         diningOptions.add(new DiningOption("Garfunkle", "Avenida Gay", R.drawable.ic_options_threedots_background));

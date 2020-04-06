@@ -32,6 +32,7 @@ public class DiningOption implements Serializable {
     public ArrayList<Dish> getDishes() { return this.dishes; }
 
     public void addDish(Dish dish){
-       this.dishes.add(dish);
+        dish.setDiningPlace(this.name);
+        this.dishes.add(dish);
     }
 }

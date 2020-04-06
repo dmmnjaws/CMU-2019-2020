@@ -8,7 +8,7 @@ public class GlobalState extends Application {
 
     private String username;
     private String password;
-    private boolean logedIn;
+    private boolean loggedIn;
     private String[] categories;
     private int actualCategory;
     private ArrayList<DiningOption> diningOptions;
@@ -16,17 +16,17 @@ public class GlobalState extends Application {
     public GlobalState(){
         this.categories = new String[] {"Student", "Researcher", "Professor", "Staff", "General Public"};
         this.actualCategory = 0;
-        this.logedIn = false;
+        this.loggedIn = false;
 
         // TO DO fetch everything below from MySQLite database:
         this.diningOptions = new ArrayList<>();
     }
 
     public void login(String username, String password){
-        // TO DO authentification
+        // TO DO authentication
         this.username = username;
         this.password = password;
-        this.logedIn = true;
+        this.loggedIn = true;
     }
 
     public void setUsername(String username) {
@@ -69,7 +69,7 @@ public class GlobalState extends Application {
 
     public ArrayList<DiningOption> getDiningOptions() { return this.diningOptions; }
 
-    public boolean isLogedIn(){
-        return this.logedIn;
+    public boolean isLoggedIn(){
+        return this.loggedIn;
     }
 }
