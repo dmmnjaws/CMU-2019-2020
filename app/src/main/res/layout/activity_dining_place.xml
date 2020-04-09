@@ -28,7 +28,7 @@
         android:onClick="optionsButtonOnClick"/>
 
     <TextView
-        android:id="@+id/diningOptionName"
+        android:id="@+id/diningOptionSchedule"
         android:layout_width="294dp"
         android:layout_height="29dp"
         android:layout_marginTop="12dp"
@@ -38,6 +38,7 @@
         app:layout_constraintLeft_toRightOf="@+id/diningOptionLocationImageView"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="@+id/diningOptionLocationImageView" />
+
 
     <ImageView
         android:id="@+id/diningOptionLocationImageView"
@@ -53,7 +54,7 @@
         app:srcCompat="@mipmap/ic_location_bubble_foreground" />
 
     <TextView
-        android:id="@+id/diningOptionAddress"
+        android:id="@+id/diningOptionQueueTime"
         android:layout_width="293dp"
         android:layout_height="35dp"
         android:text="Name of the dining address here."
@@ -63,7 +64,7 @@
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/diningOptionName"
+        app:layout_constraintTop_toBottomOf="@+id/diningOptionSchedule"
         app:layout_constraintVertical_bias="0.0" />
 
     <ListView

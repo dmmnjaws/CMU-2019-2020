@@ -52,8 +52,8 @@ public class DiningPlaceActivity extends AppCompatActivity {
 
         ListView listOfDishes = (ListView) findViewById(R.id.listOfDishes);
 
-        ((TextView) findViewById(R.id.diningOptionName)).setText(this.diningOption.getName());
-        ((TextView) findViewById(R.id.diningOptionAddress)).setText(this.diningOption.getAddress());
+        ((TextView) findViewById(R.id.diningOptionSchedule)).setText("Schedule: " + this.diningOption.getSchedule(this.globalState.getActualCategoryIndex()));
+        ((TextView) findViewById(R.id.diningOptionQueueTime)).setText("Average queue time: " + this.diningOption.getQueueTime());
 
         ArrayList<Dish> dishes = this.diningOption.getDishes();
         DishAdapter dishAdapter = new DishAdapter(getApplicationContext(), R.layout.list_row_dish, dishes);
