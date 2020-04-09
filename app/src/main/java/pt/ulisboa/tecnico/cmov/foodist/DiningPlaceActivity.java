@@ -6,12 +6,14 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import java.util.ArrayList;
 
-public class DiningPlaceActivity extends AppCompatActivity {
+public class DiningPlaceActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
     private DiningOption diningOption;
     private GlobalState globalState;
@@ -38,6 +40,19 @@ public class DiningPlaceActivity extends AppCompatActivity {
             }
 
         });
+
+        Spinner spinner = findViewById(R.id.chooseDiningPlaceSpinner);
+
+        String[] diningOptionNames = this.globalState.getDiningOptionNames();
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, diningOptionNames);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(adapter);
+
+        String diningOptionName = (String) getIntent().getSerializableExtra("diningOptionName");
+
+        spinner.setSelection(this.globalState.getDiningOptionIndex(diningOptionName));
+        spinner.setOnItemSelectedListener(this);
+
     }
 
     @Override
@@ -47,6 +62,18 @@ public class DiningPlaceActivity extends AppCompatActivity {
         String diningOptionName = (String) getIntent().getSerializableExtra("diningOptionName");
         this.setTitle("FoodIST - " + diningOptionName);
 
+        populateActivity(diningOptionName);
+
+    }
+
+    public void optionsButtonOnClick(View view) {
+
+        Intent intent = new Intent(DiningPlaceActivity.this, UserProfileActivity.class);
+        startActivity(intent);
+
+    }
+
+    public void populateActivity (String diningOptionName){
 
         this.diningOption = this.globalState.getDiningOption(diningOptionName);
 
@@ -58,14 +85,15 @@ public class DiningPlaceActivity extends AppCompatActivity {
         ArrayList<Dish> dishes = this.diningOption.getDishes();
         DishAdapter dishAdapter = new DishAdapter(getApplicationContext(), R.layout.list_row_dish, dishes);
         listOfDishes.setAdapter(dishAdapter);
+    }
+
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
     }
 
-    public void optionsButtonOnClick(View view) {
-
-        Intent intent = new Intent(DiningPlaceActivity.this, UserProfileActivity.class);
-        startActivity(intent);
+    @Override
+    public void onNothingSelected(AdapterView<?> parent) {
 
     }
-
 }

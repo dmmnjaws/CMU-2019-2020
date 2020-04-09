@@ -58,6 +58,19 @@ public class GlobalState extends Application {
         return null;
     }
 
+    public int getDiningOptionIndex(String diningOptionName){
+
+        int index = 0;
+
+        for (DiningOption diningOption: this.diningOptions) {
+            if(diningOption.getName().equals(diningOptionName)){
+                index++;
+            }
+        }
+
+        return index;
+    }
+
     public Dish getDish(String diningOptionName, String dishName){
 
         for (DiningOption diningOption: this.diningOptions) {
@@ -71,6 +84,49 @@ public class GlobalState extends Application {
         }
 
         return null;
+    }
+
+    public int getDishIndex(String diningOptionName, String dishName){
+
+        int index = 0;
+
+        for (DiningOption diningOption: this.diningOptions) {
+            if(diningOption.getName().equals(diningOptionName)){
+                for (Dish dish: diningOption.getDishes()) {
+                    if(dish.getName().equals(dishName)){
+                        index++;
+                    }
+                }
+            }
+        }
+
+        return index;
+    }
+
+    public String[] getDiningOptionNames(){
+
+        String[] result = new String[diningOptions.size()];
+        int index = 0;
+
+        for(DiningOption diningOption: this.diningOptions) {
+            result[index] = diningOption.getName();
+            index++;
+        }
+
+        return result;
+    }
+
+    public String[] getDishNames(DiningOption diningOption){
+
+        String[] result = new String[diningOption.getDishes().size()];
+        int index = 0;
+
+        for(Dish dish: diningOption.getDishes()) {
+            result[index] = dish.getName();
+            index++;
+        }
+
+        return result;
     }
 
     public String[] getCategories(){
@@ -98,4 +154,5 @@ public class GlobalState extends Application {
     public boolean isLoggedIn(){
         return this.loggedIn;
     }
+
 }
