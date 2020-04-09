@@ -64,8 +64,9 @@ public class GlobalState extends Application {
 
         for (DiningOption diningOption: this.diningOptions) {
             if(diningOption.getName().equals(diningOptionName)){
-                index++;
+                return index;
             }
+            index++;
         }
 
         return index;
@@ -94,8 +95,9 @@ public class GlobalState extends Application {
             if(diningOption.getName().equals(diningOptionName)){
                 for (Dish dish: diningOption.getDishes()) {
                     if(dish.getName().equals(dishName)){
-                        index++;
+                        return index;
                     }
+                    index++;
                 }
             }
         }

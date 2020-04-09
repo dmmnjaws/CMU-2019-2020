@@ -90,6 +90,7 @@ public class DiningPlaceActivity extends AppCompatActivity implements AdapterVie
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
+        populateActivity(parent.getSelectedItem().toString());
     }
 
     @Override
