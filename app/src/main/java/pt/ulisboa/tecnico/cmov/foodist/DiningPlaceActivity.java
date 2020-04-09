@@ -32,7 +32,8 @@ public class DiningPlaceActivity extends AppCompatActivity {
 
                 Dish item = (Dish) parent.getItemAtPosition(position);
                 Intent intent = new Intent(DiningPlaceActivity.this, DishActivity.class);
-                intent.putExtra("dish", item);
+                intent.putExtra("diningOptionName", item.getDiningPlace());
+                intent.putExtra("dishName", item.getName());
                 startActivity(intent);
             }
 
@@ -43,15 +44,11 @@ public class DiningPlaceActivity extends AppCompatActivity {
     protected void onResume () {
         super.onResume();
 
-        this.diningOption = (DiningOption) getIntent().getSerializableExtra("diningOption");
-        this.setTitle("FoodIST - " + this.diningOption.getName());
+        String diningOptionName = (String) getIntent().getSerializableExtra("diningOptionName");
+        this.setTitle("FoodIST - " + diningOptionName);
 
-        ArrayList<DiningOption> list = this.globalState.getDiningOptions();
-        for (DiningOption x: list) {
-            if(x.getName().equals(this.diningOption.getName())){
-                this.diningOption = x;
-            }
-        }
+
+        this.diningOption = this.globalState.getDiningOption(diningOptionName);
 
         ListView listOfDishes = (ListView) findViewById(R.id.listOfDishes);
 

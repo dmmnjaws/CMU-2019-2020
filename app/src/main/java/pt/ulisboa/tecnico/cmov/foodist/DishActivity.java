@@ -24,20 +24,12 @@ public class DishActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dish);
-        this.setTitle("FoodIST - Dish"); //we shall then make this show the correct name of the dish
         this.globalState = (GlobalState) getApplication();
-        this.dish = (Dish) getIntent().getSerializableExtra("dish");
+        String diningOptionName = (String) getIntent().getSerializableExtra("diningOptionName");
+        String dishName = (String) getIntent().getSerializableExtra("dishName");
+        this.setTitle("FoodIST - " + dishName);
 
-        ArrayList<DiningOption> list = globalState.getDiningOptions();
-        for (DiningOption x: list) {
-            if(x.getName().equals(this.dish.getDiningPlace())){
-                for (Dish y: x.getDishes()) {
-                    if(y.getName().equals(this.dish.getName())){
-                        this.dish = y;
-                    }
-                }
-            }
-        }
+        this.dish = this.globalState.getDish(diningOptionName, dishName);
 
         RatingBar ratingBar = (RatingBar) findViewById(R.id.ratingBar);
         ratingBar.setRating(this.dish.getUserRating(this.globalState.getUsername()));

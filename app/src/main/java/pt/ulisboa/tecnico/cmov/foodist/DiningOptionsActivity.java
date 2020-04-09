@@ -53,7 +53,7 @@ public class DiningOptionsActivity extends AppCompatActivity {
 
                 DiningOption item = (DiningOption) parent.getItemAtPosition(position);
                 Intent intent = new Intent(DiningOptionsActivity.this, DiningPlaceActivity.class);
-                intent.putExtra("diningOption", item);
+                intent.putExtra("diningOptionName", item.getName());
                 startActivity(intent);
             }
 

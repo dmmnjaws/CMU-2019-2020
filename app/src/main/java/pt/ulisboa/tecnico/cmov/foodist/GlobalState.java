@@ -47,6 +47,32 @@ public class GlobalState extends Application {
 
     }
 
+    public DiningOption getDiningOption(String diningOptionName){
+
+        for (DiningOption diningOption: this.diningOptions) {
+            if(diningOption.getName().equals(diningOptionName)){
+                return diningOption;
+            }
+        }
+
+        return null;
+    }
+
+    public Dish getDish(String diningOptionName, String dishName){
+
+        for (DiningOption diningOption: this.diningOptions) {
+            if(diningOption.getName().equals(diningOptionName)){
+                for (Dish dish: diningOption.getDishes()) {
+                    if(dish.getName().equals(dishName)){
+                        return dish;
+                    }
+                }
+            }
+        }
+
+        return null;
+    }
+
     public String[] getCategories(){
         return this.categories;
     }
