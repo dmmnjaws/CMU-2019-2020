@@ -29,14 +29,40 @@ public class DishActivity extends AppCompatActivity implements AdapterView.OnIte
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dish);
         this.globalState = (GlobalState) getApplication();
-        this.diningOptionName = (String) getIntent().getSerializableExtra("diningOptionName");
-        String dishName = (String) getIntent().getSerializableExtra("dishName");
-        this.setTitle("FoodIST - " + dishName);
 
-        this.dish = this.globalState.getDish(diningOptionName, dishName);
+        ListView listOfDishImages = (ListView) findViewById(R.id.listOfDishImages);
+
+        listOfDishImages.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                DishImage item = (DishImage) parent.getItemAtPosition(position);
+                Intent intent = new Intent(DishActivity.this, DishPictureActivity.class);
+                intent.putExtra("imageId", item.getImageId());
+                intent.putExtra("dishName", item.getDishName());
+                intent.putExtra("diningOptionName", item.getDiningPlace());
+                startActivity(intent);
+
+            }
+
+        });
+
+        Spinner spinner = findViewById(R.id.chooseDishSpinner);
+
+        String diningOptionName = (String) getIntent().getSerializableExtra("diningOptionName");
+
+        String[] dishNames = this.globalState.getDishNames(this.globalState.getDiningOption(diningOptionName));
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, dishNames);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(adapter);
+
+        String dishName = (String) getIntent().getSerializableExtra("dishName");
+
+        spinner.setSelection(this.globalState.getDishIndex(diningOptionName, dishName));
+        spinner.setOnItemSelectedListener(this);
 
         RatingBar ratingBar = (RatingBar) findViewById(R.id.ratingBar);
-        ratingBar.setRating(this.dish.getUserRating(this.globalState.getUsername()));
         ratingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
 
             @Override
@@ -45,15 +71,6 @@ public class DishActivity extends AppCompatActivity implements AdapterView.OnIte
             }
         });
 
-        Spinner spinner = findViewById(R.id.chooseDishSpinner);
-
-        String[] dishOptionNames = this.globalState.getDishNames(this.globalState.getDiningOption(diningOptionName));
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, dishOptionNames);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner.setAdapter(adapter);
-
-        spinner.setSelection(this.globalState.getDishIndex(diningOptionName, dishName));
-        spinner.setOnItemSelectedListener(this);
 
     }
 
@@ -63,8 +80,11 @@ public class DishActivity extends AppCompatActivity implements AdapterView.OnIte
 
         this.setTitle("FoodIST - " + "TO DO");
 
-        ((TextView) findViewById(R.id.dishName)).setText(this.dish.getName());
-        ((TextView) findViewById(R.id.dishCost)).setText(this.dish.getCost());
+        this.diningOptionName = (String) getIntent().getSerializableExtra("diningOptionName");
+        String dishName = (String) getIntent().getSerializableExtra("dishName");
+
+        populateActivity(diningOptionName, dishName);
+
     }
 
     public void optionsButtonOnClick(View view) {
@@ -77,18 +97,14 @@ public class DishActivity extends AppCompatActivity implements AdapterView.OnIte
 
         this.dish = this.globalState.getDish(diningOptionName, dishName);
 
+        ListView listOfDishImages = (ListView) findViewById(R.id.listOfDishImages);
+
         ((TextView) findViewById(R.id.dishName)).setText(dishName);
         ((TextView) findViewById(R.id.dishCost)).setText(this.dish.getCost());
-        RatingBar ratingBar = (RatingBar) findViewById(R.id.ratingBar);
-        ratingBar.setRating(this.dish.getUserRating(this.globalState.getUsername()));
-        ratingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
+        ((RatingBar) findViewById(R.id.ratingBar)).setRating(this.dish.getUserRating(this.globalState.getUsername()));
 
-            @Override
-            public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
-                dish.addRating(globalState.getUsername(),rating);
-            }
-        });
-
+        DishImageAdapter dishImageAdapter = new DishImageAdapter(getApplicationContext(), R.layout.list_item_dish_image, this.dish.getImages());
+        listOfDishImages.setAdapter(dishImageAdapter);
 
     }
 
@@ -96,6 +112,7 @@ public class DishActivity extends AppCompatActivity implements AdapterView.OnIte
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
         populateActivity(this.diningOptionName, parent.getSelectedItem().toString());
+
     }
 
     @Override

@@ -7,6 +7,7 @@ public class DiningOption implements Serializable {
 
     private String name;
     private String address;
+    //TO DO: ADD BITMAP
     private int imageId;
     private ArrayList<Dish> dishes;
     private String[] schedule;
@@ -34,6 +35,17 @@ public class DiningOption implements Serializable {
     }
 
     public ArrayList<Dish> getDishes() { return this.dishes; }
+
+    public Dish getDish(String dishName){
+
+        for (Dish dish: this.dishes){
+            if (dish.getName().equals(dishName)){
+                return dish;
+            }
+        }
+
+        return null;
+    }
 
     public String getSchedule(int category) { return this.schedule[category]; }
 

@@ -13,6 +13,8 @@ public class Dish implements Serializable {
     private String cost;
     private Map<String, Float> voterRatings;
     private float rating;
+
+    //TO DO: ADD BITMAP THUMBNAIL
     private int thumbnailId;
     private ArrayList<DishImage> dishImages;
 
@@ -23,6 +25,7 @@ public class Dish implements Serializable {
         this.thumbnailId = thumbnailId;
         this.voterRatings = new HashMap<>();
         this.voterRatings.put(userName,rating);
+        this.dishImages = new ArrayList<>();
     }
 
     public String getName() {
@@ -60,5 +63,26 @@ public class Dish implements Serializable {
         }else{
             return this.voterRatings.get(user);
         }
+    }
+
+    public void addImage(int imageId, String uploaderUsername){
+        DishImage dishImage = new DishImage(imageId, uploaderUsername);
+        dishImage.setDishName(this.name);
+        dishImage.setDiningPlace(this.diningPlace);
+        this.dishImages.add(dishImage);
+    }
+
+    public ArrayList<DishImage> getImages(){
+        return this.dishImages;
+    }
+
+    public DishImage getDishImage(int imageId){
+        for (DishImage dishImage: this.dishImages){
+            if (dishImage.getImageId() == imageId){
+                return dishImage;
+            }
+        }
+
+        return null;
     }
 }

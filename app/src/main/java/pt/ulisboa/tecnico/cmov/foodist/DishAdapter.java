@@ -29,10 +29,10 @@ public class DishAdapter extends ArrayAdapter<Dish> {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
 
-        Dish dish = dishes.get(position);
+        Dish dish = this.dishes.get(position);
 
         if ( convertView == null ) {
-            convertView = LayoutInflater.from(context).inflate(resource, parent, false);
+            convertView = LayoutInflater.from(this.context).inflate(this.resource, parent, false);
         }
 
         TextView dishName = (TextView) convertView.findViewById(R.id.dishName);

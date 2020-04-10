@@ -153,8 +153,51 @@ public class GlobalState extends Application {
 
     public ArrayList<DiningOption> getDiningOptions() { return this.diningOptions; }
 
+    public DishImage getDishImage(String diningOptionName, String dishName, int imageId){
+
+        Dish dish = getDish(diningOptionName, dishName);
+        return dish.getDishImage(imageId);
+    }
+
     public boolean isLoggedIn(){
         return this.loggedIn;
     }
 
+    public void populateForTest(){
+
+        //FOR TEST PURPOSES:
+
+        String[] schedule = new String[]{"8:00-20:00", "10:00-16:00", "10:00-10:01", "16:00-19:00", "00:00-23:59"};
+
+        DiningOption copacabana = new DiningOption("Copacabana", "Rua da Joaquina", R.drawable.ic_options_threedots_background, schedule);
+
+        copacabana.addDish(new Dish("Ensopado de Tetas", "20 paus", 1, R.drawable.ic_options_threedots_background,"Bras"));
+        copacabana.addDish(new Dish("Gaijas", "523 paus", 1, R.drawable.ic_options_threedots_background, getUsername()));
+
+        Dish ensopadoDeTetas = copacabana.getDish("Ensopado de Tetas");
+        ensopadoDeTetas.addImage(getResources().getIdentifier("plate1", "drawable", getPackageName()), "Bras");
+        ensopadoDeTetas.addImage(getResources().getIdentifier("plate2", "drawable", getPackageName()), "Tetona");
+        ensopadoDeTetas.addImage(getResources().getIdentifier("plate3", "drawable", getPackageName()), "Bana");
+        ensopadoDeTetas.addImage(getResources().getIdentifier("plate4", "drawable", getPackageName()), "Zezão");
+        ensopadoDeTetas.addImage(getResources().getIdentifier("plate5", "drawable", getPackageName()), "Santos G");
+        ensopadoDeTetas.addImage(getResources().getIdentifier("plate3", "drawable", getPackageName()), "Coin");
+        ensopadoDeTetas.addImage(getResources().getIdentifier("plate1", "drawable", getPackageName()), "Penilento");
+        ensopadoDeTetas.addImage(getResources().getIdentifier("plate4", "drawable", getPackageName()), getUsername());
+        ensopadoDeTetas.addImage(getResources().getIdentifier("plate5", "drawable", getPackageName()), "Bras");
+        ensopadoDeTetas.addImage(getResources().getIdentifier("plate2", "drawable", getPackageName()), getUsername());
+        ensopadoDeTetas.addImage(getResources().getIdentifier("plate3", "drawable", getPackageName()), "Bras");
+
+        diningOptions.add(copacabana);
+        diningOptions.add(new DiningOption("Jucaca", "Rua da Maria Coxa", R.drawable.ic_options_threedots_background, schedule));
+        diningOptions.add(new DiningOption("Garfunkle", "Avenida Gay", R.drawable.ic_options_threedots_background, schedule));
+        diningOptions.add(new DiningOption("Kutxarra", "Rua da Joaquina", R.drawable.ic_options_threedots_background, schedule));
+        diningOptions.add(new DiningOption("Katuqui", "Rua da Maria Coxa", R.drawable.ic_options_threedots_background, schedule));
+        diningOptions.add(new DiningOption("Merekete", "Avenida Gay", R.drawable.ic_options_threedots_background, schedule));
+        diningOptions.add(new DiningOption("Kunami", "Rua da Joaquina", R.drawable.ic_options_threedots_background, schedule));
+        diningOptions.add(new DiningOption("Konami", "Rua da Maria Coxa", R.drawable.ic_options_threedots_background, schedule));
+        diningOptions.add(new DiningOption("Santos G", "Avenida Gay", R.drawable.ic_options_threedots_background, schedule));
+        diningOptions.add(new DiningOption("Restaurante do José Brás", "Rua da Joaquina", R.drawable.ic_options_threedots_background, schedule));
+        diningOptions.add(new DiningOption("Punanirolls", "Rua da Maria Coxa", R.drawable.ic_options_threedots_background, schedule));
+        diningOptions.add(new DiningOption("Sexappeal Bar", "Avenida Gay", R.drawable.ic_options_threedots_background, schedule));
+    }
 }

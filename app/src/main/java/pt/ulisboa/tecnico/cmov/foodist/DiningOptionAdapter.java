@@ -29,10 +29,10 @@ public class DiningOptionAdapter extends ArrayAdapter<DiningOption> {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
 
-        DiningOption diningOption = diningOptions.get(position);
+        DiningOption diningOption = this.diningOptions.get(position);
 
         if ( convertView == null ) {
-            convertView = LayoutInflater.from(context).inflate(resource, parent, false);
+            convertView = LayoutInflater.from(this.context).inflate(this.resource, parent, false);
         }
 
         TextView diningOptionName = (TextView) convertView.findViewById(R.id.diningOptionName);
