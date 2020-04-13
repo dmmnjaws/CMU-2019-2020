@@ -1,6 +1,7 @@
 package pt.ulisboa.tecnico.cmov.foodist;
 
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -17,14 +18,14 @@ public class Dish implements Serializable {
     private float rating;
 
     //TO DO: ADD BITMAP THUMBNAIL
-    private int thumbnailId;
+    private Bitmap thumbnail;
     private ArrayList<DishImage> dishImages;
 
-    public Dish(String name, String cost, float rating, int thumbnailId, String userName){
+    public Dish(String name, String cost, float rating, Bitmap thumbnail, String userName){
         this.name = name;
         this.cost = cost;
         this.rating = rating;
-        this.thumbnailId = thumbnailId;
+        this.thumbnail = Bitmap.createScaledBitmap(thumbnail, 50, 50, false);
         this.voterRatings = new HashMap<>();
         this.voterRatings.put(userName,rating);
         this.dishImages = new ArrayList<>();
@@ -40,8 +41,8 @@ public class Dish implements Serializable {
 
     public float getRating() { return this.rating/this.voterRatings.size(); }
 
-    public int getThumbnailId(){
-        return this.thumbnailId;
+    public Bitmap getThumbnail(){
+        return this.thumbnail;
     }
 
     public void setDiningPlace(String name){ this.diningPlace = name; }

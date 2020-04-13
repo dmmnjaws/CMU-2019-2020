@@ -43,7 +43,7 @@ public class DishAdapter extends ArrayAdapter<Dish> {
         dishName.setText(dish.getName());
         dishCost.setText(dish.getCost());
         dishRatingBar.setRating(dish.getRating());
-        dishImage.setImageResource(dish.getThumbnailId());
+        dishImage.setImageBitmap(dish.getThumbnail());
 
         return convertView;
     }

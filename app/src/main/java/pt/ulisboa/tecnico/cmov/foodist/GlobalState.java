@@ -175,11 +175,11 @@ public class GlobalState extends Application {
 
         DiningOption copacabana = new DiningOption("Copacabana", "Rua da Joaquina", R.drawable.ic_options_threedots_background, schedule);
 
-        copacabana.addDish(new Dish("Ensopado de Tetas", "20 paus", 1, R.drawable.ic_options_threedots_background,"Bras"));
-        copacabana.addDish(new Dish("Gaijas", "523 paus", 1, R.drawable.ic_options_threedots_background, getUsername()));
+        copacabana.addDish(new Dish("Ensopado de Tetas", "20 paus", 1, bitmapper(getResources().getIdentifier("plate1", "drawable", getPackageName())),"Bras"));
+        copacabana.addDish(new Dish("Gaijas", "523 paus", 1, bitmapper(getResources().getIdentifier("plate2", "drawable", getPackageName())), getUsername()));
 
         Dish ensopadoDeTetas = copacabana.getDish("Ensopado de Tetas");
-        ensopadoDeTetas.addImage(getResources().getIdentifier("plate1", "drawable", getPackageName()), "Bras", Bitmapper(getResources().getIdentifier("plate1", "drawable", getPackageName())));
+        ensopadoDeTetas.addImage(getResources().getIdentifier("plate1", "drawable", getPackageName()), "Bras", bitmapper(getResources().getIdentifier("plate1", "drawable", getPackageName())));
         //ensopadoDeTetas.addImage(getResources().getIdentifier("plate2", "drawable", getPackageName()), "Tetona", Bitmapper(getResources().getIdentifier("plate1", "drawable", getPackageName())));
         //ensopadoDeTetas.addImage(getResources().getIdentifier("plate3", "drawable", getPackageName()), "Bana", Bitmapper(getResources().getIdentifier("plate1", "drawable", getPackageName())));
         //ensopadoDeTetas.addImage(getResources().getIdentifier("plate4", "drawable", getPackageName()), "Zezão", Bitmapper(getResources().getIdentifier("plate1", "drawable", getPackageName())));
@@ -198,10 +198,21 @@ public class GlobalState extends Application {
         diningOptions.add(new DiningOption("Sexappeal Bar", "Avenida Gay", R.drawable.ic_options_threedots_background, schedule));
     }
 
-    public Bitmap Bitmapper(int imageId) {
+    public Bitmap bitmapper(int imageId) {
 
         try {
             return BitmapFactory.decodeResource(getResources(), imageId);
+
+        } catch (Exception e) {
+            return null;
+
+        }
+    }
+
+    public Bitmap iconBitmapper(int imageId) {
+
+        try {
+            return Bitmap.createScaledBitmap(BitmapFactory.decodeResource(getResources(), imageId), 50, 50, false);
 
         } catch (Exception e) {
             return null;
