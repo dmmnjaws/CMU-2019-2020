@@ -35,7 +35,7 @@ public class DishImageAdapter extends ArrayAdapter<DishImage> {
 
         ImageView dishImageView = (ImageView) convertView.findViewById(R.id.dishImage);
 
-        dishImageView.setImageResource(dishImage.getImageId());
+        dishImageView.setImageBitmap(dishImage.getBitmap());
 
 
         return convertView;

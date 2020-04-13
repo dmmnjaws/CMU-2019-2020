@@ -1,7 +1,11 @@
 package pt.ulisboa.tecnico.cmov.foodist;
 
 import android.app.Application;
+import android.content.res.AssetManager;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 
+import java.io.InputStream;
 import java.util.ArrayList;
 
 public class GlobalState extends Application {
@@ -175,17 +179,10 @@ public class GlobalState extends Application {
         copacabana.addDish(new Dish("Gaijas", "523 paus", 1, R.drawable.ic_options_threedots_background, getUsername()));
 
         Dish ensopadoDeTetas = copacabana.getDish("Ensopado de Tetas");
-        ensopadoDeTetas.addImage(getResources().getIdentifier("plate1", "drawable", getPackageName()), "Bras");
-        ensopadoDeTetas.addImage(getResources().getIdentifier("plate2", "drawable", getPackageName()), "Tetona");
-        ensopadoDeTetas.addImage(getResources().getIdentifier("plate3", "drawable", getPackageName()), "Bana");
-        ensopadoDeTetas.addImage(getResources().getIdentifier("plate4", "drawable", getPackageName()), "Zezão");
-        ensopadoDeTetas.addImage(getResources().getIdentifier("plate5", "drawable", getPackageName()), "Santos G");
-        ensopadoDeTetas.addImage(getResources().getIdentifier("plate3", "drawable", getPackageName()), "Coin");
-        ensopadoDeTetas.addImage(getResources().getIdentifier("plate1", "drawable", getPackageName()), "Penilento");
-        ensopadoDeTetas.addImage(getResources().getIdentifier("plate4", "drawable", getPackageName()), getUsername());
-        ensopadoDeTetas.addImage(getResources().getIdentifier("plate5", "drawable", getPackageName()), "Bras");
-        ensopadoDeTetas.addImage(getResources().getIdentifier("plate2", "drawable", getPackageName()), getUsername());
-        ensopadoDeTetas.addImage(getResources().getIdentifier("plate3", "drawable", getPackageName()), "Bras");
+        ensopadoDeTetas.addImage(getResources().getIdentifier("plate1", "drawable", getPackageName()), "Bras", Bitmapper(getResources().getIdentifier("plate1", "drawable", getPackageName())));
+        //ensopadoDeTetas.addImage(getResources().getIdentifier("plate2", "drawable", getPackageName()), "Tetona", Bitmapper(getResources().getIdentifier("plate1", "drawable", getPackageName())));
+        //ensopadoDeTetas.addImage(getResources().getIdentifier("plate3", "drawable", getPackageName()), "Bana", Bitmapper(getResources().getIdentifier("plate1", "drawable", getPackageName())));
+        //ensopadoDeTetas.addImage(getResources().getIdentifier("plate4", "drawable", getPackageName()), "Zezão", Bitmapper(getResources().getIdentifier("plate1", "drawable", getPackageName())));
 
         diningOptions.add(copacabana);
         diningOptions.add(new DiningOption("Jucaca", "Rua da Maria Coxa", R.drawable.ic_options_threedots_background, schedule));
@@ -199,5 +196,16 @@ public class GlobalState extends Application {
         diningOptions.add(new DiningOption("Restaurante do José Brás", "Rua da Joaquina", R.drawable.ic_options_threedots_background, schedule));
         diningOptions.add(new DiningOption("Punanirolls", "Rua da Maria Coxa", R.drawable.ic_options_threedots_background, schedule));
         diningOptions.add(new DiningOption("Sexappeal Bar", "Avenida Gay", R.drawable.ic_options_threedots_background, schedule));
+    }
+
+    public Bitmap Bitmapper(int imageId) {
+
+        try {
+            return BitmapFactory.decodeResource(getResources(), imageId);
+
+        } catch (Exception e) {
+            return null;
+
+        }
     }
 }

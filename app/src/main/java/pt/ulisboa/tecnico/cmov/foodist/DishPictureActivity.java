@@ -29,7 +29,7 @@ public class DishPictureActivity extends AppCompatActivity {
 
         this.setTitle("FoodIST - " + this.dishImage.getDishName());
 
-        ((ImageView) findViewById(R.id.dishImage)).setImageResource(this.dishImage.getImageId());
+        ((ImageView) findViewById(R.id.dishImage)).setImageBitmap(this.dishImage.getBitmap());
         ((TextView) findViewById(R.id.author)).setText(this.dishImage.getUploaderUsername());
 
     }

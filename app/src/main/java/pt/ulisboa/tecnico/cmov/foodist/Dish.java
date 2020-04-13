@@ -1,5 +1,7 @@
 package pt.ulisboa.tecnico.cmov.foodist;
 
+import android.graphics.Bitmap;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -65,8 +67,8 @@ public class Dish implements Serializable {
         }
     }
 
-    public void addImage(int imageId, String uploaderUsername){
-        DishImage dishImage = new DishImage(imageId, uploaderUsername);
+    public void addImage(int imageId, String uploaderUsername, Bitmap image){
+        DishImage dishImage = new DishImage(imageId, uploaderUsername, image);
         dishImage.setDishName(this.name);
         dishImage.setDiningPlace(this.diningPlace);
         this.dishImages.add(dishImage);
