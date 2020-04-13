@@ -43,11 +43,11 @@ public class DishActivity extends AppCompatActivity implements AdapterView.OnIte
             @Override
             public void onClick(View v){
 
-                Intent intent=new Intent(Intent.ACTION_PICK);
+                Intent intent = new Intent(Intent.ACTION_PICK);
                 intent.setType("image/*");
                 String[] mimeTypes = {"image/jpeg", "image/png"};
-                intent.putExtra(Intent.EXTRA_MIME_TYPES,mimeTypes);
-                startActivityForResult(intent,GALLERY_REQUEST_CODE);
+                intent.putExtra(Intent.EXTRA_MIME_TYPES, mimeTypes);
+                startActivityForResult(intent, GALLERY_REQUEST_CODE);
             }
         });
 

@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -48,11 +49,25 @@ public class DiningPlaceActivity extends AppCompatActivity implements AdapterVie
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
 
-        String diningOptionName = (String) getIntent().getSerializableExtra("diningOptionName");
+        final String diningOptionName = (String) getIntent().getSerializableExtra("diningOptionName");
 
         spinner.setSelection(this.globalState.getDiningOptionIndex(diningOptionName));
         spinner.setOnItemSelectedListener(this);
 
+
+        View buttonInflater = (View) getLayoutInflater().inflate(R.layout.upload_button,null);
+        ImageButton addDishButton = (ImageButton) buttonInflater.findViewById(R.id.upload);
+        listOfDishes.addFooterView(buttonInflater);
+
+        addDishButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v){
+
+                Intent intent = new Intent(DiningPlaceActivity.this, AddDishActivity.class);
+                intent.putExtra("diningOptionName", diningOption.getName());
+                startActivity(intent);
+            }
+        });
     }
 
     @Override
