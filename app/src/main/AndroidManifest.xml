@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="pt.ulisboa.tecnico.cmov.foodist">
 
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+
     <application
         android:name=".GlobalState"
         android:allowBackup="true"
@@ -12,7 +14,7 @@
         android:theme="@style/AppTheme">
         <activity android:name=".DishUploadActivity"></activity>
         <activity android:name=".DishPictureActivity" />
-        <activity android:name=".DishActivity" />
+        <activity android:name=".DishActivity"/>
         <activity android:name=".UserProfileActivity" />
         <activity android:name=".DiningPlaceActivity" />
         <activity android:name=".DiningOptionsActivity" />

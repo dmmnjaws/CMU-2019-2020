@@ -1,25 +1,28 @@
 package pt.ulisboa.tecnico.cmov.foodist;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
+
 import androidx.appcompat.app.AppCompatActivity;
 
+
 import android.content.Intent;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.RatingBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-import java.util.ArrayList;
+import java.io.IOException;
+import java.io.InputStream;
 
 public class DishActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
+    private static final int GALLERY_REQUEST_CODE = 100;
     private GlobalState globalState;
     private Dish dish;
     private String diningOptionName;
@@ -32,6 +35,22 @@ public class DishActivity extends AppCompatActivity implements AdapterView.OnIte
 
         ListView listOfDishImages = (ListView) findViewById(R.id.listOfDishImages);
 
+        View buttonInflater = (View) getLayoutInflater().inflate(R.layout.upload_button,null);
+        ImageButton uploadButton = (ImageButton) buttonInflater.findViewById(R.id.upload);
+        listOfDishImages.addHeaderView(buttonInflater);
+
+        uploadButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v){
+
+                Intent intent=new Intent(Intent.ACTION_PICK);
+                intent.setType("image/*");
+                String[] mimeTypes = {"image/jpeg", "image/png"};
+                intent.putExtra(Intent.EXTRA_MIME_TYPES,mimeTypes);
+                startActivityForResult(intent,GALLERY_REQUEST_CODE);
+            }
+        });
+
         listOfDishImages.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
             @Override
@@ -43,7 +62,6 @@ public class DishActivity extends AppCompatActivity implements AdapterView.OnIte
                 intent.putExtra("dishName", item.getDishName());
                 intent.putExtra("diningOptionName", item.getDiningPlace());
                 startActivity(intent);
-
             }
 
         });
@@ -71,7 +89,21 @@ public class DishActivity extends AppCompatActivity implements AdapterView.OnIte
             }
         });
 
+    }
 
+    @Override
+    public void onActivityResult(int requestCode,int resultCode,Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (resultCode == RESULT_OK && requestCode == GALLERY_REQUEST_CODE) {
+            try {
+                Uri selectedImage = data.getData();
+                InputStream imageStream = getContentResolver().openInputStream(selectedImage);
+                this.dish.addImage(this.globalState.getUsername(),BitmapFactory.decodeStream(imageStream));
+            } catch (IOException exception) {
+                exception.printStackTrace();
+            }
+        }
     }
 
     @Override
@@ -119,4 +151,5 @@ public class DishActivity extends AppCompatActivity implements AdapterView.OnIte
     public void onNothingSelected(AdapterView<?> parent) {
 
     }
+
 }

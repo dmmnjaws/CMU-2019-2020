@@ -179,7 +179,7 @@ public class GlobalState extends Application {
         copacabana.addDish(new Dish("Gaijas", "523 paus", 1, bitmapper(getResources().getIdentifier("plate2", "drawable", getPackageName())), getUsername()));
 
         Dish ensopadoDeTetas = copacabana.getDish("Ensopado de Tetas");
-        ensopadoDeTetas.addImage(getResources().getIdentifier("plate1", "drawable", getPackageName()), "Bras", bitmapper(getResources().getIdentifier("plate1", "drawable", getPackageName())));
+        ensopadoDeTetas.addImage("Bras", bitmapper(getResources().getIdentifier("plate1", "drawable", getPackageName())));
         //ensopadoDeTetas.addImage(getResources().getIdentifier("plate2", "drawable", getPackageName()), "Tetona", Bitmapper(getResources().getIdentifier("plate1", "drawable", getPackageName())));
         //ensopadoDeTetas.addImage(getResources().getIdentifier("plate3", "drawable", getPackageName()), "Bana", Bitmapper(getResources().getIdentifier("plate1", "drawable", getPackageName())));
         //ensopadoDeTetas.addImage(getResources().getIdentifier("plate4", "drawable", getPackageName()), "Zezão", Bitmapper(getResources().getIdentifier("plate1", "drawable", getPackageName())));
@@ -209,14 +209,4 @@ public class GlobalState extends Application {
         }
     }
 
-    public Bitmap iconBitmapper(int imageId) {
-
-        try {
-            return Bitmap.createScaledBitmap(BitmapFactory.decodeResource(getResources(), imageId), 50, 50, false);
-
-        } catch (Exception e) {
-            return null;
-
-        }
-    }
 }
