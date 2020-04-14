@@ -24,6 +24,7 @@ public class DishUploadActivity extends Activity {
 
     private static final int GALLERY_REQUEST_CODE = 100;
     private String diningOptionName;
+    private String campus;
     private GlobalState globalState;
     private Bitmap dishImage;
 
@@ -36,6 +37,7 @@ public class DishUploadActivity extends Activity {
 
         this.globalState = (GlobalState) getApplication();
         this.diningOptionName = (String) getIntent().getSerializableExtra("diningOptionName");
+        this.campus = (String) getIntent().getSerializableExtra("campus");
 
     }
 
@@ -64,13 +66,13 @@ public class DishUploadActivity extends Activity {
         String dishPrice = ((EditText) findViewById(R.id.insertPrice)).getText().toString();
         float dishRating = ((RatingBar) findViewById(R.id.ratingBar)).getRating();
 
-        if(dishName == null || dishPrice == null || dishImage == null) {
+        if(dishName.equals("") || dishPrice.equals("") || dishImage == null) {
             Toast.makeText(getApplicationContext(), "You forgot one or more parameters!", Toast.LENGTH_SHORT).show();
             return;
         }
 
         Dish newDish = new Dish(dishName, dishPrice, dishRating, this.dishImage, this.globalState.getUsername());
-        this.globalState.getDiningOption(this.diningOptionName).addDish(newDish);
+        this.globalState.getDiningOption(this.campus, this.diningOptionName).addDish(newDish);
 
         finish();
     }

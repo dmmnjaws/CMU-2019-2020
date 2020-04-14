@@ -26,6 +26,7 @@ public class DishActivity extends AppCompatActivity implements AdapterView.OnIte
     private GlobalState globalState;
     private Dish dish;
     private String diningOptionName;
+    private String campus;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,6 +62,7 @@ public class DishActivity extends AppCompatActivity implements AdapterView.OnIte
                 intent.putExtra("imageId", item.getImageId());
                 intent.putExtra("dishName", item.getDishName());
                 intent.putExtra("diningOptionName", item.getDiningPlace());
+                intent.putExtra("campus", campus);
                 startActivity(intent);
             }
 
@@ -68,16 +70,17 @@ public class DishActivity extends AppCompatActivity implements AdapterView.OnIte
 
         Spinner spinner = findViewById(R.id.chooseDishSpinner);
 
-        String diningOptionName = (String) getIntent().getSerializableExtra("diningOptionName");
+        this.diningOptionName = (String) getIntent().getSerializableExtra("diningOptionName");
+        this.campus = (String) getIntent().getSerializableExtra("campus");
 
-        String[] dishNames = this.globalState.getDishNames(this.globalState.getDiningOption(diningOptionName));
+        String[] dishNames = this.globalState.getDishNames(this.globalState.getDiningOption(this.campus, this.diningOptionName));
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, dishNames);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
 
         String dishName = (String) getIntent().getSerializableExtra("dishName");
 
-        spinner.setSelection(this.globalState.getDishIndex(diningOptionName, dishName));
+        spinner.setSelection(this.globalState.getDishIndex(this.campus, this.diningOptionName, dishName));
         spinner.setOnItemSelectedListener(this);
 
         RatingBar ratingBar = (RatingBar) findViewById(R.id.ratingBar);
@@ -92,7 +95,7 @@ public class DishActivity extends AppCompatActivity implements AdapterView.OnIte
     }
 
     @Override
-    public void onActivityResult(int requestCode,int resultCode,Intent data) {
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
         if (resultCode == RESULT_OK && requestCode == GALLERY_REQUEST_CODE) {
@@ -115,7 +118,7 @@ public class DishActivity extends AppCompatActivity implements AdapterView.OnIte
         this.diningOptionName = (String) getIntent().getSerializableExtra("diningOptionName");
         String dishName = (String) getIntent().getSerializableExtra("dishName");
 
-        populateActivity(diningOptionName, dishName);
+        populateActivity(this.campus, diningOptionName, dishName);
 
     }
 
@@ -125,9 +128,9 @@ public class DishActivity extends AppCompatActivity implements AdapterView.OnIte
         startActivity(intent);
     }
 
-    public void populateActivity (String diningOptionName, String dishName){
+    public void populateActivity (String campus, String diningOptionName, String dishName){
 
-        this.dish = this.globalState.getDish(diningOptionName, dishName);
+        this.dish = this.globalState.getDish(campus, diningOptionName, dishName);
 
         ListView listOfDishImages = (ListView) findViewById(R.id.listOfDishImages);
 
@@ -143,7 +146,7 @@ public class DishActivity extends AppCompatActivity implements AdapterView.OnIte
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
-        populateActivity(this.diningOptionName, parent.getSelectedItem().toString());
+        populateActivity(this.campus, this.diningOptionName, parent.getSelectedItem().toString());
 
     }
 

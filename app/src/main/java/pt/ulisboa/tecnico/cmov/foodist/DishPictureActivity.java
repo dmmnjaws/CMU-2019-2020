@@ -25,7 +25,8 @@ public class DishPictureActivity extends AppCompatActivity {
         int imageId = (int) getIntent().getSerializableExtra("imageId");
         String dishName = (String) getIntent().getSerializableExtra("dishName");
         String diningOptionName = (String) getIntent().getSerializableExtra("diningOptionName");
-        this.dishImage = this.globalState.getDishImage(diningOptionName, dishName, imageId);
+        String campus = (String) getIntent().getSerializableExtra("campus");
+        this.dishImage = this.globalState.getDishImage(campus, diningOptionName, dishName, imageId);
 
         this.setTitle("FoodIST - " + this.dishImage.getDishName());
 

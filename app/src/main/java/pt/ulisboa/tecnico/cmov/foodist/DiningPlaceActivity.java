@@ -18,6 +18,7 @@ public class DiningPlaceActivity extends AppCompatActivity implements AdapterVie
 
     private DiningOption diningOption;
     private GlobalState globalState;
+    private String campus;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,6 +26,7 @@ public class DiningPlaceActivity extends AppCompatActivity implements AdapterVie
         setContentView(R.layout.activity_dining_place);
         this.setTitle("FoodIST - Dining Place");
         this.globalState = (GlobalState) getApplication();
+        this.campus = (String) getIntent().getSerializableExtra("campus");
 
         ListView listOfDishes = (ListView) findViewById(R.id.listOfDishes);
 
@@ -37,6 +39,7 @@ public class DiningPlaceActivity extends AppCompatActivity implements AdapterVie
                 Intent intent = new Intent(DiningPlaceActivity.this, DishActivity.class);
                 intent.putExtra("diningOptionName", item.getDiningPlace());
                 intent.putExtra("dishName", item.getName());
+                intent.putExtra("campus", diningOption.getCampus());
                 startActivity(intent);
             }
 
@@ -44,14 +47,14 @@ public class DiningPlaceActivity extends AppCompatActivity implements AdapterVie
 
         Spinner spinner = findViewById(R.id.chooseDiningPlaceSpinner);
 
-        String[] diningOptionNames = this.globalState.getDiningOptionNames();
+        String[] diningOptionNames = this.globalState.getDiningOptionNames(this.campus);
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, diningOptionNames);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
 
         final String diningOptionName = (String) getIntent().getSerializableExtra("diningOptionName");
 
-        spinner.setSelection(this.globalState.getDiningOptionIndex(diningOptionName));
+        spinner.setSelection(this.globalState.getDiningOptionIndex(this.campus, diningOptionName));
         spinner.setOnItemSelectedListener(this);
 
 
@@ -65,6 +68,7 @@ public class DiningPlaceActivity extends AppCompatActivity implements AdapterVie
 
                 Intent intent = new Intent(DiningPlaceActivity.this, DishUploadActivity.class);
                 intent.putExtra("diningOptionName", diningOption.getName());
+                intent.putExtra("campus", diningOption.getCampus());
                 startActivity(intent);
             }
         });
@@ -90,7 +94,7 @@ public class DiningPlaceActivity extends AppCompatActivity implements AdapterVie
 
     public void populateActivity (String diningOptionName){
 
-        this.diningOption = this.globalState.getDiningOption(diningOptionName);
+        this.diningOption = this.globalState.getDiningOption(this.campus, diningOptionName);
 
         ListView listOfDishes = (ListView) findViewById(R.id.listOfDishes);
 
