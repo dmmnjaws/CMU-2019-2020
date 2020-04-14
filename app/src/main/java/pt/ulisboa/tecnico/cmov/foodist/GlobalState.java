@@ -12,6 +12,7 @@ public class GlobalState extends Application {
 
     private String username;
     private String password;
+    private Bitmap profilePicture;
     private boolean loggedIn;
     private String[] categories;
     private int actualCategory;
@@ -161,6 +162,12 @@ public class GlobalState extends Application {
 
         Dish dish = getDish(diningOptionName, dishName);
         return dish.getDishImage(imageId);
+    }
+
+    public Bitmap getProfilePicture() { return profilePicture; }
+
+    public void setProfilePicture(Bitmap profilePicture) {
+        this.profilePicture = profilePicture;
     }
 
     public boolean isLoggedIn(){
