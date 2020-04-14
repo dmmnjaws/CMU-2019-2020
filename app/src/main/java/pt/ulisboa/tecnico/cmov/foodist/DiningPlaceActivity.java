@@ -63,7 +63,7 @@ public class DiningPlaceActivity extends AppCompatActivity implements AdapterVie
             @Override
             public void onClick(View v){
 
-                Intent intent = new Intent(DiningPlaceActivity.this, AddDishActivity.class);
+                Intent intent = new Intent(DiningPlaceActivity.this, DishUploadActivity.class);
                 intent.putExtra("diningOptionName", diningOption.getName());
                 startActivity(intent);
             }

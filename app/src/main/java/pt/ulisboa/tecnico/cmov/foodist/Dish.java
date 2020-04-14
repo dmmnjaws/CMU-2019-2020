@@ -23,7 +23,7 @@ public class Dish implements Serializable {
 
     public Dish(String name, String cost, float rating, Bitmap thumbnail, String userName){
         this.name = name;
-        this.cost = cost;
+        this.cost = cost + " €";
         this.rating = rating;
         this.thumbnail = Bitmap.createScaledBitmap(thumbnail, 50, 50, false);
         this.voterRatings = new HashMap<>();
