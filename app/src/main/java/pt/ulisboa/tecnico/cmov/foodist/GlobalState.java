@@ -8,6 +8,10 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import pt.ulisboa.tecnico.cmov.library.DiningPlace;
+import pt.ulisboa.tecnico.cmov.library.Dish;
+import pt.ulisboa.tecnico.cmov.library.DishImage;
+
 public class GlobalState extends Application {
 
     private String username;

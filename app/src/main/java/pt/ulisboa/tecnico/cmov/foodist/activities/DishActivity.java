@@ -20,8 +20,8 @@ import android.widget.TextView;
 import java.io.IOException;
 import java.io.InputStream;
 
-import pt.ulisboa.tecnico.cmov.foodist.Dish;
-import pt.ulisboa.tecnico.cmov.foodist.DishImage;
+import pt.ulisboa.tecnico.cmov.library.Dish;
+import pt.ulisboa.tecnico.cmov.library.DishImage;
 import pt.ulisboa.tecnico.cmov.foodist.adapters.DishImageAdapter;
 import pt.ulisboa.tecnico.cmov.foodist.GlobalState;
 import pt.ulisboa.tecnico.cmov.foodist.R;

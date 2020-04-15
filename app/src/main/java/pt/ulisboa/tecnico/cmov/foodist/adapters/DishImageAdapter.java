@@ -9,7 +9,7 @@ import android.widget.ImageView;
 
 import java.util.ArrayList;
 
-import pt.ulisboa.tecnico.cmov.foodist.DishImage;
+import pt.ulisboa.tecnico.cmov.library.DishImage;
 import pt.ulisboa.tecnico.cmov.foodist.R;
 
 public class DishImageAdapter extends ArrayAdapter<DishImage> {

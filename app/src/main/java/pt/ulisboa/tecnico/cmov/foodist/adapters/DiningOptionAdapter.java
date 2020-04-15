@@ -10,7 +10,7 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-import pt.ulisboa.tecnico.cmov.foodist.DiningPlace;
+import pt.ulisboa.tecnico.cmov.library.DiningPlace;
 import pt.ulisboa.tecnico.cmov.foodist.R;
 
 public class DiningOptionAdapter extends ArrayAdapter<DiningPlace> {

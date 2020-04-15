@@ -1,4 +1,4 @@
-package pt.ulisboa.tecnico.cmov.foodist;
+package pt.ulisboa.tecnico.cmov.library;
 
 import java.io.Serializable;
 import java.util.ArrayList;

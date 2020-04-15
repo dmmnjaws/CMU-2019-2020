@@ -12,7 +12,7 @@ import android.widget.Spinner;
 
 import java.util.ArrayList;
 
-import pt.ulisboa.tecnico.cmov.foodist.DiningPlace;
+import pt.ulisboa.tecnico.cmov.library.DiningPlace;
 import pt.ulisboa.tecnico.cmov.foodist.adapters.DiningOptionAdapter;
 import pt.ulisboa.tecnico.cmov.foodist.GlobalState;
 import pt.ulisboa.tecnico.cmov.foodist.R;
