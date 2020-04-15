@@ -1,5 +1,9 @@
 package pt.ulisboa.tecnico.cmov.library;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+
+import java.io.ByteArrayOutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
 
@@ -8,17 +12,21 @@ public class DiningPlace implements Serializable {
     private String name;
     private String address;
     private String campus;
-    //TO DO: ADD BITMAP
-    private int imageId;
+
+    private byte[] thumbnail;
     private ArrayList<Dish> dishes;
     private String[] schedule;
     private String queueTime;
 
 
-    public DiningPlace(String name, String address, int imageId, String[] schedule, String campus){
+    public DiningPlace(String name, String address, Bitmap thumbnail, String[] schedule, String campus){
         this.name = name;
         this.address = address;
-        this.imageId = imageId;
+
+        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+        thumbnail.compress(Bitmap.CompressFormat.PNG, 100, stream);
+        this.thumbnail = stream.toByteArray();
+
         this.dishes = new ArrayList<>();
         this.schedule = schedule;
         this.queueTime = "0";
@@ -33,10 +41,7 @@ public class DiningPlace implements Serializable {
         return this.address;
     }
 
-    public int getImageId() {
-        return this.imageId;
-    }
-
+    public Bitmap getThumbnail(){ return BitmapFactory.decodeByteArray(this.thumbnail, 0, this.thumbnail.length); }
     public ArrayList<Dish> getDishes() { return this.dishes; }
 
     public Dish getDish(String dishName){

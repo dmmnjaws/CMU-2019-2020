@@ -6,6 +6,7 @@ import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 
 import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.InetAddress;
 import java.net.Socket;
@@ -13,6 +14,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import pt.ulisboa.tecnico.cmov.foodist.asynctasks.StateLoader;
 import pt.ulisboa.tecnico.cmov.library.DiningPlace;
 import pt.ulisboa.tecnico.cmov.library.Dish;
 import pt.ulisboa.tecnico.cmov.library.DishImage;
@@ -27,7 +29,6 @@ public class GlobalState extends Application {
     private String[] categories;
     private Map<String, ArrayList<DiningPlace>> diningOptions;
     private int actualCategory;
-    private Socket clientSocket;
 
     public GlobalState(){
         this.categories = new String[] {"Student", "Researcher", "Professor", "Staff", "General Public"};
@@ -49,6 +50,11 @@ public class GlobalState extends Application {
         this.password = password;
         this.loggedIn = true;
 
+        StateLoader stateLoader = new StateLoader();
+        stateLoader.execute();
+        while (stateLoader.getStatus() != AsyncTask.Status.FINISHED){
+        }
+        this.diningOptions = stateLoader.getState();
     }
 
     public void setUsername(String username) {
@@ -196,64 +202,6 @@ public class GlobalState extends Application {
     public boolean isLoggedIn(){
         return this.loggedIn;
     }
-
-    public void populateForTest(){
-
-        //FOR TEST PURPOSES:
-
-        String[] schedule = new String[]{"8:00-20:00", "10:00-16:00", "10:00-10:01", "16:00-19:00", "00:00-23:59"};
-
-        DiningPlace copacabana = new DiningPlace("Copacabana", "Rua da Joaquina", R.drawable.ic_options_threedots_background, schedule, "Alameda");
-
-        copacabana.addDish(new Dish("Ensopado de Tetas", "20 paus", 1, customBitMapper(getResources().getIdentifier("plate1", "drawable", getPackageName())),"Bras"));
-        copacabana.addDish(new Dish("Gaijas", "523 paus", 1, customBitMapper(getResources().getIdentifier("plate2", "drawable", getPackageName())), getUsername()));
-
-        Dish ensopadoDeTetas = copacabana.getDish("Ensopado de Tetas");
-        ensopadoDeTetas.addImage("Bras", customBitMapper(getResources().getIdentifier("plate1", "drawable", getPackageName())));
-        //ensopadoDeTetas.addImage(getResources().getIdentifier("plate2", "drawable", getPackageName()), "Tetona", Bitmapper(getResources().getIdentifier("plate1", "drawable", getPackageName())));
-        //ensopadoDeTetas.addImage(getResources().getIdentifier("plate3", "drawable", getPackageName()), "Bana", Bitmapper(getResources().getIdentifier("plate1", "drawable", getPackageName())));
-        //ensopadoDeTetas.addImage(getResources().getIdentifier("plate4", "drawable", getPackageName()), "Zezão", Bitmapper(getResources().getIdentifier("plate1", "drawable", getPackageName())));
-
-        addDiningOption(copacabana);
-        addDiningOption(new DiningPlace("Jucaca", "Rua da Maria Coxa", R.drawable.ic_options_threedots_background, schedule, "Alameda"));
-        addDiningOption(new DiningPlace("Garfunkle", "Avenida Gay", R.drawable.ic_options_threedots_background, schedule, "Alameda"));
-        addDiningOption(new DiningPlace("Kutxarra", "Rua da Joaquina", R.drawable.ic_options_threedots_background, schedule, "Alameda"));
-        addDiningOption(new DiningPlace("Katuqui", "Rua da Maria Coxa", R.drawable.ic_options_threedots_background, schedule, "Alameda"));
-        addDiningOption(new DiningPlace("Merekete", "Avenida Gay", R.drawable.ic_options_threedots_background, schedule, "Alameda"));
-        addDiningOption(new DiningPlace("Kunami", "Rua da Joaquina", R.drawable.ic_options_threedots_background, schedule, "Alameda"));
-        addDiningOption(new DiningPlace("Konami", "Rua da Maria Coxa", R.drawable.ic_options_threedots_background, schedule, "Alameda"));
-        addDiningOption(new DiningPlace("Santos G", "Avenida Gay", R.drawable.ic_options_threedots_background, schedule, "Taguspark"));
-        addDiningOption(new DiningPlace("Restaurante do José Brás", "Rua da Joaquina", R.drawable.ic_options_threedots_background, schedule, "Taguspark"));
-        addDiningOption(new DiningPlace("Punanirolls", "Rua da Maria Coxa", R.drawable.ic_options_threedots_background, schedule, "Taguspark"));
-        addDiningOption(new DiningPlace("Sexappeal Bar", "Avenida Gay", R.drawable.ic_options_threedots_background, schedule, "Taguspark"));
-
-        (new Test(ensopadoDeTetas)).execute();
-
-    }
-
-    class Test extends AsyncTask {
-
-        private Dish dish;
-
-        public Test(Dish dish){
-            this.dish = dish;
-        }
-
-        protected Object doInBackground(Object[] objects) {
-            try {
-                Socket clientSocket = new Socket("10.0.2.2", 8000);
-                ObjectOutputStream outputStream = new ObjectOutputStream(clientSocket.getOutputStream());
-                outputStream.writeObject("DishName");
-                outputStream.writeObject(this.dish);
-                clientSocket.close();
-            } catch (Exception e) {
-                e.printStackTrace();
-
-            }
-            return null;
-        }
-    }
-
 
     public Bitmap customBitMapper(int imageId) {
 

@@ -39,8 +39,6 @@ public class DiningOptionsActivity extends AppCompatActivity implements AdapterV
         spinner.setSelection(0);
         spinner.setOnItemSelectedListener(this);
 
-        this.globalState.populateForTest();
-
         ListView listOfDiningPlaces = (ListView) findViewById(R.id.listOfDiningPlaces);
         listOfDiningPlaces.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 

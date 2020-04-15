@@ -43,7 +43,7 @@ public class DiningOptionAdapter extends ArrayAdapter<DiningPlace> {
 
         diningOptionName.setText(diningPlace.getName());
         diningOptionAddress.setText(diningPlace.getAddress());
-        diningOptionImage.setImageResource(diningPlace.getImageId());
+        diningOptionImage.setImageBitmap(diningPlace.getThumbnail());
 
         return convertView;
     }

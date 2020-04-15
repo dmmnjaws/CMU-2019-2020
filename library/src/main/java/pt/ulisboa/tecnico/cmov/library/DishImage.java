@@ -19,7 +19,7 @@ public class DishImage implements Serializable {
         this.imageId = imageId;
 
         ByteArrayOutputStream stream = new ByteArrayOutputStream();
-        Bitmap.createScaledBitmap(image, 50, 50, false).compress(Bitmap.CompressFormat.PNG, 100, stream);
+        image.compress(Bitmap.CompressFormat.PNG, 100, stream);
         this.image = stream.toByteArray();
 
         this.uploaderUsername = uploaderUsername;

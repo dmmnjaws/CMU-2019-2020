@@ -23,22 +23,21 @@ public class FoodISTServerThread implements Runnable {
     public void run() {
         try {
 
-            InputStream inFromServer = socket.getInputStream();
-            ObjectInputStream in = new ObjectInputStream(inFromServer);
+            InputStream in = socket.getInputStream();
+            OutputStream out = socket.getOutputStream();
+            ObjectInputStream inputStream = new ObjectInputStream(in);
+            ObjectOutputStream outputStream = new ObjectOutputStream(out);
             String command;
 
-            command = (String) in.readObject();
+            command = (String) inputStream.readObject();
 
             switch (command){
-                case "Hello": {
-                    String hello = state.Hello();
-                    break;
-                }
-                case "DishName":{
-                    System.out.println(((Dish) in.readObject()).getName());
+
+                case "loadState":{
+                    outputStream.writeObject(this.state.getDiningOptions());
                 }
             }
-            
+
         } catch (Exception ex) {
             System.out.println("Server exception: " + ex.getMessage());
             ex.printStackTrace();
