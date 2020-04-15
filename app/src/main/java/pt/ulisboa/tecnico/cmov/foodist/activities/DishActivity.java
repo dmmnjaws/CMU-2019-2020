@@ -1,4 +1,4 @@
-package pt.ulisboa.tecnico.cmov.foodist;
+package pt.ulisboa.tecnico.cmov.foodist.activities;
 
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -20,6 +20,12 @@ import android.widget.TextView;
 import java.io.IOException;
 import java.io.InputStream;
 
+import pt.ulisboa.tecnico.cmov.foodist.Dish;
+import pt.ulisboa.tecnico.cmov.foodist.DishImage;
+import pt.ulisboa.tecnico.cmov.foodist.adapters.DishImageAdapter;
+import pt.ulisboa.tecnico.cmov.foodist.GlobalState;
+import pt.ulisboa.tecnico.cmov.foodist.R;
+
 public class DishActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
     private static final int GALLERY_REQUEST_CODE = 100;
@@ -33,6 +39,8 @@ public class DishActivity extends AppCompatActivity implements AdapterView.OnIte
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dish);
         this.globalState = (GlobalState) getApplication();
+
+        this.setTitle("FoodIST - Dish");
 
         ListView listOfDishImages = (ListView) findViewById(R.id.listOfDishImages);
 
@@ -113,10 +121,8 @@ public class DishActivity extends AppCompatActivity implements AdapterView.OnIte
     protected void onResume () {
         super.onResume();
 
-        this.setTitle("FoodIST - " + "TO DO");
-
         this.diningOptionName = (String) getIntent().getSerializableExtra("diningOptionName");
-        String dishName = (String) getIntent().getSerializableExtra("dishName");
+        String dishName = ((Spinner) findViewById(R.id.chooseDishSpinner)).getSelectedItem().toString();
 
         populateActivity(this.campus, diningOptionName, dishName);
 

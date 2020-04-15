@@ -1,4 +1,4 @@
-package pt.ulisboa.tecnico.cmov.foodist;
+package pt.ulisboa.tecnico.cmov.foodist.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -18,6 +18,9 @@ import android.widget.TextView;
 
 import java.io.IOException;
 import java.io.InputStream;
+
+import pt.ulisboa.tecnico.cmov.foodist.GlobalState;
+import pt.ulisboa.tecnico.cmov.foodist.R;
 
 public class UserProfileActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 

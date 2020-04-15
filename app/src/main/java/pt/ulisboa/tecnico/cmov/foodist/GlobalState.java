@@ -1,11 +1,9 @@
 package pt.ulisboa.tecnico.cmov.foodist;
 
 import android.app.Application;
-import android.content.res.AssetManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -18,7 +16,7 @@ public class GlobalState extends Application {
     private String[] campuses;
     private boolean loggedIn;
     private String[] categories;
-    private Map<String, ArrayList<DiningOption>> diningOptions;
+    private Map<String, ArrayList<DiningPlace>> diningOptions;
     private int actualCategory;
 
     public GlobalState(){
@@ -28,8 +26,8 @@ public class GlobalState extends Application {
 
         // TO DO fetch everything below from MySQLite database:
         this.diningOptions = new HashMap<>();
-        this.diningOptions.put("Alameda", new ArrayList<DiningOption>());
-        this.diningOptions.put("Taguspark", new ArrayList<DiningOption>());
+        this.diningOptions.put("Alameda", new ArrayList<DiningPlace>());
+        this.diningOptions.put("Taguspark", new ArrayList<DiningPlace>());
         this.campuses = new String[] {"Alameda", "Taguspark"};
     }
 
@@ -58,11 +56,11 @@ public class GlobalState extends Application {
 
     }
 
-    public DiningOption getDiningOption(String campus, String diningOptionName){
+    public DiningPlace getDiningOption(String campus, String diningOptionName){
 
-        for (DiningOption diningOption: this.diningOptions.get(campus)) {
-            if(diningOption.getName().equals(diningOptionName)){
-                return diningOption;
+        for (DiningPlace diningPlace : this.diningOptions.get(campus)) {
+            if(diningPlace.getName().equals(diningOptionName)){
+                return diningPlace;
             }
         }
 
@@ -73,8 +71,8 @@ public class GlobalState extends Application {
 
         int index = 0;
 
-        for (DiningOption diningOption: this.diningOptions.get(campus)) {
-            if(diningOption.getName().equals(diningOptionName)){
+        for (DiningPlace diningPlace : this.diningOptions.get(campus)) {
+            if(diningPlace.getName().equals(diningOptionName)){
                 return index;
             }
             index++;
@@ -85,9 +83,9 @@ public class GlobalState extends Application {
 
     public Dish getDish(String campus, String diningOptionName, String dishName){
 
-        for (DiningOption diningOption: this.diningOptions.get(campus)) {
-            if(diningOption.getName().equals(diningOptionName)){
-                for (Dish dish: diningOption.getDishes()) {
+        for (DiningPlace diningPlace : this.diningOptions.get(campus)) {
+            if(diningPlace.getName().equals(diningOptionName)){
+                for (Dish dish: diningPlace.getDishes()) {
                     if(dish.getName().equals(dishName)){
                         return dish;
                     }
@@ -102,9 +100,9 @@ public class GlobalState extends Application {
 
         int index = 0;
 
-        for (DiningOption diningOption: this.diningOptions.get(campus)) {
-            if(diningOption.getName().equals(diningOptionName)){
-                for (Dish dish: diningOption.getDishes()) {
+        for (DiningPlace diningPlace : this.diningOptions.get(campus)) {
+            if(diningPlace.getName().equals(diningOptionName)){
+                for (Dish dish: diningPlace.getDishes()) {
                     if(dish.getName().equals(dishName)){
                         return index;
                     }
@@ -121,20 +119,20 @@ public class GlobalState extends Application {
         String[] result = new String[diningOptions.get(campus).size()];
         int index = 0;
 
-        for(DiningOption diningOption: this.diningOptions.get(campus)) {
-            result[index] = diningOption.getName();
+        for(DiningPlace diningPlace : this.diningOptions.get(campus)) {
+            result[index] = diningPlace.getName();
             index++;
         }
 
         return result;
     }
 
-    public String[] getDishNames(DiningOption diningOption){
+    public String[] getDishNames(DiningPlace diningPlace){
 
-        String[] result = new String[diningOption.getDishes().size()];
+        String[] result = new String[diningPlace.getDishes().size()];
         int index = 0;
 
-        for(Dish dish: diningOption.getDishes()) {
+        for(Dish dish: diningPlace.getDishes()) {
             result[index] = dish.getName();
             index++;
         }
@@ -162,7 +160,7 @@ public class GlobalState extends Application {
         return this.categories[this.actualCategory];
     }
 
-    public ArrayList<DiningOption> getDiningOptions(String campus) { return this.diningOptions.get(campus); }
+    public ArrayList<DiningPlace> getDiningOptions(String campus) { return this.diningOptions.get(campus); }
 
     public DishImage getDishImage(String campus, String diningOptionName, String dishName, int imageId){
 
@@ -178,8 +176,8 @@ public class GlobalState extends Application {
         this.profilePicture = profilePicture;
     }
 
-    public void addDiningOption(DiningOption diningOption){
-        this.diningOptions.get(diningOption.getCampus()).add(diningOption);
+    public void addDiningOption(DiningPlace diningPlace){
+        this.diningOptions.get(diningPlace.getCampus()).add(diningPlace);
     }
 
     public boolean isLoggedIn(){
@@ -192,7 +190,7 @@ public class GlobalState extends Application {
 
         String[] schedule = new String[]{"8:00-20:00", "10:00-16:00", "10:00-10:01", "16:00-19:00", "00:00-23:59"};
 
-        DiningOption copacabana = new DiningOption("Copacabana", "Rua da Joaquina", R.drawable.ic_options_threedots_background, schedule, "Alameda");
+        DiningPlace copacabana = new DiningPlace("Copacabana", "Rua da Joaquina", R.drawable.ic_options_threedots_background, schedule, "Alameda");
 
         copacabana.addDish(new Dish("Ensopado de Tetas", "20 paus", 1, customBitMapper(getResources().getIdentifier("plate1", "drawable", getPackageName())),"Bras"));
         copacabana.addDish(new Dish("Gaijas", "523 paus", 1, customBitMapper(getResources().getIdentifier("plate2", "drawable", getPackageName())), getUsername()));
@@ -204,17 +202,17 @@ public class GlobalState extends Application {
         //ensopadoDeTetas.addImage(getResources().getIdentifier("plate4", "drawable", getPackageName()), "Zezão", Bitmapper(getResources().getIdentifier("plate1", "drawable", getPackageName())));
 
         addDiningOption(copacabana);
-        addDiningOption(new DiningOption("Jucaca", "Rua da Maria Coxa", R.drawable.ic_options_threedots_background, schedule, "Alameda"));
-        addDiningOption(new DiningOption("Garfunkle", "Avenida Gay", R.drawable.ic_options_threedots_background, schedule, "Alameda"));
-        addDiningOption(new DiningOption("Kutxarra", "Rua da Joaquina", R.drawable.ic_options_threedots_background, schedule, "Alameda"));
-        addDiningOption(new DiningOption("Katuqui", "Rua da Maria Coxa", R.drawable.ic_options_threedots_background, schedule, "Alameda"));
-        addDiningOption(new DiningOption("Merekete", "Avenida Gay", R.drawable.ic_options_threedots_background, schedule, "Alameda"));
-        addDiningOption(new DiningOption("Kunami", "Rua da Joaquina", R.drawable.ic_options_threedots_background, schedule, "Alameda"));
-        addDiningOption(new DiningOption("Konami", "Rua da Maria Coxa", R.drawable.ic_options_threedots_background, schedule, "Alameda"));
-        addDiningOption(new DiningOption("Santos G", "Avenida Gay", R.drawable.ic_options_threedots_background, schedule, "Taguspark"));
-        addDiningOption(new DiningOption("Restaurante do José Brás", "Rua da Joaquina", R.drawable.ic_options_threedots_background, schedule, "Taguspark"));
-        addDiningOption(new DiningOption("Punanirolls", "Rua da Maria Coxa", R.drawable.ic_options_threedots_background, schedule, "Taguspark"));
-        addDiningOption(new DiningOption("Sexappeal Bar", "Avenida Gay", R.drawable.ic_options_threedots_background, schedule, "Taguspark"));
+        addDiningOption(new DiningPlace("Jucaca", "Rua da Maria Coxa", R.drawable.ic_options_threedots_background, schedule, "Alameda"));
+        addDiningOption(new DiningPlace("Garfunkle", "Avenida Gay", R.drawable.ic_options_threedots_background, schedule, "Alameda"));
+        addDiningOption(new DiningPlace("Kutxarra", "Rua da Joaquina", R.drawable.ic_options_threedots_background, schedule, "Alameda"));
+        addDiningOption(new DiningPlace("Katuqui", "Rua da Maria Coxa", R.drawable.ic_options_threedots_background, schedule, "Alameda"));
+        addDiningOption(new DiningPlace("Merekete", "Avenida Gay", R.drawable.ic_options_threedots_background, schedule, "Alameda"));
+        addDiningOption(new DiningPlace("Kunami", "Rua da Joaquina", R.drawable.ic_options_threedots_background, schedule, "Alameda"));
+        addDiningOption(new DiningPlace("Konami", "Rua da Maria Coxa", R.drawable.ic_options_threedots_background, schedule, "Alameda"));
+        addDiningOption(new DiningPlace("Santos G", "Avenida Gay", R.drawable.ic_options_threedots_background, schedule, "Taguspark"));
+        addDiningOption(new DiningPlace("Restaurante do José Brás", "Rua da Joaquina", R.drawable.ic_options_threedots_background, schedule, "Taguspark"));
+        addDiningOption(new DiningPlace("Punanirolls", "Rua da Maria Coxa", R.drawable.ic_options_threedots_background, schedule, "Taguspark"));
+        addDiningOption(new DiningPlace("Sexappeal Bar", "Avenida Gay", R.drawable.ic_options_threedots_background, schedule, "Taguspark"));
     }
 
     public Bitmap customBitMapper(int imageId) {

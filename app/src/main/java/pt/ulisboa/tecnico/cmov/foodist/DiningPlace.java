@@ -3,7 +3,7 @@ package pt.ulisboa.tecnico.cmov.foodist;
 import java.io.Serializable;
 import java.util.ArrayList;
 
-public class DiningOption implements Serializable {
+public class DiningPlace implements Serializable {
 
     private String name;
     private String address;
@@ -15,7 +15,7 @@ public class DiningOption implements Serializable {
     private String queueTime;
 
 
-    public DiningOption(String name, String address, int imageId, String[] schedule, String campus){
+    public DiningPlace(String name, String address, int imageId, String[] schedule, String campus){
         this.name = name;
         this.address = address;
         this.imageId = imageId;

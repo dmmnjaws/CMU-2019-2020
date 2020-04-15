@@ -1,4 +1,4 @@
-package pt.ulisboa.tecnico.cmov.foodist;
+package pt.ulisboa.tecnico.cmov.foodist.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -14,9 +14,15 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
+import pt.ulisboa.tecnico.cmov.foodist.DiningPlace;
+import pt.ulisboa.tecnico.cmov.foodist.Dish;
+import pt.ulisboa.tecnico.cmov.foodist.adapters.DishAdapter;
+import pt.ulisboa.tecnico.cmov.foodist.GlobalState;
+import pt.ulisboa.tecnico.cmov.foodist.R;
+
 public class DiningPlaceActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
-    private DiningOption diningOption;
+    private DiningPlace diningPlace;
     private GlobalState globalState;
     private String campus;
 
@@ -39,7 +45,7 @@ public class DiningPlaceActivity extends AppCompatActivity implements AdapterVie
                 Intent intent = new Intent(DiningPlaceActivity.this, DishActivity.class);
                 intent.putExtra("diningOptionName", item.getDiningPlace());
                 intent.putExtra("dishName", item.getName());
-                intent.putExtra("campus", diningOption.getCampus());
+                intent.putExtra("campus", diningPlace.getCampus());
                 startActivity(intent);
             }
 
@@ -67,8 +73,8 @@ public class DiningPlaceActivity extends AppCompatActivity implements AdapterVie
             public void onClick(View v){
 
                 Intent intent = new Intent(DiningPlaceActivity.this, DishUploadActivity.class);
-                intent.putExtra("diningOptionName", diningOption.getName());
-                intent.putExtra("campus", diningOption.getCampus());
+                intent.putExtra("diningOptionName", diningPlace.getName());
+                intent.putExtra("campus", diningPlace.getCampus());
                 startActivity(intent);
             }
         });
@@ -78,8 +84,7 @@ public class DiningPlaceActivity extends AppCompatActivity implements AdapterVie
     protected void onResume () {
         super.onResume();
 
-        String diningOptionName = (String) getIntent().getSerializableExtra("diningOptionName");
-        this.setTitle("FoodIST - " + diningOptionName);
+        String diningOptionName = ((Spinner) findViewById(R.id.chooseDiningPlaceSpinner)).getSelectedItem().toString();
 
         populateActivity(diningOptionName);
 
@@ -94,14 +99,14 @@ public class DiningPlaceActivity extends AppCompatActivity implements AdapterVie
 
     public void populateActivity (String diningOptionName){
 
-        this.diningOption = this.globalState.getDiningOption(this.campus, diningOptionName);
+        this.diningPlace = this.globalState.getDiningOption(this.campus, diningOptionName);
 
         ListView listOfDishes = (ListView) findViewById(R.id.listOfDishes);
 
-        ((TextView) findViewById(R.id.diningOptionSchedule)).setText("Schedule: " + this.diningOption.getSchedule(this.globalState.getActualCategoryIndex()));
-        ((TextView) findViewById(R.id.diningOptionQueueTime)).setText("Average queue time: " + this.diningOption.getQueueTime());
+        ((TextView) findViewById(R.id.diningOptionSchedule)).setText("Schedule: " + this.diningPlace.getSchedule(this.globalState.getActualCategoryIndex()));
+        ((TextView) findViewById(R.id.diningOptionQueueTime)).setText("Average queue time: " + this.diningPlace.getQueueTime());
 
-        ArrayList<Dish> dishes = this.diningOption.getDishes();
+        ArrayList<Dish> dishes = this.diningPlace.getDishes();
         DishAdapter dishAdapter = new DishAdapter(getApplicationContext(), R.layout.list_row_dish, dishes);
         listOfDishes.setAdapter(dishAdapter);
     }

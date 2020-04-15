@@ -1,12 +1,17 @@
-package pt.ulisboa.tecnico.cmov.foodist;
+package pt.ulisboa.tecnico.cmov.foodist.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-public class DishPictureActivity extends AppCompatActivity {
+import pt.ulisboa.tecnico.cmov.foodist.DishImage;
+import pt.ulisboa.tecnico.cmov.foodist.GlobalState;
+import pt.ulisboa.tecnico.cmov.foodist.R;
+
+public class DishPictureActivity extends Activity {
 
     private GlobalState globalState;
     private DishImage dishImage;
@@ -27,8 +32,6 @@ public class DishPictureActivity extends AppCompatActivity {
         String diningOptionName = (String) getIntent().getSerializableExtra("diningOptionName");
         String campus = (String) getIntent().getSerializableExtra("campus");
         this.dishImage = this.globalState.getDishImage(campus, diningOptionName, dishName, imageId);
-
-        this.setTitle("FoodIST - " + this.dishImage.getDishName());
 
         ((ImageView) findViewById(R.id.dishImage)).setImageBitmap(this.dishImage.getBitmap());
         ((TextView) findViewById(R.id.author)).setText(this.dishImage.getUploaderUsername());

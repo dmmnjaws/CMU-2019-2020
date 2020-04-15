@@ -1,4 +1,4 @@
-package pt.ulisboa.tecnico.cmov.foodist;
+package pt.ulisboa.tecnico.cmov.foodist.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -6,6 +6,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
+
+import pt.ulisboa.tecnico.cmov.foodist.GlobalState;
+import pt.ulisboa.tecnico.cmov.foodist.R;
 
 public class LogInActivity extends AppCompatActivity {
 

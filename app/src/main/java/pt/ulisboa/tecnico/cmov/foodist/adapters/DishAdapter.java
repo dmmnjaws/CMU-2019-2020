@@ -1,4 +1,4 @@
-package pt.ulisboa.tecnico.cmov.foodist;
+package pt.ulisboa.tecnico.cmov.foodist.adapters;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -10,6 +10,9 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+
+import pt.ulisboa.tecnico.cmov.foodist.Dish;
+import pt.ulisboa.tecnico.cmov.foodist.R;
 
 public class DishAdapter extends ArrayAdapter<Dish> {
 

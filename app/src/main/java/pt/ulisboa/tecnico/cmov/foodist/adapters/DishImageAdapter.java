@@ -1,4 +1,4 @@
-package pt.ulisboa.tecnico.cmov.foodist;
+package pt.ulisboa.tecnico.cmov.foodist.adapters;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -8,6 +8,9 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 
 import java.util.ArrayList;
+
+import pt.ulisboa.tecnico.cmov.foodist.DishImage;
+import pt.ulisboa.tecnico.cmov.foodist.R;
 
 public class DishImageAdapter extends ArrayAdapter<DishImage> {
 

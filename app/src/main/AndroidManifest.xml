@@ -12,13 +12,13 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".DishUploadActivity"/>
-        <activity android:name=".DishPictureActivity" />
-        <activity android:name=".DishActivity"/>
-        <activity android:name=".UserProfileActivity" />
-        <activity android:name=".DiningPlaceActivity" />
-        <activity android:name=".DiningOptionsActivity" />
-        <activity android:name=".LogInActivity">
+        <activity android:name=".activities.DishUploadActivity"/>
+        <activity android:name=".activities.DishPictureActivity" />
+        <activity android:name=".activities.DishActivity"/>
+        <activity android:name=".activities.UserProfileActivity" />
+        <activity android:name=".activities.DiningPlaceActivity" />
+        <activity android:name=".activities.DiningOptionsActivity" />
+        <activity android:name=".activities.LogInActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

@@ -1,4 +1,4 @@
-package pt.ulisboa.tecnico.cmov.foodist;
+package pt.ulisboa.tecnico.cmov.foodist.activities;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -19,6 +19,10 @@ import androidx.annotation.Nullable;
 
 import java.io.IOException;
 import java.io.InputStream;
+
+import pt.ulisboa.tecnico.cmov.foodist.Dish;
+import pt.ulisboa.tecnico.cmov.foodist.GlobalState;
+import pt.ulisboa.tecnico.cmov.foodist.R;
 
 public class DishUploadActivity extends Activity {
 
