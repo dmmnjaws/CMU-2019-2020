@@ -3,6 +3,8 @@ package pt.ulisboa.tecnico.cmov.remote;
 import java.io.*;
 import java.net.*;
 
+import pt.ulisboa.tecnico.cmov.library.Dish;
+
 /**
  * This thread is responsible to handle client connection.
  *
@@ -21,18 +23,22 @@ public class FoodISTServerThread implements Runnable {
     public void run() {
         try {
 
-            String command = "";
-            String[] tokens = command.split(" ");
+            InputStream inFromServer = socket.getInputStream();
+            ObjectInputStream in = new ObjectInputStream(inFromServer);
+            String command;
 
-            while (true){
+            command = (String) in.readObject();
 
-                switch (tokens[0]){
-                    case "Hello":
-                        String hello = state.Hello();
-                        break;
+            switch (command){
+                case "Hello": {
+                    String hello = state.Hello();
+                    break;
                 }
-
+                case "DishName":{
+                    System.out.println(((Dish) in.readObject()).getName());
+                }
             }
+            
         } catch (Exception ex) {
             System.out.println("Server exception: " + ex.getMessage());
             ex.printStackTrace();

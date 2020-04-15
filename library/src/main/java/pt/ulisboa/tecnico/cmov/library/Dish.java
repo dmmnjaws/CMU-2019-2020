@@ -1,7 +1,9 @@
 package pt.ulisboa.tecnico.cmov.library;
 
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 
+import java.io.ByteArrayOutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -17,14 +19,18 @@ public class Dish implements Serializable {
     private float rating;
 
     //TO DO: ADD BITMAP THUMBNAIL
-    private Bitmap thumbnail;
+    private byte[] thumbnail;
     private ArrayList<DishImage> dishImages;
 
     public Dish(String name, String cost, float rating, Bitmap thumbnail, String userName){
         this.name = name;
         this.cost = cost + " €";
         this.rating = rating;
-        this.thumbnail = Bitmap.createScaledBitmap(thumbnail, 50, 50, false);
+
+        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+        Bitmap.createScaledBitmap(thumbnail, 50, 50, false).compress(Bitmap.CompressFormat.PNG, 100, stream);
+        this.thumbnail = stream.toByteArray();
+
         this.voterRatings = new HashMap<>();
         this.voterRatings.put(userName,rating);
         this.dishImages = new ArrayList<>();
@@ -40,8 +46,7 @@ public class Dish implements Serializable {
 
     public float getRating() { return this.rating/this.voterRatings.size(); }
 
-    public Bitmap getThumbnail(){
-        return this.thumbnail;
+    public Bitmap getThumbnail(){ return BitmapFactory.decodeByteArray(this.thumbnail, 0, this.thumbnail.length);
     }
 
     public void setDiningPlace(String name){ this.diningPlace = name; }

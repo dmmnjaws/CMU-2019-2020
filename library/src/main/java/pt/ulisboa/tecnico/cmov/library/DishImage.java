@@ -1,13 +1,15 @@
 package pt.ulisboa.tecnico.cmov.library;
 
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 
+import java.io.ByteArrayOutputStream;
 import java.io.Serializable;
 
 public class DishImage implements Serializable {
 
     //TO DO: ADD BITMAP
-    private Bitmap image;
+    private byte[] image;
     private int imageId;
     private String dishName;
     private String diningPlace;
@@ -15,7 +17,11 @@ public class DishImage implements Serializable {
 
     public DishImage(int imageId, String uploaderUsername, Bitmap image){
         this.imageId = imageId;
-        this.image = image;
+
+        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+        Bitmap.createScaledBitmap(image, 50, 50, false).compress(Bitmap.CompressFormat.PNG, 100, stream);
+        this.image = stream.toByteArray();
+
         this.uploaderUsername = uploaderUsername;
     }
 
@@ -37,5 +43,5 @@ public class DishImage implements Serializable {
         return this.uploaderUsername;
     }
 
-    public Bitmap getBitmap(){ return this.image; }
+    public Bitmap getBitmap(){ return BitmapFactory.decodeByteArray(this.image, 0, this.image.length); }
 }

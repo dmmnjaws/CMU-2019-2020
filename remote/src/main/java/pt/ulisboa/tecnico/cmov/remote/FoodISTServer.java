@@ -22,10 +22,10 @@ public class FoodISTServer {
             System.out.println("Server is listening on port " + 8000);
 
             while (true) {
-                Socket socket = serverSocket.accept();
+                Socket clientSocket = serverSocket.accept();
                 System.out.println("New client connected");
 
-                FoodISTServerThread thread = new FoodISTServerThread(socket, state);
+                FoodISTServerThread thread = new FoodISTServerThread(clientSocket, state);
                 new Thread(thread).start();
             }
 

@@ -3,7 +3,12 @@ package pt.ulisboa.tecnico.cmov.foodist;
 import android.app.Application;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.os.AsyncTask;
 
+import java.io.IOException;
+import java.io.ObjectOutputStream;
+import java.net.InetAddress;
+import java.net.Socket;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -22,6 +27,7 @@ public class GlobalState extends Application {
     private String[] categories;
     private Map<String, ArrayList<DiningPlace>> diningOptions;
     private int actualCategory;
+    private Socket clientSocket;
 
     public GlobalState(){
         this.categories = new String[] {"Student", "Researcher", "Professor", "Staff", "General Public"};
@@ -33,13 +39,16 @@ public class GlobalState extends Application {
         this.diningOptions.put("Alameda", new ArrayList<DiningPlace>());
         this.diningOptions.put("Taguspark", new ArrayList<DiningPlace>());
         this.campuses = new String[] {"Alameda", "Taguspark"};
+
     }
 
-    public void login(String username, String password){
+    public void login(String username, String password) {
+
         // TO DO authentication
         this.username = username;
         this.password = password;
         this.loggedIn = true;
+
     }
 
     public void setUsername(String username) {
@@ -217,7 +226,34 @@ public class GlobalState extends Application {
         addDiningOption(new DiningPlace("Restaurante do José Brás", "Rua da Joaquina", R.drawable.ic_options_threedots_background, schedule, "Taguspark"));
         addDiningOption(new DiningPlace("Punanirolls", "Rua da Maria Coxa", R.drawable.ic_options_threedots_background, schedule, "Taguspark"));
         addDiningOption(new DiningPlace("Sexappeal Bar", "Avenida Gay", R.drawable.ic_options_threedots_background, schedule, "Taguspark"));
+
+        (new Test(ensopadoDeTetas)).execute();
+
     }
+
+    class Test extends AsyncTask {
+
+        private Dish dish;
+
+        public Test(Dish dish){
+            this.dish = dish;
+        }
+
+        protected Object doInBackground(Object[] objects) {
+            try {
+                Socket clientSocket = new Socket("10.0.2.2", 8000);
+                ObjectOutputStream outputStream = new ObjectOutputStream(clientSocket.getOutputStream());
+                outputStream.writeObject("DishName");
+                outputStream.writeObject(this.dish);
+                clientSocket.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+
+            }
+            return null;
+        }
+    }
+
 
     public Bitmap customBitMapper(int imageId) {
 
