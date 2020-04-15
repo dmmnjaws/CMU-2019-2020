@@ -2,7 +2,9 @@ package pt.ulisboa.tecnico.cmov.library;
 
 import android.graphics.Bitmap;
 
-public class DishImage {
+import java.io.Serializable;
+
+public class DishImage implements Serializable {
 
     //TO DO: ADD BITMAP
     private Bitmap image;
