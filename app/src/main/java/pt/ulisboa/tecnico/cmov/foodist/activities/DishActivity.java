@@ -21,6 +21,7 @@ import java.io.IOException;
 import java.io.InputStream;
 
 import pt.ulisboa.tecnico.cmov.foodist.asynctasks.AddDishImageRemotely;
+import pt.ulisboa.tecnico.cmov.foodist.asynctasks.AddRatingRemotely;
 import pt.ulisboa.tecnico.cmov.foodist.asynctasks.StateLoader;
 import pt.ulisboa.tecnico.cmov.library.Dish;
 import pt.ulisboa.tecnico.cmov.library.DishImage;
@@ -88,7 +89,7 @@ public class DishActivity extends AppCompatActivity implements AdapterView.OnIte
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
 
-        String dishName = (String) getIntent().getSerializableExtra("dishName");
+        final String dishName = (String) getIntent().getSerializableExtra("dishName");
 
         spinner.setSelection(this.globalState.getDishIndex(this.campus, this.diningOptionName, dishName));
         spinner.setOnItemSelectedListener(this);
@@ -99,6 +100,8 @@ public class DishActivity extends AppCompatActivity implements AdapterView.OnIte
             @Override
             public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
                 dish.addRating(globalState.getUsername(),rating);
+                AddRatingRemotely addRating = new AddRatingRemotely(diningOptionName,dish.getName(),globalState.getUsername(),rating);
+                addRating.execute();
             }
         });
 

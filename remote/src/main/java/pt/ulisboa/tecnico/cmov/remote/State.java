@@ -48,6 +48,10 @@ public class State {
 
     }
 
+    public void addRating(String diningOptionName, String dishName, String username, float rating){
+        getDish(diningOptionName, dishName).addRating(username, rating);
+    }
+
     public Dish getDish(String diningPlace, String dishName){
 
         for(DishesView dishesView : this.dishesViews){
