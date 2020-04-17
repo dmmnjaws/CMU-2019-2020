@@ -61,8 +61,12 @@ public class DiningPlace implements Serializable {
 
     public String getCampus() { return this.campus; }
 
-    public void addDish(Dish dish){
+    public synchronized void addDish(Dish dish){
         dish.setDiningPlace(this.name);
         this.dishes.add(dish);
+    }
+
+    public void setDishes(ArrayList<Dish> dishes){
+        this.dishes = dishes;
     }
 }

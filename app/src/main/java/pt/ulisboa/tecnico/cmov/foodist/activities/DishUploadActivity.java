@@ -15,6 +15,8 @@ import android.widget.Toast;
 import java.io.IOException;
 import java.io.InputStream;
 
+import pt.ulisboa.tecnico.cmov.foodist.asynctasks.AddDishRemotely;
+import pt.ulisboa.tecnico.cmov.foodist.asynctasks.StateLoader;
 import pt.ulisboa.tecnico.cmov.library.Dish;
 import pt.ulisboa.tecnico.cmov.foodist.GlobalState;
 import pt.ulisboa.tecnico.cmov.foodist.R;
@@ -71,7 +73,10 @@ public class DishUploadActivity extends Activity {
         }
 
         Dish newDish = new Dish(dishName, dishPrice, dishRating, this.dishImage, this.globalState.getUsername());
-        this.globalState.getDiningOption(this.campus, this.diningOptionName).addDish(newDish);
+        this.globalState.addDish(this.campus, this.diningOptionName, newDish);
+
+        AddDishRemotely addDishRemotely = new AddDishRemotely(newDish);
+        addDishRemotely.execute();
 
         finish();
     }

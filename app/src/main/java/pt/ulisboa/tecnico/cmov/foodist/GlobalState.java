@@ -4,12 +4,8 @@ import android.app.Application;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
+import android.util.Log;
 
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.net.InetAddress;
-import java.net.Socket;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -18,6 +14,7 @@ import pt.ulisboa.tecnico.cmov.foodist.asynctasks.StateLoader;
 import pt.ulisboa.tecnico.cmov.library.DiningPlace;
 import pt.ulisboa.tecnico.cmov.library.Dish;
 import pt.ulisboa.tecnico.cmov.library.DishImage;
+import pt.ulisboa.tecnico.cmov.library.DishesView;
 
 public class GlobalState extends Application {
 
@@ -50,11 +47,18 @@ public class GlobalState extends Application {
         this.password = password;
         this.loggedIn = true;
 
-        StateLoader stateLoader = new StateLoader();
+        populate();
+
+        StateLoader stateLoader = new StateLoader(this);
         stateLoader.execute();
-        while (stateLoader.getStatus() != AsyncTask.Status.FINISHED){
+
+
+    }
+
+    public synchronized void setState(ArrayList<DishesView> dishesViews){
+        for(DishesView dishesView: dishesViews){
+            (getDiningOption(dishesView.getCampus(), dishesView.getDiningPlace())).setDishes(dishesView.getDishes());
         }
-        this.diningOptions = stateLoader.getState();
     }
 
     public void setUsername(String username) {
@@ -199,6 +203,14 @@ public class GlobalState extends Application {
         this.diningOptions.get(diningPlace.getCampus()).add(diningPlace);
     }
 
+    public void addDish(String campus, String diningOptionName, Dish dish){
+        getDiningOption(campus, diningOptionName).addDish(dish);
+    }
+
+    public void addDishImage(Dish dish, String uploaderUsername, Bitmap image){
+        dish.addImage(uploaderUsername, image);
+    }
+
     public boolean isLoggedIn(){
         return this.loggedIn;
     }
@@ -212,6 +224,17 @@ public class GlobalState extends Application {
             return null;
 
         }
+    }
+
+    public void populate(){
+
+        //TO DO: TAKING TOO LONG, SOLVE.
+
+        String[] defaultSchedule = new String[] {"Mon - Fri, 11:00 - 22:00", "Mon - Fri, 8:00 - 22:00", "Mon - Fri, 8:00 - 00:00", "Mon - Fri, 11:00 - 17:00", "Mon, - Fri, 8:00 - 22:00"};
+        addDiningOption(new DiningPlace("Copacabana", "Rua da Tia Teresa, Nº21", customBitMapper(R.drawable.copacabana), defaultSchedule, "Alameda"));
+        addDiningOption(new DiningPlace("Restaurante do Santos G", "Rua da Tia Teresa Nº69", customBitMapper(R.drawable.restaurantedosantosg), defaultSchedule, "Alameda"));
+        addDiningOption(new DiningPlace("Uganda Ristoranti", "Avenida Homoerectus Nº2", customBitMapper(R.drawable.ugandaristoranti), defaultSchedule, "Taguspark"));
+
     }
 
 }

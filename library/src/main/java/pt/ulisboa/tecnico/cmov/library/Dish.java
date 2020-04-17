@@ -72,7 +72,7 @@ public class Dish implements Serializable {
         }
     }
 
-    public void addImage(String uploaderUsername, Bitmap image){
+    public synchronized void addImage(String uploaderUsername, Bitmap image){
         DishImage dishImage = new DishImage(this.dishImages.size(), uploaderUsername, image);
         dishImage.setDishName(this.name);
         dishImage.setDiningPlace(this.diningPlace);

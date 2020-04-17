@@ -33,9 +33,18 @@ public class FoodISTServerThread implements Runnable {
 
             switch (command){
 
-                case "loadState":{
-                    outputStream.writeObject(this.state.getDiningOptions());
-                }
+                case "loadState":
+                    outputStream.writeObject(this.state.getDishes());
+                    System.out.println("client called loadState request.");
+                    break;
+
+                case "addDish":
+                    state.addDish( (Dish) inputStream.readObject() );
+                    break;
+
+                case "addDishImage":
+                    break;
+
             }
 
         } catch (Exception ex) {

@@ -7,20 +7,17 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.util.ArrayList;
-import java.util.Map;
 
 import pt.ulisboa.tecnico.cmov.foodist.GlobalState;
-import pt.ulisboa.tecnico.cmov.library.DiningPlace;
 import pt.ulisboa.tecnico.cmov.library.Dish;
 import pt.ulisboa.tecnico.cmov.library.DishesView;
 
-public class StateLoader extends AsyncTask {
+public class AddDishRemotely extends AsyncTask {
 
-    private ArrayList<DishesView> state;
-    private GlobalState globalState;
+    private Dish dish;
 
-    public StateLoader (GlobalState globalState){
-        this.globalState = globalState;
+    public AddDishRemotely(Dish dish){
+        this.dish = dish;
     }
 
     protected Object doInBackground(Object[] objects) {
@@ -29,8 +26,8 @@ public class StateLoader extends AsyncTask {
             Socket clientSocket = new Socket("10.0.2.2", 8000);
             ObjectOutputStream outputStream = new ObjectOutputStream(clientSocket.getOutputStream());
             ObjectInputStream inputStream = new ObjectInputStream(clientSocket.getInputStream());
-            outputStream.writeObject("loadState");
-            this.state = (ArrayList<DishesView>) inputStream.readObject();
+            outputStream.writeObject("addDish");
+            outputStream.writeObject(dish);
             clientSocket.close();
             Log.d("DEBUG:", "DEBUG - DID ASYNC SERVER READ");
         } catch (Exception e) {
@@ -39,14 +36,6 @@ public class StateLoader extends AsyncTask {
         }
 
         return null;
-    }
-
-    @Override
-    protected void onPostExecute(Object o) {
-        super.onPostExecute(o);
-        this.globalState.setState(this.state);
-        Log.d("DEBUG:", "DEBUG - DID ASYNC CLIENT WRITE");
-
     }
 }
 
