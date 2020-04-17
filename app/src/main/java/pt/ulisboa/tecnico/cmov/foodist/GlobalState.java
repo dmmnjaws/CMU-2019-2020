@@ -207,8 +207,8 @@ public class GlobalState extends Application {
         getDiningOption(campus, diningOptionName).addDish(dish);
     }
 
-    public void addDishImage(Dish dish, String uploaderUsername, Bitmap image){
-        dish.addImage(uploaderUsername, image);
+    public void addDishImage(Dish dish, DishImage newDishImage){
+        dish.addImage(newDishImage);
     }
 
     public boolean isLoggedIn(){

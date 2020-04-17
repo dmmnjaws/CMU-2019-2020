@@ -20,6 +20,7 @@ import android.widget.TextView;
 import java.io.IOException;
 import java.io.InputStream;
 
+import pt.ulisboa.tecnico.cmov.foodist.asynctasks.AddDishImageRemotely;
 import pt.ulisboa.tecnico.cmov.foodist.asynctasks.StateLoader;
 import pt.ulisboa.tecnico.cmov.library.Dish;
 import pt.ulisboa.tecnico.cmov.library.DishImage;
@@ -112,8 +113,13 @@ public class DishActivity extends AppCompatActivity implements AdapterView.OnIte
                 Uri selectedImage = data.getData();
                 InputStream imageStream = getContentResolver().openInputStream(selectedImage);
 
-                this.globalState.addDishImage(this.dish, this.globalState.getUsername(), BitmapFactory.decodeStream(imageStream));
+                DishImage newDishImage = new DishImage(this.globalState.getUsername(),
+                        BitmapFactory.decodeStream(imageStream), this.diningOptionName, this.dish.getName());
 
+                this.globalState.addDishImage(this.dish, newDishImage);
+
+                AddDishImageRemotely newImage = new AddDishImageRemotely(newDishImage);
+                newImage.execute();
 
             } catch (IOException exception) {
                 exception.printStackTrace();

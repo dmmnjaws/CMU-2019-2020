@@ -4,6 +4,7 @@ import java.io.*;
 import java.net.*;
 
 import pt.ulisboa.tecnico.cmov.library.Dish;
+import pt.ulisboa.tecnico.cmov.library.DishImage;
 
 /**
  * This thread is responsible to handle client connection.
@@ -35,14 +36,17 @@ public class FoodISTServerThread implements Runnable {
 
                 case "loadState":
                     outputStream.writeObject(this.state.getDishes());
-                    System.out.println("client called loadState request.");
+                    System.out.println("LoadState: State sent to client");
                     break;
 
                 case "addDish":
                     state.addDish( (Dish) inputStream.readObject() );
+                    System.out.println("AddDish: Dish added to server");
                     break;
 
                 case "addDishImage":
+                    state.addDishImage((DishImage) inputStream.readObject());
+                    System.out.println("AddDishImage: Added dish image to server");
                     break;
 
             }

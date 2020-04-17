@@ -42,6 +42,27 @@ public class State {
 
     }
 
+    public void addDishImage(DishImage newDishImage){
+
+        getDish(newDishImage.getDiningPlace(),newDishImage.getDishName()).addImage(newDishImage);
+
+    }
+
+    public Dish getDish(String diningPlace, String dishName){
+
+        for(DishesView dishesView : this.dishesViews){
+            if (dishesView.getDiningPlace().equals(diningPlace)){
+                for(Dish dish : dishesView.getDishes()){
+                    if(dish.getName().equals(dishName)){
+                        return dish;
+                    }
+                }
+            }
+        }
+
+        return null;
+    }
+
     public ArrayList<DishesView> getDishes(){ return this.dishesViews; }
 
 }
