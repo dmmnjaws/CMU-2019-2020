@@ -15,14 +15,15 @@ public class DishImage implements Serializable {
     private String diningPlace;
     private String uploaderUsername;
 
-    public DishImage(int imageId, String uploaderUsername, Bitmap image){
-        this.imageId = imageId;
+    public DishImage(String uploaderUsername, Bitmap image, String diningPlace, String dishName){
 
         ByteArrayOutputStream stream = new ByteArrayOutputStream();
         image.compress(Bitmap.CompressFormat.PNG, 100, stream);
         this.image = stream.toByteArray();
 
         this.uploaderUsername = uploaderUsername;
+        this.diningPlace = diningPlace;
+        this.dishName = dishName;
     }
 
     public int getImageId() {
@@ -33,15 +34,13 @@ public class DishImage implements Serializable {
 
     public String getDiningPlace(){ return this.diningPlace;}
 
-    public void setDishName(String dishName) {
-        this.dishName = dishName;
-    }
-
-    public void setDiningPlace(String diningPlace) { this.diningPlace = diningPlace; }
-
     public String getUploaderUsername(){
         return this.uploaderUsername;
     }
 
     public Bitmap getBitmap(){ return BitmapFactory.decodeByteArray(this.image, 0, this.image.length); }
+
+    public void setImageId(int imageId) {
+        this.imageId = imageId;
+    }
 }

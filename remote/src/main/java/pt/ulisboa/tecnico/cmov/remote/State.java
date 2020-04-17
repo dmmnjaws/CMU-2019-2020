@@ -39,7 +39,34 @@ public class State {
                 dishesView.AddDish(dish);
             }
         }
+    }
 
+    public void addDishImage(DishImage newDishImage){
+
+        String diningOptionName = newDishImage.getDiningPlace();
+        String dishName = newDishImage.getDishName();
+
+        getDish(diningOptionName, dishName).addImage(newDishImage);
+
+    }
+
+    public void addRating(String diningOptionName, String dishName, String username, float rating){
+        getDish(diningOptionName, dishName).addRating(username, rating);
+    }
+
+    public Dish getDish(String diningOptionName, String dishName){
+
+        for (DishesView dishesView : dishesViews){
+            if (dishesView.getDiningPlace().equals(diningOptionName)){
+                for(Dish dish : dishesView.getDishes()){
+                    if(dish.getName().equals(dishName)){
+                        return dish;
+                    }
+                }
+            }
+        }
+
+        return null;
     }
 
     public ArrayList<DishesView> getDishes(){ return this.dishesViews; }

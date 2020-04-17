@@ -9,17 +9,26 @@ import java.io.ObjectOutputStream;
 import java.net.Socket;
 
 import pt.ulisboa.tecnico.cmov.library.Dish;
+import pt.ulisboa.tecnico.cmov.library.DishImage;
 
 public class AddDishImageRemotely extends AsyncTask {
 
+    private DishImage newDishImage;
+
+    public AddDishImageRemotely(DishImage newDishImage){
+        this.newDishImage = newDishImage;
+    }
 
     protected Object doInBackground(Object[] objects) {
         try {
 
             Socket clientSocket = new Socket("10.0.2.2", 8000);
-            ObjectOutputStream outputStream = new ObjectOutputStream(clientSocket.getOutputStream());
             ObjectInputStream inputStream = new ObjectInputStream(clientSocket.getInputStream());
+            ObjectOutputStream outputStream = new ObjectOutputStream(clientSocket.getOutputStream());
+
             outputStream.writeObject("addDishImage");
+            outputStream.writeObject(this.newDishImage);
+
             clientSocket.close();
             Log.d("DEBUG:", "DEBUG - DID ASYNC SERVER READ");
         } catch (Exception e) {

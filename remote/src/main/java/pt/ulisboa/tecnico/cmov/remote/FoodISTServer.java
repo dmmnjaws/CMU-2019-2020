@@ -12,26 +12,35 @@ import java.net.*;
  */
 public class FoodISTServer {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
 
         State state = new State();
 
-        try {
+        while (true) {
 
-            ServerSocket serverSocket = new ServerSocket(8000);
-            System.out.println("Server is listening on port " + 8000);
+            Socket clientSocket = null;
 
-            while (true) {
-                Socket clientSocket = serverSocket.accept();
+            try {
+
+
+                ServerSocket serverSocket = new ServerSocket(8000);
+                System.out.println("Server is listening on port " + 8000);
+
+
+                clientSocket = serverSocket.accept();
                 System.out.println("New client connected");
 
-                FoodISTServerThread thread = new FoodISTServerThread(clientSocket, state);
-                new Thread(thread).start();
-            }
+                ObjectInputStream inputStream = new ObjectInputStream(clientSocket.getInputStream());
+                ObjectOutputStream outputStream = new ObjectOutputStream(clientSocket.getOutputStream());
 
-        } catch (IOException ex) {
-            System.out.println("Server exception: " + ex.getMessage());
-            ex.printStackTrace();
+                FoodISTServerThread thread = new FoodISTServerThread(state, inputStream, outputStream, clientSocket);
+                new Thread(thread).start();
+            } catch (IOException ex) {
+                clientSocket.close();
+                System.out.println("Server exception: " + ex.getMessage());
+                ex.printStackTrace();
+            }
         }
     }
 }
+

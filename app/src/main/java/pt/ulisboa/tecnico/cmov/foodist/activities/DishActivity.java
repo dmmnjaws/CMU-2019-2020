@@ -20,6 +20,8 @@ import android.widget.TextView;
 import java.io.IOException;
 import java.io.InputStream;
 
+import pt.ulisboa.tecnico.cmov.foodist.asynctasks.AddDishImageRemotely;
+import pt.ulisboa.tecnico.cmov.foodist.asynctasks.AddRatingRemotely;
 import pt.ulisboa.tecnico.cmov.foodist.asynctasks.StateLoader;
 import pt.ulisboa.tecnico.cmov.library.Dish;
 import pt.ulisboa.tecnico.cmov.library.DishImage;
@@ -87,7 +89,7 @@ public class DishActivity extends AppCompatActivity implements AdapterView.OnIte
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
 
-        String dishName = (String) getIntent().getSerializableExtra("dishName");
+        final String dishName = (String) getIntent().getSerializableExtra("dishName");
 
         spinner.setSelection(this.globalState.getDishIndex(this.campus, this.diningOptionName, dishName));
         spinner.setOnItemSelectedListener(this);
@@ -98,6 +100,10 @@ public class DishActivity extends AppCompatActivity implements AdapterView.OnIte
             @Override
             public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
                 dish.addRating(globalState.getUsername(),rating);
+
+                AddRatingRemotely newRating = new AddRatingRemotely(dish.getDiningPlace(), dishName,
+                        globalState.getUsername(),rating);
+                newRating.execute();
             }
         });
 
@@ -112,8 +118,13 @@ public class DishActivity extends AppCompatActivity implements AdapterView.OnIte
                 Uri selectedImage = data.getData();
                 InputStream imageStream = getContentResolver().openInputStream(selectedImage);
 
-                this.globalState.addDishImage(this.dish, this.globalState.getUsername(), BitmapFactory.decodeStream(imageStream));
+                DishImage newDishImage = new DishImage(this.globalState.getUsername(),
+                        BitmapFactory.decodeStream(imageStream), this.dish.getDiningPlace(), this.dish.getName());
 
+                this.dish.addImage(newDishImage);
+
+                AddDishImageRemotely sendNewImage = new AddDishImageRemotely(newDishImage);
+                sendNewImage.execute();
 
             } catch (IOException exception) {
                 exception.printStackTrace();

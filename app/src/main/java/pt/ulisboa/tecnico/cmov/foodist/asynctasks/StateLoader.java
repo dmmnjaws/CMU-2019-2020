@@ -31,6 +31,7 @@ public class StateLoader extends AsyncTask {
             ObjectInputStream inputStream = new ObjectInputStream(clientSocket.getInputStream());
             outputStream.writeObject("loadState");
             this.state = (ArrayList<DishesView>) inputStream.readObject();
+
             clientSocket.close();
             Log.d("DEBUG:", "DEBUG - DID ASYNC SERVER READ");
         } catch (Exception e) {
