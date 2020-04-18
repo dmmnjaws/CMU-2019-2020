@@ -26,9 +26,16 @@ public class State {
 
         this.dishesViews = new ArrayList<>();
         //FOR TEST PURPOSES:
-        this.dishesViews.add(new DishesView("Alameda", "Copacabana", new ArrayList<Dish>()));
-        this.dishesViews.add(new DishesView("Alameda", "Restaurante do Santos G", new ArrayList<Dish>()));
-        this.dishesViews.add(new DishesView("Taguspark", "Uganda Ristoranti", new ArrayList<Dish>()));
+        this.dishesViews.add(new DishesView("Alameda", "Frankie Hot Dogs", new ArrayList<Dish>()));
+        this.dishesViews.add(new DishesView("Alameda", "Ali Baba Kebab Haus", new ArrayList<Dish>()));
+        this.dishesViews.add(new DishesView("Alameda", "Sena - Pastelaria e Restaurante", new ArrayList<Dish>()));
+        this.dishesViews.add(new DishesView("Alameda", "Santorini Coffee", new ArrayList<Dish>()));
+        this.dishesViews.add(new DishesView("Alameda", "Kokoro Ramen Bar", new ArrayList<Dish>()));
+        this.dishesViews.add(new DishesView("Taguspark", "Red Bar", new ArrayList<Dish>()));
+        this.dishesViews.add(new DishesView("Taguspark", "GreenBar Tagus", new ArrayList<Dish>()));
+        this.dishesViews.add(new DishesView("Taguspark", "Momentum", new ArrayList<Dish>()));
+        this.dishesViews.add(new DishesView("Taguspark", "Panorâmico by Marlene Vieira", new ArrayList<Dish>()));
+
 
     }
 
