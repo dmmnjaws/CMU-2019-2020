@@ -6,7 +6,6 @@ To list the Dining Places in the DiningOptionsActivity and the Dishes in the Din
 Something I realized: we store every image as an int which is the reference for the image in the res folder, BUT, perhaps we should consider loading the bitmaps directly into the Dish and DiningOptions classes because this will have to be stored in an external database and we won't be able to fetch the pictures from their int refs.
 
 CHECKLIST:
-14-04-2020
 X TextBox dos preços deve estar melhorada (só dar para por numeros e por €)
 X Imagem de adicionar imagem do prato está desformatada
 X Mudar input do construtor do prato para um int e depois ele constroi a string com o €
@@ -16,7 +15,9 @@ X Quando o utilizador clica no "Enter" do teclado, o teclado tem de desaparecer
 X Opção de mudar username e imagem de perfil.
 X Spinner com os campus
 X Rating de quem adiciona o prato tem de ser atualizado no sistema
-
-15-04-2020
 Localização dos restaurantes
-Database e e afins
+X Database e e afins
+Formatar imagens de restaurantes de forma a que fiquem quadradas e corretas
+Formatar imagem de perfil de forma a que fique sempre redonda
+X Corrigir populações duplicadas do estado local
+Tempo esperado de espera nas filas dos restaurantes.

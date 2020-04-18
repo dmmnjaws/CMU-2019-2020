@@ -55,7 +55,7 @@ public class FoodISTServerThread implements Runnable {
                     String username = ((String) inputStream.readObject());
                     float rating = ((float) inputStream.readObject());
                     state.addRating(diningOptionName, dishName, username,rating);
-                    System.out.println("AddDishImage: Added dish image to server");
+                    System.out.println("AddRating: Added rating to server");
                     break;
             }
 

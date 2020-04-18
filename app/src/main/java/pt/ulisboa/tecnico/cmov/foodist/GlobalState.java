@@ -32,12 +32,6 @@ public class GlobalState extends Application {
         this.actualCategory = 0;
         this.loggedIn = false;
 
-        // TO DO fetch everything below from MySQLite database:
-        this.diningOptions = new HashMap<>();
-        this.diningOptions.put("Alameda", new ArrayList<DiningPlace>());
-        this.diningOptions.put("Taguspark", new ArrayList<DiningPlace>());
-        this.campuses = new String[] {"Alameda", "Taguspark"};
-
     }
 
     public void login(String username, String password) {
@@ -47,7 +41,8 @@ public class GlobalState extends Application {
         this.password = password;
         this.loggedIn = true;
 
-        populate();
+        if (this.diningOptions == null){ populate(); }
+
 
         StateLoader stateLoader = new StateLoader(this);
         stateLoader.execute();
@@ -229,6 +224,11 @@ public class GlobalState extends Application {
     public void populate(){
 
         //TO DO: TAKING TOO LONG, SOLVE.
+
+        this.diningOptions = new HashMap<>();
+        this.diningOptions.put("Alameda", new ArrayList<DiningPlace>());
+        this.diningOptions.put("Taguspark", new ArrayList<DiningPlace>());
+        this.campuses = new String[] {"Alameda", "Taguspark"};
 
         String[] defaultSchedule = new String[] {"Mon - Fri, 11:00 - 22:00", "Mon - Fri, 8:00 - 22:00", "Mon - Fri, 8:00 - 00:00", "Mon - Fri, 11:00 - 17:00", "Mon, - Fri, 8:00 - 22:00"};
         addDiningOption(new DiningPlace("Red Bar", "Av. Prof. Dr. Cavaco Silva 13", customBitMapper(R.drawable.redbar), defaultSchedule, "Taguspark"));
