@@ -3,6 +3,8 @@ package pt.ulisboa.tecnico.cmov.library;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 
+import com.google.android.gms.maps.model.LatLng;
+
 import java.io.ByteArrayOutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -17,9 +19,9 @@ public class DiningPlace implements Serializable {
     private ArrayList<Dish> dishes;
     private String[] schedule;
     private String queueTime;
+    private double[] coordinates;
 
-
-    public DiningPlace(String name, String address, Bitmap thumbnail, String[] schedule, String campus){
+    public DiningPlace(String name, String address, Bitmap thumbnail, String[] schedule, String campus, double v, double v1){
         this.name = name;
         this.address = address;
 
@@ -31,6 +33,7 @@ public class DiningPlace implements Serializable {
         this.schedule = schedule;
         this.queueTime = "0";
         this.campus = campus;
+        this.coordinates = new double[]{v,v1};
     }
 
     public String getName() {
@@ -60,6 +63,8 @@ public class DiningPlace implements Serializable {
     public String getQueueTime() { return this.queueTime; }
 
     public String getCampus() { return this.campus; }
+
+    public double[] getCoordinates(){ return this.coordinates; }
 
     public synchronized void addDish(Dish dish){
         dish.setDiningPlace(this.name);

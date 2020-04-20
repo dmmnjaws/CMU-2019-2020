@@ -113,6 +113,8 @@ public class DiningPlaceActivity extends AppCompatActivity implements AdapterVie
 
     public void checkLocationOnClick(View view){
         Intent intent = new Intent(DiningPlaceActivity.this, DiningPlaceMapActivity.class);
+        intent.putExtra("coordinates", this.diningPlace.getCoordinates());
+        intent.putExtra( "diningOptionName", this.diningPlace.getName());
         startActivity(intent);
     }
 

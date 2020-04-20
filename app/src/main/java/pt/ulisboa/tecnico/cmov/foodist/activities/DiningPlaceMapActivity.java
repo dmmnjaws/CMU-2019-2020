@@ -16,6 +16,8 @@ import pt.ulisboa.tecnico.cmov.foodist.R;
 public class DiningPlaceMapActivity extends FragmentActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
+    private double[] coordinates;
+    private String diningOptionName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,6 +26,8 @@ public class DiningPlaceMapActivity extends FragmentActivity implements OnMapRea
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
+        this.coordinates = (double[]) getIntent().getSerializableExtra("coordinates");
+        this.diningOptionName = (String) getIntent().getSerializableExtra("diningOptionName");
         mapFragment.getMapAsync(this);
     }
 
@@ -39,11 +43,11 @@ public class DiningPlaceMapActivity extends FragmentActivity implements OnMapRea
      */
     @Override
     public void onMapReady(GoogleMap googleMap) {
-        mMap = googleMap;
 
-        // Add a marker in Sydney and move the camera
-        LatLng sydney = new LatLng(-34, 151);
-        mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+        mMap = googleMap;
+        LatLng diningPlace = new LatLng(coordinates[0], coordinates[1]);
+        mMap.addMarker(new MarkerOptions().position(diningPlace).title(diningOptionName));
+        mMap.moveCamera(CameraUpdateFactory.newLatLng(diningPlace));
+        mMap.setMinZoomPreference(15);
     }
 }
