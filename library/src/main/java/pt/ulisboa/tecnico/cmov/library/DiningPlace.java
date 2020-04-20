@@ -66,6 +66,8 @@ public class DiningPlace implements Serializable {
 
     public double[] getCoordinates(){ return this.coordinates; }
 
+    public LatLng getCoordinatesLatLng(){ return new LatLng(this.coordinates[0], this.coordinates[1]); }
+
     public synchronized void addDish(Dish dish){
         dish.setDiningPlace(this.name);
         this.dishes.add(dish);

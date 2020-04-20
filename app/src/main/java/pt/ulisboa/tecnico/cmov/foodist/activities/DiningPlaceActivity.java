@@ -3,6 +3,7 @@ package pt.ulisboa.tecnico.cmov.foodist.activities;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -13,6 +14,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.Locale;
 
 import pt.ulisboa.tecnico.cmov.library.DiningPlace;
 import pt.ulisboa.tecnico.cmov.library.Dish;
@@ -115,7 +117,18 @@ public class DiningPlaceActivity extends AppCompatActivity implements AdapterVie
         Intent intent = new Intent(DiningPlaceActivity.this, DiningPlaceMapActivity.class);
         intent.putExtra("coordinates", this.diningPlace.getCoordinates());
         intent.putExtra( "diningOptionName", this.diningPlace.getName());
+        intent.putExtra("campus", this.diningPlace.getCampus());
         startActivity(intent);
+
+        //ALTERNATIVE (LIGHTER):
+        //Skip the entirety of DiningPlaceMapActivity and go straight to directions:
+
+        /*
+        String uri = String.format(Locale.ENGLISH, "http://maps.google.com/maps?daddr=%f,%f (%s)", this.diningPlace.getCoordinates()[0], this.diningPlace.getCoordinates()[1], this.diningPlace.getName());
+        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(uri));
+        intent.setPackage("com.google.android.apps.maps");
+        startActivity(intent);
+         */
     }
 
     @Override
