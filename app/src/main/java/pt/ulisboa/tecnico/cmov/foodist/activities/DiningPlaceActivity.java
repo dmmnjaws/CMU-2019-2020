@@ -111,6 +111,11 @@ public class DiningPlaceActivity extends AppCompatActivity implements AdapterVie
         listOfDishes.setAdapter(dishAdapter);
     }
 
+    public void checkLocationOnClick(View view){
+        Intent intent = new Intent(DiningPlaceActivity.this, DiningPlaceMapActivity.class);
+        startActivity(intent);
+    }
+
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
