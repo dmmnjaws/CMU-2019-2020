@@ -24,3 +24,14 @@ Tempo esperado de espera nas filas dos restaurantes.
 
 NOTAS:
 Se fizermos uma interface de chat entre amigos, podemos explorar o lab4 sobre como fazer WIFI Groups.
+
+
+Gostariamos de focar o feedback nas seguintes questões:
+
+1 - A nossa aplicação assume que todos os pratos são adicionados por utilizadores, ou seja, no inicio da aplicação, só estão presentes os restaurantes e depois cada restaurante terá de popular o seu menu com os pratos disponiveis. (E cada utilizador pode adicionar um prato, dar rating a pratos já existentes, e colocar fotos em pratos já existentes.) Isto está bom como está?
+
+2 - Por enquanto o nosso sistema de queues é limitado, apenas considera a quantidade de gente que está à nossa volta a uma determinada altura independentemente do restaurante, para combater isto tivemos uma ideia e estavamos a pensar implementá-la até para abrir as portas para podermos eventualmente implementar "Meta-Moderation" no futuro, queriamos saber se é uma boa ideia ou se há outra sugestão por parte do professor.
+
+2.1 - Um telemóvel "administrador" terá de estar átivo no restaurante X e este sim calcula a quantidade de dispositivos à sua volta e infere um tempo de espera, o tempo de espera é obtido pelo utilizador fazendo um pedido por sockets a este telemóvel administrador. (Isto implicaria criar um novo projeto de android studio). Concretizando isto, a partir desse telemovel administrador, o dono do restaurante por exemplo poderia também pedir ao servidor os pratos/imagens que as pessoas adicionaram a este restaurante e remover o conteudo não apropriado. Poderia também adicionar ele próprio os pratos ao menu do seu restaurante, para "publicitar".
+
+3 - Para autenticação de clientes podemos assumir que eles já estão registados no sistema ou temos de implementar um formulário para criar uma conta? 

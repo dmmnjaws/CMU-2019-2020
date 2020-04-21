@@ -17,6 +17,7 @@ import pt.ulisboa.tecnico.cmov.library.DishesView;
 public class State {
 
     private ArrayList<DishesView> dishesViews;
+    private Map<String, String> usernamesPasswords;
 
     public State(){
         populate();
@@ -25,6 +26,7 @@ public class State {
     public void populate(){
 
         this.dishesViews = new ArrayList<>();
+        this.usernamesPasswords = new HashMap<>();
         //FOR TEST PURPOSES:
         this.dishesViews.add(new DishesView("Alameda", "Frankie Hot Dogs", new ArrayList<Dish>()));
         this.dishesViews.add(new DishesView("Alameda", "Ali Baba Kebab Haus", new ArrayList<Dish>()));
@@ -35,8 +37,20 @@ public class State {
         this.dishesViews.add(new DishesView("Taguspark", "GreenBar Tagus", new ArrayList<Dish>()));
         this.dishesViews.add(new DishesView("Taguspark", "Momentum", new ArrayList<Dish>()));
         this.dishesViews.add(new DishesView("Taguspark", "Panorâmico by Marlene Vieira", new ArrayList<Dish>()));
+        this.usernamesPasswords.put("", "");
+        this.usernamesPasswords.put("johny", "1234567890");
+        this.usernamesPasswords.put("Maria", "0987654321");
 
+    }
 
+    public boolean authenticate(String usernameAuthenticate, String passwordAuthenticate){
+
+        String password = this.usernamesPasswords.get(usernameAuthenticate);
+        if (password == null || !password.equals(passwordAuthenticate)){
+            return false;
+        }
+
+        return true;
     }
 
     public void addDish(Dish dish){

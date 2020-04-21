@@ -1,15 +1,29 @@
 package pt.ulisboa.tecnico.cmov.foodist;
 
 import android.app.Application;
+import android.content.ComponentName;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
+import android.content.ServiceConnection;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
+import android.os.IBinder;
+import android.os.Messenger;
 import android.util.Log;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.ExecutionException;
 
+import pt.inesc.termite.wifidirect.SimWifiP2pBroadcast;
+import pt.inesc.termite.wifidirect.SimWifiP2pManager;
+import pt.inesc.termite.wifidirect.service.SimWifiP2pService;
+import pt.ulisboa.tecnico.cmov.foodist.activities.DiningPlaceActivity;
+import pt.ulisboa.tecnico.cmov.foodist.asynctasks.ClientAuthenticator;
 import pt.ulisboa.tecnico.cmov.foodist.asynctasks.StateLoader;
 import pt.ulisboa.tecnico.cmov.library.DiningPlace;
 import pt.ulisboa.tecnico.cmov.library.Dish;
@@ -27,6 +41,11 @@ public class GlobalState extends Application {
     private Map<String, ArrayList<DiningPlace>> diningOptions;
     private int actualCategory;
 
+    private SimWifiP2pManager mManager = null;
+    private SimWifiP2pManager.Channel mChannel = null;
+    private boolean mBound = false;
+    private SimWifiP2pBroadcastReceiver mReceiver;
+
     public GlobalState(){
         this.categories = new String[] {"Student", "Researcher", "Professor", "Staff", "General Public"};
         this.actualCategory = 0;
@@ -39,15 +58,30 @@ public class GlobalState extends Application {
         // TO DO authentication
         this.username = username;
         this.password = password;
-        this.loggedIn = true;
 
-        if (this.diningOptions == null){ populate(); }
+        ClientAuthenticator clientAuthenticator = new ClientAuthenticator(this.username, this.password);
 
+        try{
+            this.loggedIn = (boolean) clientAuthenticator.execute().get();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
-        StateLoader stateLoader = new StateLoader(this);
-        stateLoader.execute();
+        if (this.loggedIn){
 
+            if(this.diningOptions == null) {
 
+                populate();
+
+                StateLoader stateLoader = new StateLoader(this);
+                stateLoader.execute();
+
+                prepareWiFiDirect();
+            }
+
+        } else {
+            Toast.makeText(getApplicationContext(), "You're not authenticated.", Toast.LENGTH_SHORT).show();
+        }
     }
 
     public synchronized void setState(ArrayList<DishesView> dishesViews){
@@ -75,6 +109,50 @@ public class GlobalState extends Application {
         }
 
     }
+
+    public void prepareWiFiDirect(){
+
+        // LIKE IN LAB 4: register broadcast receiver
+        IntentFilter filter = new IntentFilter();
+        filter.addAction(SimWifiP2pBroadcast.WIFI_P2P_STATE_CHANGED_ACTION);
+        filter.addAction(SimWifiP2pBroadcast.WIFI_P2P_PEERS_CHANGED_ACTION);
+        filter.addAction(SimWifiP2pBroadcast.WIFI_P2P_NETWORK_MEMBERSHIP_CHANGED_ACTION);
+        filter.addAction(SimWifiP2pBroadcast.WIFI_P2P_GROUP_OWNERSHIP_CHANGED_ACTION);
+        setmReceiver(new SimWifiP2pBroadcastReceiver());
+        registerReceiver(mReceiver, filter);
+
+        // LIKE IN LAB 4: Bind WiFi Direct
+        Intent intent = new Intent(getBaseContext(), SimWifiP2pService.class);
+        bindService(intent, mConnection, Context.BIND_AUTO_CREATE);
+        mBound = true;
+
+    }
+
+    public SimWifiP2pBroadcastReceiver getMReceiver(){ return this.mReceiver; }
+    public SimWifiP2pManager getMManager(){ return this.mManager; }
+    public SimWifiP2pManager.Channel getMChannel(){ return this.mChannel; }
+    public ServiceConnection getMConnection(){ return this.mConnection; }
+    public boolean getMbound(){ return this.mBound; }
+    public boolean setMBound(boolean mBound){ return this.mBound = mBound; }
+    public void setmReceiver(SimWifiP2pBroadcastReceiver mReceiver){ this.mReceiver = mReceiver;}
+
+    private ServiceConnection mConnection = new ServiceConnection() {
+        // LIKE IN LAB 4: callbacks for service binding, passed to bindService()
+
+        @Override
+        public void onServiceConnected(ComponentName className, IBinder service) {
+            mManager = new SimWifiP2pManager(new Messenger(service));
+            mChannel = mManager.initialize(getApplicationContext(), getMainLooper(), null);
+            mBound = true;
+        }
+
+        @Override
+        public void onServiceDisconnected(ComponentName arg0) {
+            mManager = null;
+            mChannel = null;
+            mBound = false;
+        }
+    };
 
     public DiningPlace getDiningOption(String campus, String diningOptionName){
 

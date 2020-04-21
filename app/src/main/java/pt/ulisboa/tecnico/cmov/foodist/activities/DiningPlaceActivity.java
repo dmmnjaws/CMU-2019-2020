@@ -2,16 +2,8 @@ package pt.ulisboa.tecnico.cmov.foodist.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.app.AlertDialog;
-import android.content.ComponentName;
-import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.IntentFilter;
-import android.content.ServiceConnection;
 import android.os.Bundle;
-import android.os.IBinder;
-import android.os.Messenger;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -23,12 +15,9 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
-import pt.inesc.termite.wifidirect.SimWifiP2pBroadcast;
 import pt.inesc.termite.wifidirect.SimWifiP2pDevice;
 import pt.inesc.termite.wifidirect.SimWifiP2pDeviceList;
 import pt.inesc.termite.wifidirect.SimWifiP2pManager;
-import pt.inesc.termite.wifidirect.service.SimWifiP2pService;
-import pt.ulisboa.tecnico.cmov.foodist.SimWifiP2pBroadcastReceiver;
 import pt.ulisboa.tecnico.cmov.library.DiningPlace;
 import pt.ulisboa.tecnico.cmov.library.Dish;
 import pt.ulisboa.tecnico.cmov.foodist.adapters.DishAdapter;
@@ -40,12 +29,6 @@ public class DiningPlaceActivity extends AppCompatActivity implements AdapterVie
     private DiningPlace diningPlace;
     private GlobalState globalState;
     private String campus;
-    private String queueTime;
-
-    private SimWifiP2pManager mManager = null;
-    private SimWifiP2pManager.Channel mChannel = null;
-    private boolean mBound = false;
-    private SimWifiP2pBroadcastReceiver mReceiver;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -100,26 +83,18 @@ public class DiningPlaceActivity extends AppCompatActivity implements AdapterVie
             }
         });
 
-        // LIKE IN LAB 4: register broadcast receiver
-        IntentFilter filter = new IntentFilter();
-        filter.addAction(SimWifiP2pBroadcast.WIFI_P2P_STATE_CHANGED_ACTION);
-        filter.addAction(SimWifiP2pBroadcast.WIFI_P2P_PEERS_CHANGED_ACTION);
-        filter.addAction(SimWifiP2pBroadcast.WIFI_P2P_NETWORK_MEMBERSHIP_CHANGED_ACTION);
-        filter.addAction(SimWifiP2pBroadcast.WIFI_P2P_GROUP_OWNERSHIP_CHANGED_ACTION);
-        mReceiver = new SimWifiP2pBroadcastReceiver(this);
-        registerReceiver(mReceiver, filter);
-
-        // LIKE IN LAB 4: Bind WiFi Direct
-        Intent intent = new Intent(getBaseContext(), SimWifiP2pService.class);
-        bindService(intent, mConnection, Context.BIND_AUTO_CREATE);
-        mBound = true;
+        // LIKE IN LAB 4: Request peers in range
+        if (this.globalState.getMbound()) {
+            this.globalState.getMManager().requestPeers(this.globalState.getMChannel(), DiningPlaceActivity.this);
+        } else {
+            Toast.makeText(getBaseContext(), "Could not calculate queue time for this restaurant.", Toast.LENGTH_SHORT).show();
+        }
 
     }
 
     @Override
     public void onPause() {
         super.onPause();
-        unregisterReceiver(mReceiver);
     }
 
     @Override
@@ -130,17 +105,6 @@ public class DiningPlaceActivity extends AppCompatActivity implements AdapterVie
 
         populateActivity(diningOptionName);
 
-    }
-
-    @Override
-    protected void onStop(){
-        super.onStop();
-
-        // LIKE IN LAB 4: Unbind WiKi Direct
-        if (mBound) {
-            unbindService(mConnection);
-            mBound = false;
-        }
     }
 
     public void optionsButtonOnClick(View view) {
@@ -193,35 +157,9 @@ public class DiningPlaceActivity extends AppCompatActivity implements AdapterVie
 
     }
 
-    private ServiceConnection mConnection = new ServiceConnection() {
-        // LIKE IN LAB 4: callbacks for service binding, passed to bindService()
-
-        @Override
-        public void onServiceConnected(ComponentName className, IBinder service) {
-            mManager = new SimWifiP2pManager(new Messenger(service));
-            mChannel = mManager.initialize(getApplication(), getMainLooper(), null);
-            mBound = true;
-
-            // LIKE IN LAB 4: Request peers in range
-            if (mBound) {
-                mManager.requestPeers(mChannel, DiningPlaceActivity.this);
-            } else {
-                Toast.makeText(getBaseContext(), "Could not calculate queue time for this restaurant.", Toast.LENGTH_SHORT).show();
-            }
-
-        }
-
-        @Override
-        public void onServiceDisconnected(ComponentName arg0) {
-            mManager = null;
-            mChannel = null;
-            mBound = false;
-        }
-    };
-
     @Override
     public void onPeersAvailable(SimWifiP2pDeviceList peers) {
-        // LIKE IN LAB 4: when peers detected
+        // LIKE IN LAB 4: when peers detected...
 
         StringBuilder peersStr = new StringBuilder();
 

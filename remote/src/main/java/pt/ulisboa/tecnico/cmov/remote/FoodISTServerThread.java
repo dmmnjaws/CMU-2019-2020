@@ -50,13 +50,19 @@ public class FoodISTServerThread implements Runnable {
                     break;
 
                 case "addRating":
-                    String diningOptionName = ((String) inputStream.readObject());
-                    String dishName = ((String) inputStream.readObject());
-                    String username = ((String) inputStream.readObject());
-                    float rating = ((float) inputStream.readObject());
+                    String diningOptionName = (String) inputStream.readObject();
+                    String dishName = (String) inputStream.readObject();
+                    String username = (String) inputStream.readObject();
+                    float rating = (float) inputStream.readObject();
                     state.addRating(diningOptionName, dishName, username,rating);
                     System.out.println("AddRating: Added rating to server");
                     break;
+
+                case "authenticate":
+                    String usernameAuthenticate = (String) inputStream.readObject();
+                    String passwordAuthenticate = (String) inputStream.readObject();
+                    boolean isAuthenticated = this.state.authenticate(usernameAuthenticate, passwordAuthenticate);
+                    outputStream.writeObject(isAuthenticated);
             }
 
         } catch (Exception ex) {
