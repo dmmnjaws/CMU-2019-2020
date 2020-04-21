@@ -1,2 +1,2 @@
-include ':app', ':library', ':remote'
+include ':app', ':library', ':remote', ':Termite-WifiP2P-API'
 rootProject.name='FoodIST'

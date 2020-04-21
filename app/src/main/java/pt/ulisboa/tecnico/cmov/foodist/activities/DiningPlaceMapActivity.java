@@ -43,7 +43,7 @@ public class DiningPlaceMapActivity extends FragmentActivity implements OnMapRea
 
         mapFragment.getMapAsync(this);
     }
-    
+
     @Override
     public void onMapReady(GoogleMap googleMap) {
 

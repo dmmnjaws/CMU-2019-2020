@@ -31,7 +31,7 @@ public class DiningPlace implements Serializable {
 
         this.dishes = new ArrayList<>();
         this.schedule = schedule;
-        this.queueTime = "0";
+        this.queueTime = "... calculating ...";
         this.campus = campus;
         this.coordinates = new double[]{v,v1};
     }
@@ -75,5 +75,9 @@ public class DiningPlace implements Serializable {
 
     public void setDishes(ArrayList<Dish> dishes){
         this.dishes = dishes;
+    }
+
+    public void setQueueTime(String queueTime){
+        this.queueTime = queueTime;
     }
 }

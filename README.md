@@ -15,9 +15,12 @@ X Quando o utilizador clica no "Enter" do teclado, o teclado tem de desaparecer
 X Opção de mudar username e imagem de perfil.
 X Spinner com os campus
 X Rating de quem adiciona o prato tem de ser atualizado no sistema
-Localização dos restaurantes
+X Localização dos restaurantes
 X Database e e afins
 Formatar imagens de restaurantes de forma a que fiquem quadradas e corretas
 Formatar imagem de perfil de forma a que fique sempre redonda
 X Corrigir populações duplicadas do estado local
 Tempo esperado de espera nas filas dos restaurantes.
+
+NOTAS:
+Se fizermos uma interface de chat entre amigos, podemos explorar o lab4 sobre como fazer WIFI Groups.
