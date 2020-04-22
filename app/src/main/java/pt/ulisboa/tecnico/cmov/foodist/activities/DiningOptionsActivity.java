@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Spinner;
 
@@ -54,6 +55,7 @@ public class DiningOptionsActivity extends AppCompatActivity implements AdapterV
 
         });
 
+        authenticateCheck();
         populateActivity(spinner.getSelectedItem().toString());
 
     }
@@ -84,5 +86,11 @@ public class DiningOptionsActivity extends AppCompatActivity implements AdapterV
     @Override
     public void onNothingSelected(AdapterView<?> parent) {
 
+    }
+
+    public void authenticateCheck(){
+        if (!this.globalState.isLoggedIn()){
+            ((Button) findViewById(R.id.optionsButton)).setEnabled(false);
+        }
     }
 }

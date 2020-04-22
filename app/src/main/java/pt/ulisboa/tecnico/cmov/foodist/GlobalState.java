@@ -71,20 +71,25 @@ public class GlobalState extends Application {
             e.printStackTrace();
         }
 
+        if(this.diningOptions == null) {
+
+            populate();
+
+            StateLoader stateLoader = new StateLoader(this);
+            stateLoader.execute();
+
+        }
+
         if (this.loggedIn){
 
-            if(this.diningOptions == null) {
-
-                populate();
-
-                StateLoader stateLoader = new StateLoader(this);
-                stateLoader.execute();
-
-                prepareWiFiDirect();
-            }
+            prepareWiFiDirect();
 
         } else {
-            Toast.makeText(getApplicationContext(), "You're not authenticated.", Toast.LENGTH_SHORT).show();
+
+            // TO DO: Fazer isto de forma mais elegante no futuro.
+            Toast.makeText(getApplicationContext(), "The bad news: Either that account doesn't exist, or your password is incorrect. Without an account you can't post...", Toast.LENGTH_LONG).show();
+            Toast.makeText(getApplicationContext(), "The good news: You can still explore!", Toast.LENGTH_LONG).show();
+
         }
     }
 
@@ -131,7 +136,7 @@ public class GlobalState extends Application {
         double alamedaLong = Double.parseDouble(this.campusCoordinates.get("Alameda").split(",")[1]);
 
         double tagusLat = Double.parseDouble(this.campusCoordinates.get("Taguspark").split(",")[0]);
-        double tagusLong = Double.parseDouble(this.campusCoordinates.get("Taguspark").split(",")[0]);
+        double tagusLong = Double.parseDouble(this.campusCoordinates.get("Taguspark").split(",")[1]);
 
         double distAlameda = distance(userLat, userLong, alamedaLat, alamedaLong, 0, 0);
         double distTagus = distance(userLat, userLong, tagusLat, tagusLong, 0, 0);

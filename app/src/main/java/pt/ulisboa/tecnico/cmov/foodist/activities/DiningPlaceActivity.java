@@ -7,8 +7,10 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.RatingBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -69,7 +71,8 @@ public class DiningPlaceActivity extends AppCompatActivity implements AdapterVie
 
 
         View buttonInflater = (View) getLayoutInflater().inflate(R.layout.upload_button,null);
-        ImageButton addDishButton = (ImageButton) buttonInflater.findViewById(R.id.upload);
+        Button addDishButton = (Button) buttonInflater.findViewById(R.id.upload);
+        addDishButton.setText("Upload Dish");
         listOfDishes.addFooterView(buttonInflater);
 
         addDishButton.setOnClickListener(new View.OnClickListener() {
@@ -89,6 +92,8 @@ public class DiningPlaceActivity extends AppCompatActivity implements AdapterVie
         } else {
             Toast.makeText(getBaseContext(), "Could not calculate queue time for this restaurant.", Toast.LENGTH_SHORT).show();
         }
+
+        authenticateCheck(addDishButton);
 
     }
 
@@ -161,17 +166,19 @@ public class DiningPlaceActivity extends AppCompatActivity implements AdapterVie
     public void onPeersAvailable(SimWifiP2pDeviceList peers) {
         // LIKE IN LAB 4: when peers detected...
 
-        StringBuilder peersStr = new StringBuilder();
-
         int queueTime = 0;
 
-        // compile list of devices in range
-        for (SimWifiP2pDevice device : peers.getDeviceList()) {
-            queueTime++;
-        }
+        queueTime = peers.getDeviceList().size();
 
         this.diningPlace.setQueueTime(queueTime + " minutes");
         ((TextView) findViewById(R.id.diningOptionQueueTime)).setText("Average queue time: " + this.diningPlace.getQueueTime());
 
+    }
+
+    public void authenticateCheck(Button addDishButton){
+        if (!this.globalState.isLoggedIn()){
+            ((Button) findViewById(R.id.optionsButton)).setEnabled(false);
+            addDishButton.setEnabled(false);
+        }
     }
 }

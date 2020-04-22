@@ -34,4 +34,4 @@ Gostariamos de focar o feedback nas seguintes questões:
 
 2.1 - Um telemóvel "administrador" terá de estar átivo no restaurante X e este sim calcula a quantidade de dispositivos à sua volta e infere um tempo de espera, o tempo de espera é obtido pelo utilizador fazendo um pedido por sockets a este telemóvel administrador. (Isto implicaria criar um novo projeto de android studio). Concretizando isto, a partir desse telemovel administrador, o dono do restaurante por exemplo poderia também pedir ao servidor os pratos/imagens que as pessoas adicionaram a este restaurante e remover o conteudo não apropriado. Poderia também adicionar ele próprio os pratos ao menu do seu restaurante, para "publicitar".
 
-3 - Para autenticação de clientes podemos assumir que eles já estão registados no sistema ou temos de implementar um formulário para criar uma conta? 
+3 - Coordenadas aparecem corretamente no pc do meu colega e aparecem erradas no meu pc.

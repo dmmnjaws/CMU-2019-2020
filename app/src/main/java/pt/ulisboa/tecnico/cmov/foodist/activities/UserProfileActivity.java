@@ -46,29 +46,10 @@ public class UserProfileActivity extends AppCompatActivity implements AdapterVie
 
         TextView usernameView = (TextView) findViewById(R.id.username);
         usernameView.setText(this.globalState.getUsername());
-        usernameView.addTextChangedListener(new TextWatcher() {
-
-            @Override
-            public void afterTextChanged(Editable s) {
-            }
-
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                globalState.setUsername(s.toString());
-            }
-
-        });
 
         if (this.globalState.getProfilePicture() != null){
             ((ImageView) findViewById(R.id.profilePicture)).setImageBitmap(this.globalState.getProfilePicture());
         }
-    }
-
-    public void changeUsername(View view) {
     }
 
     public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {

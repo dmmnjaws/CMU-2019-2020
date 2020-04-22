@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.RatingBar;
@@ -48,7 +49,8 @@ public class DishActivity extends AppCompatActivity implements AdapterView.OnIte
         ListView listOfDishImages = (ListView) findViewById(R.id.listOfDishImages);
 
         View buttonInflater = (View) getLayoutInflater().inflate(R.layout.upload_button,null);
-        ImageButton uploadButton = (ImageButton) buttonInflater.findViewById(R.id.upload);
+        Button uploadButton = (Button) buttonInflater.findViewById(R.id.upload);
+        uploadButton.setText("Upload Picture");
         listOfDishImages.addHeaderView(buttonInflater);
 
         uploadButton.setOnClickListener(new View.OnClickListener() {
@@ -104,6 +106,8 @@ public class DishActivity extends AppCompatActivity implements AdapterView.OnIte
                 addRating.execute();
             }
         });
+
+        authenticateCheck(uploadButton);
 
     }
 
@@ -172,6 +176,15 @@ public class DishActivity extends AppCompatActivity implements AdapterView.OnIte
     @Override
     public void onNothingSelected(AdapterView<?> parent) {
 
+    }
+
+    public void authenticateCheck(Button addImageButton){
+        if (!this.globalState.isLoggedIn()){
+            ((Button) findViewById(R.id.optionsButton)).setEnabled(false);
+            addImageButton.setEnabled(false);
+            ((RatingBar) findViewById(R.id.ratingBar)).setEnabled(false);
+
+        }
     }
 
 }

@@ -22,7 +22,7 @@
         android:id="@+id/optionsButton"
         android:layout_width="86dp"
         android:layout_height="60dp"
-        android:text="Options"
+        android:text="Profile"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="0.984"
         app:layout_constraintLeft_toLeftOf="parent"

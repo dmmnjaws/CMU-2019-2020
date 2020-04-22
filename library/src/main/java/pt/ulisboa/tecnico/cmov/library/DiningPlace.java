@@ -26,7 +26,7 @@ public class DiningPlace implements Serializable {
         this.address = address;
 
         ByteArrayOutputStream stream = new ByteArrayOutputStream();
-        thumbnail.compress(Bitmap.CompressFormat.PNG, 100, stream);
+        Bitmap.createScaledBitmap(thumbnail, 50, 50, false).compress(Bitmap.CompressFormat.PNG, 100, stream);
         this.thumbnail = stream.toByteArray();
 
         this.dishes = new ArrayList<>();
