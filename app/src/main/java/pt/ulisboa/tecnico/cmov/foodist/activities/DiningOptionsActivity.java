@@ -36,7 +36,7 @@ public class DiningOptionsActivity extends AppCompatActivity implements AdapterV
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
 
-        spinner.setSelection(0);
+        spinner.setSelection(this.globalState.getNearestCampus());
         spinner.setOnItemSelectedListener(this);
 
         ListView listOfDiningPlaces = (ListView) findViewById(R.id.listOfDiningPlaces);

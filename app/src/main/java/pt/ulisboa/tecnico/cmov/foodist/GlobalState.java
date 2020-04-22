@@ -14,6 +14,8 @@ import android.os.Messenger;
 import android.util.Log;
 import android.widget.Toast;
 
+import java.lang.Math;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -36,10 +38,12 @@ public class GlobalState extends Application {
     private String password;
     private Bitmap profilePicture;
     private String[] campuses;
+    private Map<String,String> campusCoordinates;
     private boolean loggedIn;
     private String[] categories;
     private Map<String, ArrayList<DiningPlace>> diningOptions;
     private int actualCategory;
+    private String userCoordinates;
 
     private SimWifiP2pManager mManager = null;
     private SimWifiP2pManager.Channel mChannel = null;
@@ -107,7 +111,57 @@ public class GlobalState extends Application {
                 this.actualCategory = i;
             }
         }
+    }
 
+    public void setUserCoordinates(String location){
+        System.out.println(location);
+        this.userCoordinates = location;
+    }
+
+    public String getUserCoordinates(){
+        return this.userCoordinates;
+    }
+
+    public int getNearestCampus(){
+
+        double userLat = Double.parseDouble(this.userCoordinates.split(",")[0]);
+        double userLong = Double.parseDouble(this.userCoordinates.split(",")[1]);
+
+        double alamedaLat = Double.parseDouble(this.campusCoordinates.get("Alameda").split(",")[0]);
+        double alamedaLong = Double.parseDouble(this.campusCoordinates.get("Alameda").split(",")[1]);
+
+        double tagusLat = Double.parseDouble(this.campusCoordinates.get("Taguspark").split(",")[0]);
+        double tagusLong = Double.parseDouble(this.campusCoordinates.get("Taguspark").split(",")[0]);
+
+        double distAlameda = distance(userLat, userLong, alamedaLat, alamedaLong, 0, 0);
+        double distTagus = distance(userLat, userLong, tagusLat, tagusLong, 0, 0);
+
+        if(distAlameda > distTagus){
+            return 1;
+        }else{
+            return 0;
+        }
+
+    }
+
+    public static double distance(double lat1, double lat2, double lon1,
+                                  double lon2, double el1, double el2) {
+
+        final int R = 6371; // Radius of the earth
+
+        double latDistance = Math.toRadians(lat2 - lat1);
+        double lonDistance = Math.toRadians(lon2 - lon1);
+        double a = Math.sin(latDistance / 2) * Math.sin(latDistance / 2)
+                + Math.cos(Math.toRadians(lat1)) * Math.cos(Math.toRadians(lat2))
+                * Math.sin(lonDistance / 2) * Math.sin(lonDistance / 2);
+        double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+        double distance = R * c * 1000; // convert to meters
+
+        double height = el1 - el2;
+
+        distance = Math.pow(distance, 2) + Math.pow(height, 2);
+
+        return Math.sqrt(distance);
     }
 
     public void prepareWiFiDirect(){
@@ -321,6 +375,9 @@ public class GlobalState extends Application {
         addDiningOption(new DiningPlace("Santorini Coffee", "Av. Manuel da Maia 19 a", customBitMapper(R.drawable.santorini), defaultSchedule, "Alameda", 38.735667, -9.136884));
         addDiningOption(new DiningPlace("Kokoro Ramen Bar", "Av. Rovisco Pais 30A", customBitMapper(R.drawable.ramen), defaultSchedule, "Alameda", 38.735341, -9.137885));
 
+        this.campusCoordinates = new HashMap<>();
+        this.campusCoordinates.put("Alameda","38.736796,-9.138670");
+        this.campusCoordinates.put("Taguspark","38.737333,-9.302568");
 
     }
 
