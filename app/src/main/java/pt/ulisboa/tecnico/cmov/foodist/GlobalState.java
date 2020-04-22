@@ -26,6 +26,7 @@ import pt.inesc.termite.wifidirect.SimWifiP2pManager;
 import pt.inesc.termite.wifidirect.service.SimWifiP2pService;
 import pt.ulisboa.tecnico.cmov.foodist.activities.DiningPlaceActivity;
 import pt.ulisboa.tecnico.cmov.foodist.asynctasks.ClientAuthenticator;
+import pt.ulisboa.tecnico.cmov.foodist.asynctasks.CreateAccount;
 import pt.ulisboa.tecnico.cmov.foodist.asynctasks.StateLoader;
 import pt.ulisboa.tecnico.cmov.library.DiningPlace;
 import pt.ulisboa.tecnico.cmov.library.Dish;
@@ -80,17 +81,23 @@ public class GlobalState extends Application {
 
         }
 
-        if (this.loggedIn){
+        prepareWiFiDirect();
 
-            prepareWiFiDirect();
+    }
 
-        } else {
+    public void logWithoutAccount(){
 
-            // TO DO: Fazer isto de forma mais elegante no futuro.
-            Toast.makeText(getApplicationContext(), "The bad news: Either that account doesn't exist, or your password is incorrect. Without an account you can't post...", Toast.LENGTH_LONG).show();
-            Toast.makeText(getApplicationContext(), "The good news: You can still explore!", Toast.LENGTH_LONG).show();
+        if(this.diningOptions == null) {
+
+            populate();
+
+            StateLoader stateLoader = new StateLoader(this);
+            stateLoader.execute();
 
         }
+
+        prepareWiFiDirect();
+
     }
 
     public synchronized void setState(ArrayList<DishesView> dishesViews){
@@ -99,6 +106,31 @@ public class GlobalState extends Application {
                 (getDiningOption(dishesView.getCampus(), dishesView.getDiningPlace())).setDishes(dishesView.getDishes());
             }
         }
+    }
+
+    public boolean createAccount(String username, String password){
+
+        CreateAccount createAccount = new CreateAccount(username, password);
+
+        boolean isCreated = false;
+
+        try{
+             isCreated = (boolean) createAccount.execute().get();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        if (isCreated){
+            this.username = username;
+            this.password = password;
+            this.loggedIn = true;
+
+        } else {
+            Toast.makeText(getApplicationContext(), "That username is already taken...", Toast.LENGTH_LONG).show();
+        }
+
+        return isCreated;
+
     }
 
     public void setUsername(String username) {
@@ -358,6 +390,10 @@ public class GlobalState extends Application {
             return null;
 
         }
+    }
+
+    public void setLoggedIn(boolean loggedIn){
+        this.loggedIn = loggedIn;
     }
 
     public void populate(){

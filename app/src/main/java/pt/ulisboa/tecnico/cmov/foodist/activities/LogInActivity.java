@@ -40,7 +40,7 @@ public class LogInActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_log_in);
-        this.setTitle("FoodIST - Log In");
+        this.setTitle("FoodIST - Logging In...");
         this.globalState = (GlobalState) getApplication();
 
         if (this.globalState.isLoggedIn() == true) {
@@ -54,6 +54,12 @@ public class LogInActivity extends AppCompatActivity {
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
         getLocation();
 
+    }
+
+    @Override
+    protected void onResume(){
+        super.onResume();
+        this.globalState.setLoggedIn(false);
     }
 
     @SuppressLint("MissingPermission")
@@ -143,6 +149,17 @@ public class LogInActivity extends AppCompatActivity {
         this.globalState.login(username, password);
         //Log.i("username and password", username + " | " + password);
 
+        if(this.globalState.isLoggedIn()){
+            Intent intent = new Intent(LogInActivity.this, DiningOptionsActivity.class);
+            startActivity(intent);
+        } else {
+            // TO DO: Fazer isto de forma mais elegante no futuro.
+            Toast.makeText(getApplicationContext(), "Incorrect credentials...", Toast.LENGTH_LONG).show();
+        }
+    }
+
+    public void proceedButtonOnClick(View view) {
+        this.globalState.logWithoutAccount();
         Intent intent = new Intent(LogInActivity.this, DiningOptionsActivity.class);
         startActivity(intent);
     }

@@ -90,4 +90,14 @@ public class State {
 
     public ArrayList<DishesView> getDishes(){ return this.dishesViews; }
 
+    public boolean createAccount(String newUsername, String newPassword){
+
+        if(usernamesPasswords.containsKey(newUsername)){
+            return false;
+        } else{
+            usernamesPasswords.put(newUsername, newPassword);
+            return true;
+        }
+    }
+
 }

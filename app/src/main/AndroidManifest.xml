@@ -2,7 +2,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="pt.ulisboa.tecnico.cmov.foodist">
-
     <!--
          The ACCESS_COARSE/FINE_LOCATION permissions are not required to use
          Google Maps Android API v2, but you must specify either coarse or fine
@@ -22,9 +21,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
-        tools:replace="android:icon"
-        tools:ignore="GoogleAppIndexingWarning">
-
+        tools:ignore="GoogleAppIndexingWarning"
+        tools:replace="android:icon">
+        <activity android:name=".activities.CreateAccountActivity"></activity>
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").
@@ -39,7 +38,7 @@
 
         <activity
             android:name=".activities.DiningPlaceMapActivity"
-            android:label="@string/title_activity_dining_place_map"></activity>
+            android:label="@string/title_activity_dining_place_map" />
         <activity android:name=".activities.DishUploadActivity" />
         <activity android:name=".activities.DishPictureActivity" />
         <activity android:name=".activities.DishActivity" />
@@ -54,17 +53,18 @@
             </intent-filter>
         </activity>
 
-        <receiver android:name=".SimWifiP2pBroadcastReceiver"  android:exported="true">
+        <receiver
+            android:name=".SimWifiP2pBroadcastReceiver"
+            android:exported="true">
             <intent-filter>
-                <action android:name="android.intent.action.WIFI_P2P_CONNECTION_CHANGED_ACTION"/>
-                <action android:name="android.intent.action.WIFI_P2P_PEERS_CHANGED_ACTION"/>
-                <action android:name="android.intent.action.WIFI_P2P_STATE_CHANGED_ACTION"/>
-                <action android:name="android.intent.action.WIFI_P2P_THIS_DEVICE_CHANGED_ACTION"/>
+                <action android:name="android.intent.action.WIFI_P2P_CONNECTION_CHANGED_ACTION" />
+                <action android:name="android.intent.action.WIFI_P2P_PEERS_CHANGED_ACTION" />
+                <action android:name="android.intent.action.WIFI_P2P_STATE_CHANGED_ACTION" />
+                <action android:name="android.intent.action.WIFI_P2P_THIS_DEVICE_CHANGED_ACTION" />
             </intent-filter>
         </receiver>
 
         <service android:name="pt.inesc.termite.wifidirect.service.SimWifiP2pService" />
-
     </application>
 
 </manifest>

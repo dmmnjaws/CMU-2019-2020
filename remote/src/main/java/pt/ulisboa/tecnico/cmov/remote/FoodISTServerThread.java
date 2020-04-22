@@ -63,6 +63,15 @@ public class FoodISTServerThread implements Runnable {
                     String passwordAuthenticate = (String) inputStream.readObject();
                     boolean isAuthenticated = this.state.authenticate(usernameAuthenticate, passwordAuthenticate);
                     outputStream.writeObject(isAuthenticated);
+                    System.out.println("Authenticate: Authenticated client in the server");
+
+
+                case "createAccount":
+                    String newUsername = (String) inputStream.readObject();
+                    String newPassword = (String) inputStream.readObject();
+                    boolean isCreated = this.state.createAccount(newUsername, newPassword);
+                    System.out.println("CreateAccount: Created account added to server");
+                    outputStream.writeObject(isCreated);
             }
 
         } catch (Exception ex) {

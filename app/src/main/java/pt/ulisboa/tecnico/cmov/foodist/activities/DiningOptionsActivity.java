@@ -2,6 +2,8 @@ package pt.ulisboa.tecnico.cmov.foodist.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -90,6 +92,23 @@ public class DiningOptionsActivity extends AppCompatActivity implements AdapterV
 
     public void authenticateCheck(){
         if (!this.globalState.isLoggedIn()){
+
+            new AlertDialog.Builder(this)
+                    .setTitle("You're still not registered!?")
+                    .setMessage("The good news: you're still able to see what's up with the restaurants around you. The bad news: you won't be able to share your dishes and opinions without an account. So... what are you waiting for?")
+                    .setPositiveButton("Create Account", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            Intent intent = new Intent(DiningOptionsActivity.this, CreateAccountActivity.class);
+                            startActivity(intent);
+                            finish();
+                        }
+                    })
+                    .setNegativeButton("No thanks", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                        }
+                    })
+                    .show();
+
             ((Button) findViewById(R.id.optionsButton)).setEnabled(false);
         }
     }

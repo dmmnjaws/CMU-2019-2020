@@ -4,11 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activities.LogInActivity">
-
+    tools:context=".activities.CreateAccountActivity">
 
     <EditText
-        android:id="@+id/username"
+        android:id="@+id/newUsername"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="10"
@@ -20,11 +19,11 @@
         app:layout_constraintVertical_bias="0.536" />
 
     <Button
-        android:id="@+id/logInButton"
+        android:id="@+id/createAccountButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:onClick="logInButtonOnClick"
-        android:text="Log In"
+        android:onClick="createAccountButtonClick"
+        android:text="Create Account"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -33,7 +32,7 @@
         app:layout_constraintVertical_bias="0.759" />
 
     <TextView
-        android:id="@+id/passwordTextView"
+        android:id="@+id/newPasswordTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Password:"
@@ -44,21 +43,8 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.619" />
 
-    <Button
-        android:id="@+id/proceedButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:onClick="proceedButtonOnClick"
-        android:text="Proceed without an account..."
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.496"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.841" />
-
     <TextView
-        android:id="@+id/usernameTextView"
+        android:id="@+id/newUsernameTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Username:"
@@ -70,7 +56,7 @@
         app:layout_constraintVertical_bias="0.49" />
 
     <EditText
-        android:id="@+id/password"
+        android:id="@+id/newPassword"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="10"
@@ -80,6 +66,5 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.67" />
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>
