@@ -52,25 +52,19 @@ public class LogInActivity extends AppCompatActivity {
         }
 
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
-        getLastLocation();
+        getLocation();
 
     }
 
     @SuppressLint("MissingPermission")
-    private void getLastLocation(){
+    private void getLocation(){
         if (checkPermissions()) {
             if (isLocationEnabled()) {
                 mFusedLocationClient.getLastLocation().addOnCompleteListener(
                         new OnCompleteListener<Location>() {
                             @Override
                             public void onComplete(@NonNull Task<Location> task) {
-                                Location location = task.getResult();
-                                if (location == null) {
-                                    requestNewLocationData();
-                                } else {
-                                    GlobalState gS = (GlobalState) getApplication();
-                                    gS.setUserCoordinates(location.getLatitude() + "," + location.getLongitude());
-                                }
+                                requestNewLocationData();
                             }
                         }
                 );
@@ -138,7 +132,7 @@ public class LogInActivity extends AppCompatActivity {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         if (requestCode == PERMISSION_ID) {
             if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                getLastLocation();
+                getLocation();
             }
         }
     }
