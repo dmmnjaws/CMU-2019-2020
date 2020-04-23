@@ -19,6 +19,45 @@
         app:layout_constraintTop_toTopOf="@+id/diningOptionImage"
         app:layout_constraintVertical_bias="0.022" />
 
+    <TextView
+        android:id="@+id/queueTime"
+        android:layout_width="294dp"
+        android:layout_height="29dp"
+        android:text="Queue Time here..."
+        android:textSize="18dp"
+        app:layout_constraintBottom_toTopOf="@id/walkingTime"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintLeft_toRightOf="@id/arrowImageView"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <TextView
+        android:id="@+id/walkingTime"
+        android:layout_width="294dp"
+        android:layout_height="29dp"
+        android:text="Walking Time here..."
+        android:textSize="18dp"
+        app:layout_constraintBottom_toBottomOf="@id/arrowImageView"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintLeft_toRightOf="@id/arrowImageView"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <RatingBar
+        android:id="@+id/diningPlaceRatingBar"
+        style="@style/Widget.AppCompat.RatingBar.Indicator"
+        android:layout_width="180dp"
+        android:layout_height="35dp"
+        android:numStars="5"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.93"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@id/queueTime"
+        app:layout_constraintVertical_bias="0.0" />
+
     <ImageView
         android:id="@+id/diningOptionImage"
         android:layout_width="74dp"
@@ -47,12 +86,12 @@
 
     <ImageView
         android:id="@+id/arrowImageView"
-        android:layout_width="32dp"
-        android:layout_height="76dp"
+        android:layout_width="38dp"
+        android:layout_height="137dp"
         android:rotation="0"
+        android:src="@android:drawable/title_bar_tall"
         app:layout_constraintRight_toLeftOf="@+id/diningOptionImage"
-        app:layout_constraintTop_toTopOf="@+id/diningOptionImage"
-        android:src="@android:drawable/title_bar_tall" />
+        app:layout_constraintTop_toTopOf="@+id/diningOptionImage" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

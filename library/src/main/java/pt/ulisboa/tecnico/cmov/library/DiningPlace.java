@@ -19,7 +19,10 @@ public class DiningPlace implements Serializable {
     private ArrayList<Dish> dishes;
     private String[] schedule;
     private String queueTime;
+    private String walkingTime;
     private double[] coordinates;
+
+    private float rating;
 
     public DiningPlace(String name, String address, Bitmap thumbnail, String[] schedule, String campus, double v, double v1){
         this.name = name;
@@ -32,8 +35,11 @@ public class DiningPlace implements Serializable {
         this.dishes = new ArrayList<>();
         this.schedule = schedule;
         this.queueTime = "... calculating ...";
+        this.walkingTime = "... calculating ...";
         this.campus = campus;
         this.coordinates = new double[]{v,v1};
+
+        this.rating = 0;
     }
 
     public String getName() {
@@ -62,6 +68,8 @@ public class DiningPlace implements Serializable {
 
     public String getQueueTime() { return this.queueTime; }
 
+    public String getWalkingTime() { return this.walkingTime; }
+
     public String getCampus() { return this.campus; }
 
     public double[] getCoordinates(){ return this.coordinates; }
@@ -80,4 +88,23 @@ public class DiningPlace implements Serializable {
     public void setQueueTime(String queueTime){
         this.queueTime = queueTime;
     }
+
+    public void setWalkingTime(String walkingTime){
+        this.walkingTime = walkingTime;
+    }
+
+    public void calculateRating(){
+
+        float rating = 0;
+
+        for (Dish dish: dishes){
+            rating += dish.getRating();
+        }
+
+        this.rating = rating;
+    }
+
+    public float getRating(){
+        calculateRating();
+        return this.rating / this.dishes.size(); }
 }

@@ -6,11 +6,6 @@ import java.net.*;
 import pt.ulisboa.tecnico.cmov.library.Dish;
 import pt.ulisboa.tecnico.cmov.library.DishImage;
 
-/**
- * This thread is responsible to handle client connection.
- *
- * @author www.codejava.net
- */
 public class FoodISTServerThread implements Runnable {
 
     private Socket socket;

@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -40,10 +41,16 @@ public class DiningOptionAdapter extends ArrayAdapter<DiningPlace> {
         TextView diningOptionName = (TextView) convertView.findViewById(R.id.diningOptionName);
         TextView diningOptionAddress = (TextView) convertView.findViewById(R.id.diningOptionAddress);
         ImageView diningOptionImage = (ImageView) convertView.findViewById(R.id.diningOptionImage);
+        RatingBar diningPlaceRatingBar = (RatingBar) convertView.findViewById(R.id.diningPlaceRatingBar);
+        TextView walkingTime = (TextView) convertView.findViewById(R.id.walkingTime);
+        TextView queueTime = (TextView) convertView.findViewById(R.id.queueTime);
 
         diningOptionName.setText(diningPlace.getName());
         diningOptionAddress.setText(diningPlace.getAddress());
         diningOptionImage.setImageBitmap(diningPlace.getThumbnail());
+        diningPlaceRatingBar.setRating(diningPlace.getRating());
+        walkingTime.setText(diningPlace.getWalkingTime());
+        queueTime.setText(diningPlace.getQueueTime());
 
         return convertView;
     }

@@ -23,6 +23,7 @@ import pt.ulisboa.tecnico.cmov.foodist.R;
 public class DiningOptionsActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
     private GlobalState globalState;
+    Spinner spinner;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,7 +33,7 @@ public class DiningOptionsActivity extends AppCompatActivity implements AdapterV
         this.setTitle("FoodIST - Campus");
         this.globalState = (GlobalState) getApplication();
 
-        Spinner spinner = findViewById(R.id.chooseCampusSpinner);
+        this.spinner = findViewById(R.id.chooseCampusSpinner);
 
         String[] campuses = this.globalState.getCampuses();
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, campuses);
@@ -58,8 +59,13 @@ public class DiningOptionsActivity extends AppCompatActivity implements AdapterV
         });
 
         authenticateCheck();
-        populateActivity(spinner.getSelectedItem().toString());
 
+    }
+
+    @Override
+    protected void onResume () {
+        super.onResume();
+        populateActivity(this.spinner.getSelectedItem().toString());
     }
 
     public void optionsButtonOnClick(View view) {
