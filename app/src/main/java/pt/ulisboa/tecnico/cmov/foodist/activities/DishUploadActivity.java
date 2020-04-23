@@ -20,6 +20,7 @@ import pt.ulisboa.tecnico.cmov.foodist.asynctasks.StateLoader;
 import pt.ulisboa.tecnico.cmov.library.Dish;
 import pt.ulisboa.tecnico.cmov.foodist.GlobalState;
 import pt.ulisboa.tecnico.cmov.foodist.R;
+import pt.ulisboa.tecnico.cmov.library.DishImage;
 
 public class DishUploadActivity extends Activity {
 
@@ -67,12 +68,15 @@ public class DishUploadActivity extends Activity {
         String dishPrice = ((EditText) findViewById(R.id.insertPrice)).getText().toString();
         float dishRating = ((RatingBar) findViewById(R.id.ratingBar)).getRating();
 
-        if(dishName.equals("") || dishPrice.equals("") || dishImage == null) {
+        if(dishName.equals("") || dishPrice.equals("")) {
             Toast.makeText(getApplicationContext(), "You forgot one or more parameters!", Toast.LENGTH_SHORT).show();
             return;
         }
 
-        Dish newDish = new Dish(dishName, dishPrice, dishRating, this.dishImage, this.globalState.getUsername());
+        Dish newDish = new Dish(dishName, dishPrice, dishRating, this.globalState.getUsername());
+        if (this.dishImage != null){
+            newDish.addImage(new DishImage(this.globalState.getUsername(), this.dishImage, diningOptionName, dishName));
+        }
         this.globalState.addDish(this.campus, this.diningOptionName, newDish);
 
         AddDishRemotely addDishRemotely = new AddDishRemotely(newDish);

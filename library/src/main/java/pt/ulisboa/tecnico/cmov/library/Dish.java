@@ -18,19 +18,12 @@ public class Dish implements Serializable {
     private Map<String, Float> voterRatings;
     private float rating;
 
-    //TO DO: ADD BITMAP THUMBNAIL
-    private byte[] thumbnail;
     private ArrayList<DishImage> dishImages;
 
-    public Dish(String name, String cost, float rating, Bitmap thumbnail, String userName){
+    public Dish(String name, String cost, float rating, String userName){
         this.name = name;
         this.cost = cost + " €";
         this.rating = rating;
-
-        ByteArrayOutputStream stream = new ByteArrayOutputStream();
-        Bitmap.createScaledBitmap(thumbnail, 50, 50, false).compress(Bitmap.CompressFormat.PNG, 100, stream);
-        this.thumbnail = stream.toByteArray();
-
         this.voterRatings = new HashMap<>();
         this.voterRatings.put(userName,rating);
         this.dishImages = new ArrayList<>();
@@ -45,9 +38,6 @@ public class Dish implements Serializable {
     }
 
     public float getRating() { return this.rating/this.voterRatings.size(); }
-
-    public Bitmap getThumbnail(){ return BitmapFactory.decodeByteArray(this.thumbnail, 0, this.thumbnail.length);
-    }
 
     public void setDiningPlace(String name){ this.diningPlace = name; }
 
@@ -89,5 +79,14 @@ public class Dish implements Serializable {
         }
 
         return null;
+    }
+
+    public Bitmap getThumbnail(){
+
+        if(dishImages.size() != 0){
+            return Bitmap.createScaledBitmap(dishImages.get(0).getBitmap(), 50, 50, false);
+        } else {
+            return null;
+        }
     }
 }
