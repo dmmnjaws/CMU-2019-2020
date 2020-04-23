@@ -37,6 +37,7 @@ public class DishActivity extends AppCompatActivity implements AdapterView.OnIte
     private Dish dish;
     private String diningOptionName;
     private String campus;
+    private RatingBar.OnRatingBarChangeListener listener;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -96,8 +97,7 @@ public class DishActivity extends AppCompatActivity implements AdapterView.OnIte
         spinner.setSelection(this.globalState.getDishIndex(this.campus, this.diningOptionName, dishName));
         spinner.setOnItemSelectedListener(this);
 
-        RatingBar ratingBar = (RatingBar) findViewById(R.id.ratingBar);
-        ratingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
+        this.listener = new RatingBar.OnRatingBarChangeListener() {
 
             @Override
             public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
@@ -105,7 +105,7 @@ public class DishActivity extends AppCompatActivity implements AdapterView.OnIte
                 AddRatingRemotely addRating = new AddRatingRemotely(diningOptionName,dish.getName(),globalState.getUsername(),rating);
                 addRating.execute();
             }
-        });
+        };
 
         authenticateCheck(uploadButton);
 
@@ -159,7 +159,11 @@ public class DishActivity extends AppCompatActivity implements AdapterView.OnIte
 
         ((TextView) findViewById(R.id.dishName)).setText(dishName);
         ((TextView) findViewById(R.id.dishCost)).setText(this.dish.getCost());
-        ((RatingBar) findViewById(R.id.ratingBar)).setRating(this.dish.getUserRating(this.globalState.getUsername()));
+
+        RatingBar ratingBar = (RatingBar) findViewById(R.id.ratingBar);
+        ratingBar.setOnRatingBarChangeListener(null);
+        ratingBar.setRating(this.dish.getUserRating(this.globalState.getUsername()));
+        ratingBar.setOnRatingBarChangeListener(this.listener);
 
         DishImageAdapter dishImageAdapter = new DishImageAdapter(getApplicationContext(), R.layout.list_item_dish_image, this.dish.getImages());
         listOfDishImages.setAdapter(dishImageAdapter);
