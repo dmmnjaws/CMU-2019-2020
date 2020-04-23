@@ -170,8 +170,12 @@ public class GlobalState extends Application {
         double tagusLat = Double.parseDouble(this.campusCoordinates.get("Taguspark").split(",")[0]);
         double tagusLong = Double.parseDouble(this.campusCoordinates.get("Taguspark").split(",")[1]);
 
-        double distAlameda = distance(userLat, userLong, alamedaLat, alamedaLong, 0, 0);
-        double distTagus = distance(userLat, userLong, tagusLat, tagusLong, 0, 0);
+        double distAlameda = distance(userLat, alamedaLat, userLong, alamedaLong);
+        double distTagus = distance(userLat, tagusLat, userLong, tagusLong);
+
+        if(distAlameda >= 8 && distTagus >= 8){
+            return 2;
+        }
 
         if(distAlameda > distTagus){
             return 1;
@@ -182,23 +186,17 @@ public class GlobalState extends Application {
     }
 
     public static double distance(double lat1, double lat2, double lon1,
-                                  double lon2, double el1, double el2) {
+                                  double lon2) {
 
-        final int R = 6371; // Radius of the earth
+        final int R = 6371;
 
-        double latDistance = Math.toRadians(lat2 - lat1);
-        double lonDistance = Math.toRadians(lon2 - lon1);
-        double a = Math.sin(latDistance / 2) * Math.sin(latDistance / 2)
-                + Math.cos(Math.toRadians(lat1)) * Math.cos(Math.toRadians(lat2))
-                * Math.sin(lonDistance / 2) * Math.sin(lonDistance / 2);
-        double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-        double distance = R * c * 1000; // convert to meters
-
-        double height = el1 - el2;
-
-        distance = Math.pow(distance, 2) + Math.pow(height, 2);
-
-        return Math.sqrt(distance);
+        Double latDistance = (lat2-lat1) * Math.PI / 180;
+        Double lonDistance = (lon2-lon1) * Math.PI / 180;
+        Double a = Math.sin(latDistance / 2) * Math.sin(latDistance / 2) +
+                Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) *
+                        Math.sin(lonDistance / 2) * Math.sin(lonDistance / 2);
+        Double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+        return R * c;
     }
 
     public void prepareWiFiDirect(){

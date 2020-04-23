@@ -40,7 +40,6 @@ public class DiningOptionsActivity extends AppCompatActivity implements AdapterV
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
 
-        spinner.setSelection(this.globalState.getNearestCampus());
         spinner.setOnItemSelectedListener(this);
 
         ListView listOfDiningPlaces = (ListView) findViewById(R.id.listOfDiningPlaces);
@@ -60,11 +59,14 @@ public class DiningOptionsActivity extends AppCompatActivity implements AdapterV
 
         authenticateCheck();
 
+        closestCampusCheck();
+
     }
 
     @Override
     protected void onResume () {
         super.onResume();
+
         populateActivity(this.spinner.getSelectedItem().toString());
     }
 
@@ -116,6 +118,34 @@ public class DiningOptionsActivity extends AppCompatActivity implements AdapterV
                     .show();
 
             ((Button) findViewById(R.id.optionsButton)).setEnabled(false);
+        }
+    }
+
+    public void closestCampusCheck(){
+
+        int closestCampus = this.globalState.getNearestCampus();
+
+        if (closestCampus == 2){
+
+            new AlertDialog.Builder(this)
+                    .setTitle("Where are you?")
+                    .setMessage("We could not detect you to be close to a campus. Which campus would you like to see?")
+                    .setNeutralButton("Alameda", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            spinner.setSelection(0);
+                        }
+                    })
+                    .setPositiveButton("Taguspark", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            spinner.setSelection(1);
+                        }
+                    })
+                    .show();
+
+        } else {
+
+            this.spinner.setSelection(closestCampus);
+
         }
     }
 }
