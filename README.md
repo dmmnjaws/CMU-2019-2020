@@ -33,4 +33,5 @@ X - Walking Time na DiniingOptionsActivity (Ainda não funciona)
 X - Correções ao mapa: mapa mostra a "pequeno" onde fica o restaurante, e clicamos neste mapa para obter as "direções"
 X - Corrigir spinner do campus que não está a funcionar.
 X - Detetar se utilizador não está perto de nenhum dos campuses.
- - Corrigir BUG: Sempre que um cliente entra na página de um prato, o rating é "readicionado" ao server. Embora seja idempotente, está a gastar recursos ao fazer pedidos desnecessários.
+X - Não há thumbnails obrigatórias nos dishes.
+X - Corrigir BUG: Sempre que um cliente entra na página de um prato, o rating é "readicionado" ao server. Embora seja idempotente, está a gastar recursos ao fazer pedidos desnecessários.

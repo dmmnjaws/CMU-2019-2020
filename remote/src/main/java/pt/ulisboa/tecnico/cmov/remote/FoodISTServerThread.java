@@ -59,6 +59,7 @@ public class FoodISTServerThread implements Runnable {
                     boolean isAuthenticated = this.state.authenticate(usernameAuthenticate, passwordAuthenticate);
                     outputStream.writeObject(isAuthenticated);
                     System.out.println("Authenticate: Authenticated client in the server");
+                    break;
 
 
                 case "createAccount":
@@ -67,6 +68,7 @@ public class FoodISTServerThread implements Runnable {
                     boolean isCreated = this.state.createAccount(newUsername, newPassword);
                     System.out.println("CreateAccount: Created account added to server");
                     outputStream.writeObject(isCreated);
+                    break;
             }
 
         } catch (Exception ex) {
