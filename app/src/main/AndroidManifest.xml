@@ -36,9 +36,6 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
 
-        <activity
-            android:name=".activities.DiningPlaceMapActivity"
-            android:label="@string/title_activity_dining_place_map" />
         <activity android:name=".activities.DishUploadActivity" />
         <activity android:name=".activities.DishPictureActivity" />
         <activity android:name=".activities.DishActivity" />

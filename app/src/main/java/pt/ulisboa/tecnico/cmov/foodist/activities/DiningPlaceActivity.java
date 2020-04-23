@@ -15,6 +15,15 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.MapView;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
+import com.google.android.gms.maps.model.MarkerOptions;
+
 import java.util.ArrayList;
 
 import pt.inesc.termite.wifidirect.SimWifiP2pDevice;
@@ -26,11 +35,12 @@ import pt.ulisboa.tecnico.cmov.foodist.adapters.DishAdapter;
 import pt.ulisboa.tecnico.cmov.foodist.GlobalState;
 import pt.ulisboa.tecnico.cmov.foodist.R;
 
-public class DiningPlaceActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener, SimWifiP2pManager.PeerListListener {
+public class DiningPlaceActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener, SimWifiP2pManager.PeerListListener, OnMapReadyCallback {
 
     private DiningPlace diningPlace;
     private GlobalState globalState;
     private String campus;
+    private GoogleMap mMap;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -131,24 +141,9 @@ public class DiningPlaceActivity extends AppCompatActivity implements AdapterVie
         ArrayList<Dish> dishes = this.diningPlace.getDishes();
         DishAdapter dishAdapter = new DishAdapter(getApplicationContext(), R.layout.list_row_dish, dishes);
         listOfDishes.setAdapter(dishAdapter);
-    }
 
-    public void checkLocationOnClick(View view){
-        Intent intent = new Intent(DiningPlaceActivity.this, DiningPlaceMapActivity.class);
-        intent.putExtra("coordinates", this.diningPlace.getCoordinates());
-        intent.putExtra( "diningOptionName", this.diningPlace.getName());
-        intent.putExtra("campus", this.diningPlace.getCampus());
-        startActivity(intent);
-
-        //ALTERNATIVE (LIGHTER):
-        //Skip the entirety of DiningPlaceMapActivity and go straight to directions:
-
-        /*
-        String uri = String.format(Locale.ENGLISH, "http://maps.google.com/maps?daddr=%f,%f (%s)", this.diningPlace.getCoordinates()[0], this.diningPlace.getCoordinates()[1], this.diningPlace.getName());
-        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(uri));
-        intent.setPackage("com.google.android.apps.maps");
-        startActivity(intent);
-         */
+        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
+        mapFragment.getMapAsync(this);
     }
 
     @Override
@@ -180,5 +175,18 @@ public class DiningPlaceActivity extends AppCompatActivity implements AdapterVie
             ((Button) findViewById(R.id.optionsButton)).setEnabled(false);
             addDishButton.setEnabled(false);
         }
+    }
+
+    @Override
+    public void onMapReady(GoogleMap googleMap) {
+
+        this.mMap = googleMap;
+        googleMap.clear();
+        LatLng diningPlaceCoordinates = new LatLng(this.diningPlace.getCoordinates()[0], this.diningPlace.getCoordinates()[1]);
+        Marker thisMarker = this.mMap.addMarker(new MarkerOptions().position(diningPlaceCoordinates).title(this.diningPlace.getName()));
+
+        this.mMap.moveCamera(CameraUpdateFactory.newLatLng(diningPlaceCoordinates));
+        thisMarker.showInfoWindow();
+        this.mMap.setMinZoomPreference(16);
     }
 }

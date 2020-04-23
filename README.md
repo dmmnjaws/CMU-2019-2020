@@ -28,8 +28,9 @@ X - Ratings dos restaurantes
 - Histogramas com ratings para os pratos e restaurantes
 - Cache (Oh boy...)
 - Corrigir Wi-Fi direct com os bluetooth beacons (Oh boy... pt2)
-- Waiting Time na DiningOptionsActivity
-- Walking Time na DiniingOptionsActivity
+X - Waiting Time na DiningOptionsActivity
+X - Walking Time na DiniingOptionsActivity (Ainda não funciona)
 - Correções ao mapa: mapa mostra a "pequeno" onde fica o restaurante, e clicamos neste mapa para obter as "direções"
 X - Corrigir spinner do campus que não está a funcionar.
 X - Detetar se utilizador não está perto de nenhum dos campuses.
+ - Corrigir BUG: Sempre que um cliente entra na página de um prato, o rating é "readicionado" ao server. Embora seja idempotente, está a gastar recursos ao fazer pedidos desnecessários.
