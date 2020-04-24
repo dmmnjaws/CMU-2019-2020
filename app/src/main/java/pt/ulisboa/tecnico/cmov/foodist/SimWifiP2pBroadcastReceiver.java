@@ -9,14 +9,17 @@ import android.widget.Toast;
 import pt.inesc.termite.wifidirect.SimWifiP2pBroadcast;
 import pt.inesc.termite.wifidirect.SimWifiP2pInfo;
 import pt.ulisboa.tecnico.cmov.foodist.activities.DiningPlaceActivity;
+import pt.ulisboa.tecnico.cmov.foodist.asynctasks.BluetoothBeaconDetector;
 
 public class SimWifiP2pBroadcastReceiver extends BroadcastReceiver {
 
     //private Activity mActivity;
+    private GlobalState globalState;
 
-    public SimWifiP2pBroadcastReceiver() {
+    public SimWifiP2pBroadcastReceiver(GlobalState globalState) {
         super();
         //this.mActivity = activity;
+        this.globalState = globalState;
     }
 
     @Override
@@ -42,6 +45,10 @@ public class SimWifiP2pBroadcastReceiver extends BroadcastReceiver {
             // callback on PeerListListener.onPeersAvailable()
 
             //Toast.makeText(mActivity, "Peer list changed", Toast.LENGTH_SHORT).show();
+
+            BluetoothBeaconDetector bluetoothBeaconDetector = new BluetoothBeaconDetector(this.globalState);
+            bluetoothBeaconDetector.execute();
+
 
         } else if (SimWifiP2pBroadcast.WIFI_P2P_NETWORK_MEMBERSHIP_CHANGED_ACTION.equals(action)) {
 

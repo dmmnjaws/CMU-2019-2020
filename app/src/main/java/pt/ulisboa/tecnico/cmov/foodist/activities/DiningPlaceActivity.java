@@ -35,7 +35,7 @@ import pt.ulisboa.tecnico.cmov.foodist.adapters.DishAdapter;
 import pt.ulisboa.tecnico.cmov.foodist.GlobalState;
 import pt.ulisboa.tecnico.cmov.foodist.R;
 
-public class DiningPlaceActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener, SimWifiP2pManager.PeerListListener, OnMapReadyCallback {
+public class DiningPlaceActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener, OnMapReadyCallback {
 
     private DiningPlace diningPlace;
     private GlobalState globalState;
@@ -96,13 +96,6 @@ public class DiningPlaceActivity extends AppCompatActivity implements AdapterVie
             }
         });
 
-        // LIKE IN LAB 4: Request peers in range
-        if (this.globalState.getMbound()) {
-            this.globalState.getMManager().requestPeers(this.globalState.getMChannel(), DiningPlaceActivity.this);
-        } else {
-            Toast.makeText(getBaseContext(), "Could not calculate queue time for this restaurant.", Toast.LENGTH_SHORT).show();
-        }
-
         authenticateCheck(addDishButton);
 
     }
@@ -157,18 +150,7 @@ public class DiningPlaceActivity extends AppCompatActivity implements AdapterVie
 
     }
 
-    @Override
-    public void onPeersAvailable(SimWifiP2pDeviceList peers) {
-        // LIKE IN LAB 4: when peers detected...
 
-        int queueTime = 0;
-
-        queueTime = peers.getDeviceList().size();
-
-        this.diningPlace.setQueueTime(queueTime + " minutes");
-        ((TextView) findViewById(R.id.diningOptionQueueTime)).setText("Average queue time: " + this.diningPlace.getQueueTime());
-
-    }
 
     public void authenticateCheck(Button addDishButton){
         if (!this.globalState.isLoggedIn()){

@@ -50,6 +50,7 @@ public class GlobalState extends Application {
     private SimWifiP2pManager.Channel mChannel = null;
     private boolean mBound = false;
     private SimWifiP2pBroadcastReceiver mReceiver;
+    private String lastKnownBeacon;
 
     public GlobalState(){
         this.categories = new String[] {"Student", "Researcher", "Professor", "Staff", "General Public"};
@@ -207,7 +208,7 @@ public class GlobalState extends Application {
         filter.addAction(SimWifiP2pBroadcast.WIFI_P2P_PEERS_CHANGED_ACTION);
         filter.addAction(SimWifiP2pBroadcast.WIFI_P2P_NETWORK_MEMBERSHIP_CHANGED_ACTION);
         filter.addAction(SimWifiP2pBroadcast.WIFI_P2P_GROUP_OWNERSHIP_CHANGED_ACTION);
-        setmReceiver(new SimWifiP2pBroadcastReceiver());
+        setmReceiver(new SimWifiP2pBroadcastReceiver(this));
         registerReceiver(mReceiver, filter);
 
         // LIKE IN LAB 4: Bind WiFi Direct
@@ -224,6 +225,8 @@ public class GlobalState extends Application {
     public boolean getMbound(){ return this.mBound; }
     public boolean setMBound(boolean mBound){ return this.mBound = mBound; }
     public void setmReceiver(SimWifiP2pBroadcastReceiver mReceiver){ this.mReceiver = mReceiver;}
+    public String getLastKnownBeacon(){ return this.lastKnownBeacon; }
+    public void setLastKnownBeacon(String lastKnownBeacon){ this.lastKnownBeacon = lastKnownBeacon; }
 
     private ServiceConnection mConnection = new ServiceConnection() {
         // LIKE IN LAB 4: callbacks for service binding, passed to bindService()

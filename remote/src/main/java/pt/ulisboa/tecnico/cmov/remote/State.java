@@ -100,4 +100,13 @@ public class State {
         }
     }
 
+    public void joinQueue(String usernameIn, String beaconNameIn, long timestampIn){
+
+    }
+
+    public void leaveQueue(String usernameOut, String beaconNameOut, long timestampOut){
+
+    }
+
+
 }

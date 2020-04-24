@@ -69,6 +69,22 @@ public class FoodISTServerThread implements Runnable {
                     System.out.println("CreateAccount: Created account added to server");
                     outputStream.writeObject(isCreated);
                     break;
+
+                case "joiningQueue":
+                    String usernameIn = (String) inputStream.readObject();
+                    String beaconNameIn = (String) inputStream.readObject();
+                    Long timestampIn = (Long) inputStream.readObject();
+                    this.state.joinQueue(usernameIn, beaconNameIn, timestampIn.longValue());
+                    System.out.println("JoiningQueue: A client joined a queue");
+                    break;
+
+                case "leavingQueue":
+                    String usernameOut = (String) inputStream.readObject();
+                    String beaconNameOut = (String) inputStream.readObject();
+                    Long timestampOut = (Long) inputStream.readObject();
+                    this.state.leaveQueue(usernameOut, beaconNameOut, timestampOut.intValue());
+                    System.out.println("LeavingQueue: A client left a queue");
+                    break;
             }
 
         } catch (Exception ex) {

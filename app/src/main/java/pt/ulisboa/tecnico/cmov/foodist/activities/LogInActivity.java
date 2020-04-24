@@ -153,7 +153,6 @@ public class LogInActivity extends AppCompatActivity {
             Intent intent = new Intent(LogInActivity.this, DiningOptionsActivity.class);
             startActivity(intent);
         } else {
-            // TO DO: Fazer isto de forma mais elegante no futuro.
             Toast.makeText(getApplicationContext(), "Incorrect credentials...", Toast.LENGTH_LONG).show();
         }
     }
