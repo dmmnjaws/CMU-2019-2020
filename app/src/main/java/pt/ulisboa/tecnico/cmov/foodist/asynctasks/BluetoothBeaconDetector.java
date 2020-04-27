@@ -40,12 +40,11 @@ public class BluetoothBeaconDetector extends AsyncTask implements SimWifiP2pMana
                 Toast.makeText(this.globalState.getBaseContext(), "Could not calculate queue times.", Toast.LENGTH_SHORT).show();
             }
 
-            if (!(this.command == null || this.beaconName == null)){
-                outputStream.writeObject(this.command);
-                outputStream.writeObject(this.globalState.getUsername());
-                outputStream.writeObject(this.beaconName);
-                outputStream.writeObject(Long.valueOf(System.currentTimeMillis()));
-            }
+            while(this.command == null || this.beaconName == null){ }
+            outputStream.writeObject(this.command);
+            outputStream.writeObject(this.globalState.getUsername());
+            outputStream.writeObject(this.beaconName);
+            outputStream.writeObject(Long.valueOf(System.currentTimeMillis()));
 
             clientSocket.close();
             Log.d("DEBUG:", "DEBUG - DID ASYNC SERVER READ");

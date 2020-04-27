@@ -97,7 +97,9 @@ public class GlobalState extends Application {
     public synchronized void setState(ArrayList<DishesView> dishesViews){
         if (dishesViews != null){
             for(DishesView dishesView: dishesViews){
-                (getDiningOption(dishesView.getCampus(), dishesView.getDiningPlace())).setDishes(dishesView.getDishes());
+                DiningPlace diningPlace = getDiningOption(dishesView.getCampus(), dishesView.getDiningPlace());
+                diningPlace.setDishes(dishesView.getDishes());
+                diningPlace.setQueueTime(dishesView.getQueueTime());
             }
         }
     }

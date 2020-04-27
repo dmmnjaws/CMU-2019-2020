@@ -14,6 +14,7 @@ public class DishesView implements Serializable {
         this.campus = campus;
         this.diningPlace = diningPlace;
         this.dishes = new ArrayList<>();
+        this.queueTime = "...calculating...";
     }
 
     public String getCampus(){ return this.campus; }
@@ -26,6 +27,10 @@ public class DishesView implements Serializable {
 
     public void setQueueTime(String queueTime){
         this.queueTime = queueTime;
+    }
+
+    public String getQueueTime(){
+        return this.queueTime;
     }
 
 }
