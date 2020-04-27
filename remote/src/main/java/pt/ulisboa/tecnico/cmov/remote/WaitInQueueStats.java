@@ -31,13 +31,13 @@ public class WaitInQueueStats {
         double[] auxAcum = this.acumWaitTimePerNumberOfClients;
         double[] auxNumber = this.numberOfSamplesPerNumberOfClients;
 
-        this.numberOfClients = new double[clients];
-        this.acumWaitTimePerNumberOfClients = new double[clients];
-        this.numberOfSamplesPerNumberOfClients = new double[clients];
+        this.numberOfClients = new double[clients+1];
+        this.acumWaitTimePerNumberOfClients = new double[clients+1];
+        this.numberOfSamplesPerNumberOfClients = new double[clients+1];
 
         for(int i = 0; i < this.currentQueueSize; i++){
             this.numberOfClients[i] = i;
-            if(CURRENT_MAX_NUMBER_OF_CLIENTS <= i){
+            if(CURRENT_MAX_NUMBER_OF_CLIENTS >= i){
                 this.acumWaitTimePerNumberOfClients[i] = auxAcum[i];
                 this.numberOfSamplesPerNumberOfClients[i] = auxNumber[i];
             }else{
@@ -45,6 +45,7 @@ public class WaitInQueueStats {
                 this.acumWaitTimePerNumberOfClients[i] = 0;
             }
         }
+        CURRENT_MAX_NUMBER_OF_CLIENTS = clients;
     }
 
     public void addClientToQueue(){
@@ -77,9 +78,9 @@ public class WaitInQueueStats {
             }
         }
 
-        double[] avgWaitTimePerNumberOfClients = new double[CURRENT_MAX_NUMBER_OF_CLIENTS];
+        double[] avgWaitTimePerNumberOfClients = new double[CURRENT_MAX_NUMBER_OF_CLIENTS+1];
 
-        for(int i = 0; i < CURRENT_MAX_NUMBER_OF_CLIENTS; i++){
+        for(int i = 0; i < CURRENT_MAX_NUMBER_OF_CLIENTS+1; i++){
             avgWaitTimePerNumberOfClients[i] = this.acumWaitTimePerNumberOfClients[i] / this.numberOfSamplesPerNumberOfClients[i];
         }
 

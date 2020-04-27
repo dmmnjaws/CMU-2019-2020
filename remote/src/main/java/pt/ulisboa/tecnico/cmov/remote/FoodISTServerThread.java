@@ -75,7 +75,7 @@ public class FoodISTServerThread implements Runnable {
                     String beaconNameIn = (String) inputStream.readObject();
                     Long timestampIn = (Long) inputStream.readObject();
                     this.state.joinQueue(usernameIn, beaconNameIn, timestampIn.longValue());
-                    System.out.println("JoiningQueue: A client joined a queue");
+                    System.out.println("JoiningQueue: Client " + usernameIn + " joined a queue");
                     break;
 
                 case "leavingQueue":
@@ -83,7 +83,7 @@ public class FoodISTServerThread implements Runnable {
                     String beaconNameOut = (String) inputStream.readObject();
                     Long timestampOut = (Long) inputStream.readObject();
                     this.state.leaveQueue(usernameOut, beaconNameOut, timestampOut.longValue());
-                    System.out.println("LeavingQueue: A client left a queue");
+                    System.out.println("LeavingQueue: Client " + usernameOut + " left a queue");
                     break;
             }
 

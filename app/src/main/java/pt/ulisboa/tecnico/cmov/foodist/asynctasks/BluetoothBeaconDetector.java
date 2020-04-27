@@ -48,7 +48,6 @@ public class BluetoothBeaconDetector extends AsyncTask implements SimWifiP2pMana
                 outputStream.writeObject(Long.valueOf(System.currentTimeMillis()));
             }
 
-
             clientSocket.close();
             Log.d("DEBUG:", "DEBUG - DID ASYNC SERVER READ");
 
