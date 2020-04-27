@@ -29,6 +29,7 @@ import java.util.ArrayList;
 import pt.inesc.termite.wifidirect.SimWifiP2pDevice;
 import pt.inesc.termite.wifidirect.SimWifiP2pDeviceList;
 import pt.inesc.termite.wifidirect.SimWifiP2pManager;
+import pt.ulisboa.tecnico.cmov.foodist.asynctasks.StateLoader;
 import pt.ulisboa.tecnico.cmov.library.DiningPlace;
 import pt.ulisboa.tecnico.cmov.library.Dish;
 import pt.ulisboa.tecnico.cmov.foodist.adapters.DishAdapter;
@@ -112,6 +113,8 @@ public class DiningPlaceActivity extends AppCompatActivity implements AdapterVie
         String diningOptionName = ((Spinner) findViewById(R.id.chooseDiningPlaceSpinner)).getSelectedItem().toString();
 
         populateActivity(diningOptionName);
+        StateLoader stateLoader = new StateLoader(this.globalState);
+        stateLoader.execute();
 
     }
 
