@@ -29,11 +29,9 @@ public class BluetoothBeaconDetector extends AsyncTask implements SimWifiP2pMana
     protected Object doInBackground(Object[] objects) {
 
         try {
-
             Socket clientSocket = new Socket("10.0.2.2", 8000);
             ObjectOutputStream outputStream = new ObjectOutputStream(clientSocket.getOutputStream());
             ObjectInputStream inputStream = new ObjectInputStream(clientSocket.getInputStream());
-
 
             // LIKE IN LAB 4: Request peers in range
             if (this.globalState.getMbound()) {
@@ -53,9 +51,7 @@ public class BluetoothBeaconDetector extends AsyncTask implements SimWifiP2pMana
             Log.d("DEBUG:", "DEBUG - DID ASYNC SERVER READ");
 
         } catch (Exception e) {
-
             e.printStackTrace();
-
         }
 
         return null;
@@ -64,7 +60,6 @@ public class BluetoothBeaconDetector extends AsyncTask implements SimWifiP2pMana
     @Override
     public void onPeersAvailable(SimWifiP2pDeviceList simWifiP2pDeviceList) {
         // LIKE IN LAB 4: when peers detected...
-
         Collection<SimWifiP2pDevice> beaconsList = simWifiP2pDeviceList.getDeviceList();
 
         try {
@@ -82,7 +77,6 @@ public class BluetoothBeaconDetector extends AsyncTask implements SimWifiP2pMana
 
         } catch (Exception e) {
             e.printStackTrace();
-
         }
 
     }

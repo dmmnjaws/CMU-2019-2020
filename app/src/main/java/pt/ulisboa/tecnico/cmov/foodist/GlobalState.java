@@ -1,17 +1,19 @@
 package pt.ulisboa.tecnico.cmov.foodist;
 
 import android.app.Application;
+
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.ServiceConnection;
+
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.os.AsyncTask;
+
 import android.os.IBinder;
 import android.os.Messenger;
-import android.util.Log;
+
 import android.widget.Toast;
 
 import java.lang.Math;
@@ -19,12 +21,11 @@ import java.lang.Math;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.concurrent.ExecutionException;
 
 import pt.inesc.termite.wifidirect.SimWifiP2pBroadcast;
 import pt.inesc.termite.wifidirect.SimWifiP2pManager;
 import pt.inesc.termite.wifidirect.service.SimWifiP2pService;
-import pt.ulisboa.tecnico.cmov.foodist.activities.DiningPlaceActivity;
+
 import pt.ulisboa.tecnico.cmov.foodist.asynctasks.ClientAuthenticator;
 import pt.ulisboa.tecnico.cmov.foodist.asynctasks.CreateAccount;
 import pt.ulisboa.tecnico.cmov.foodist.asynctasks.StateLoader;
@@ -56,12 +57,9 @@ public class GlobalState extends Application {
         this.categories = new String[] {"Student", "Researcher", "Professor", "Staff", "General Public"};
         this.actualCategory = 0;
         this.loggedIn = false;
-
     }
 
     public void login(String username, String password) {
-
-        // TO DO authentication
         this.username = username;
         this.password = password;
 
@@ -74,12 +72,10 @@ public class GlobalState extends Application {
         }
 
         if(this.diningOptions == null) {
-
             populate();
 
             StateLoader stateLoader = new StateLoader(this);
             stateLoader.execute();
-
         }
 
         prepareWiFiDirect();
@@ -89,16 +85,13 @@ public class GlobalState extends Application {
     public void logWithoutAccount(){
 
         if(this.diningOptions == null) {
-
             populate();
 
             StateLoader stateLoader = new StateLoader(this);
             stateLoader.execute();
-
         }
 
         prepareWiFiDirect();
-
     }
 
     public synchronized void setState(ArrayList<DishesView> dishesViews){
@@ -110,9 +103,7 @@ public class GlobalState extends Application {
     }
 
     public boolean createAccount(String username, String password){
-
         CreateAccount createAccount = new CreateAccount(username, password);
-
         boolean isCreated = false;
 
         try{
@@ -131,12 +122,9 @@ public class GlobalState extends Application {
         }
 
         return isCreated;
-
     }
 
-    public void setUsername(String username) {
-        this.username = username;
-    }
+    public void setUsername(String username) { this.username = username; }
 
     public void setPassword(String password) {
         this.password = password;
@@ -219,13 +207,21 @@ public class GlobalState extends Application {
     }
 
     public SimWifiP2pBroadcastReceiver getMReceiver(){ return this.mReceiver; }
+
     public SimWifiP2pManager getMManager(){ return this.mManager; }
+
     public SimWifiP2pManager.Channel getMChannel(){ return this.mChannel; }
+
     public ServiceConnection getMConnection(){ return this.mConnection; }
+
     public boolean getMbound(){ return this.mBound; }
+
     public boolean setMBound(boolean mBound){ return this.mBound = mBound; }
+
     public void setmReceiver(SimWifiP2pBroadcastReceiver mReceiver){ this.mReceiver = mReceiver;}
+
     public String getLastKnownBeacon(){ return this.lastKnownBeacon; }
+
     public void setLastKnownBeacon(String lastKnownBeacon){ this.lastKnownBeacon = lastKnownBeacon; }
 
     private ServiceConnection mConnection = new ServiceConnection() {
@@ -258,7 +254,6 @@ public class GlobalState extends Application {
     }
 
     public int getDiningOptionIndex(String campus, String diningOptionName){
-
         int index = 0;
 
         for (DiningPlace diningPlace : this.diningOptions.get(campus)) {
@@ -287,7 +282,6 @@ public class GlobalState extends Application {
     }
 
     public int getDishIndex(String campus, String diningOptionName, String dishName){
-
         int index = 0;
 
         for (DiningPlace diningPlace : this.diningOptions.get(campus)) {
@@ -305,7 +299,6 @@ public class GlobalState extends Application {
     }
 
     public String[] getDiningOptionNames(String campus){
-
         String[] result = new String[diningOptions.get(campus).size()];
         int index = 0;
 
@@ -318,7 +311,6 @@ public class GlobalState extends Application {
     }
 
     public String[] getDishNames(DiningPlace diningPlace){
-
         String[] result = new String[diningPlace.getDishes().size()];
         int index = 0;
 
@@ -353,7 +345,6 @@ public class GlobalState extends Application {
     public ArrayList<DiningPlace> getDiningOptions(String campus) { return this.diningOptions.get(campus); }
 
     public DishImage getDishImage(String campus, String diningOptionName, String dishName, int imageId){
-
         Dish dish = getDish(campus, diningOptionName, dishName);
         return dish.getDishImage(imageId);
     }
@@ -386,10 +377,8 @@ public class GlobalState extends Application {
 
         try {
             return BitmapFactory.decodeResource(getResources(), imageId);
-
         } catch (Exception e) {
             return null;
-
         }
     }
 
@@ -398,9 +387,7 @@ public class GlobalState extends Application {
     }
 
     public void populate(){
-
         //TO DO: TAKING TOO LONG, SOLVE.
-
         this.diningOptions = new HashMap<>();
         this.diningOptions.put("Alameda", new ArrayList<DiningPlace>());
         this.diningOptions.put("Taguspark", new ArrayList<DiningPlace>());
