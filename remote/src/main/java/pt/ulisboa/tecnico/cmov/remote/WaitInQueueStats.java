@@ -52,13 +52,14 @@ public class WaitInQueueStats {
     }
 
     public void addStatisticData(UserInQueue userEntry, long exitTime){
-        long timeInQueue = (exitTime - userEntry.getTimeOfArrival())/100;
+        long timeInQueue = (exitTime - userEntry.getTimeOfArrival())/1000;
 
         if(CURRENT_MAX_NUMBER_OF_CLIENTS < userEntry.getClientsInQueue()){
             resizeVectors(userEntry.getClientsInQueue());
         }
 
         this.acumWaitTimePerNumberOfClients[userEntry.getClientsInQueue()] += timeInQueue;
+        this.numberOfSamplesPerNumberOfClients[userEntry.getClientsInQueue()] ++;
         this.currentQueueSize--;
     }
 
@@ -72,7 +73,7 @@ public class WaitInQueueStats {
             if(this.acumWaitTimePerNumberOfClients[0] == 0){
                 return "1 min";
             }else {
-                return this.acumWaitTimePerNumberOfClients[0]/this.numberOfSamplesPerNumberOfClients[0]*60 + " min";
+                return ((int) (this.acumWaitTimePerNumberOfClients[0]/this.numberOfSamplesPerNumberOfClients[0])/60) + " min";
             }
         }
 
@@ -84,6 +85,6 @@ public class WaitInQueueStats {
 
         LinearRegression linearRegression = new LinearRegression(this.numberOfClients, avgWaitTimePerNumberOfClients);
 
-        return linearRegression.predict(this.currentQueueSize)/60 + " min";
+        return ((int) linearRegression.predict(this.currentQueueSize)/60) + " min";
     }
 }

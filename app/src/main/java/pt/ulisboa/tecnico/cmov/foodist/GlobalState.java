@@ -152,6 +152,8 @@ public class GlobalState extends Application {
 
     public int getNearestCampus(){
 
+        while(userCoordinates == null){}
+
         double userLat = Double.parseDouble(this.userCoordinates.split(",")[0]);
         double userLong = Double.parseDouble(this.userCoordinates.split(",")[1]);
 
