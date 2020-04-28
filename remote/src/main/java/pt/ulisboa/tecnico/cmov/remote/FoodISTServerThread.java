@@ -2,6 +2,7 @@ package pt.ulisboa.tecnico.cmov.remote;
 
 import java.io.*;
 import java.net.*;
+import java.util.Map;
 
 import pt.ulisboa.tecnico.cmov.library.Dish;
 import pt.ulisboa.tecnico.cmov.library.DishImage;
@@ -35,12 +36,12 @@ public class FoodISTServerThread implements Runnable {
                     break;
 
                 case "addDish":
-                    state.addDish( (Dish) inputStream.readObject() );
+                    this.state.addDish( (Dish) inputStream.readObject() );
                     System.out.println("AddDish: Dish added to server");
                     break;
 
                 case "addDishImage":
-                    state.addDishImage((DishImage) inputStream.readObject());
+                    this.state.addDishImage((DishImage) inputStream.readObject());
                     System.out.println("AddDishImage: Added dish image to server");
                     break;
 
@@ -49,15 +50,33 @@ public class FoodISTServerThread implements Runnable {
                     String dishName = (String) inputStream.readObject();
                     String username = (String) inputStream.readObject();
                     float rating = (float) inputStream.readObject();
-                    state.addRating(diningOptionName, dishName, username,rating);
-                    System.out.println("AddRating: Added rating to server");
+                    this.state.addRating(diningOptionName, dishName, username,rating);
+                    System.out.println("AddRating: Client "+ username + " added rating to server");
+                    break;
+
+                case "addPreferences":
+                    String preferenceUsername = (String) inputStream.readObject();
+                    Map<String, Boolean> newPreferences = (Map<String, Boolean>) inputStream.readObject();
+                    this.state.setPreferences(preferenceUsername, newPreferences);
+                    System.out.println("AddPreferences: Client " + preferenceUsername + " added preferences to server");
                     break;
 
                 case "authenticate":
                     String usernameAuthenticate = (String) inputStream.readObject();
                     String passwordAuthenticate = (String) inputStream.readObject();
-                    boolean isAuthenticated = this.state.authenticate(usernameAuthenticate, passwordAuthenticate);
+                    Map<String, Boolean> preferences = this.state.authenticate(usernameAuthenticate, passwordAuthenticate);
+                    boolean isAuthenticated = true;
+
+                    if (preferences == null){
+                        isAuthenticated = false;
+                    }
+
                     outputStream.writeObject(isAuthenticated);
+
+                    if (isAuthenticated){
+                        outputStream.writeObject(preferences);
+                    }
+
                     System.out.println("Authenticate: Authenticated client in the server");
                     break;
 

@@ -7,18 +7,17 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.util.ArrayList;
+import java.util.Map;
 
 import pt.ulisboa.tecnico.cmov.foodist.GlobalState;
 import pt.ulisboa.tecnico.cmov.library.DishesView;
 
 public class ClientAuthenticator extends AsyncTask {
 
-    private String usernameAuthenticate;
-    private String passwordAuthenticate;
+    private GlobalState globalState;
 
-    public ClientAuthenticator(String usernameAuthenticate, String passwordAuthenticate){
-        this.usernameAuthenticate = usernameAuthenticate;
-        this.passwordAuthenticate = passwordAuthenticate;
+    public ClientAuthenticator(GlobalState globalState){
+        this.globalState = globalState;
     }
 
     protected Object doInBackground(Object[] objects) {
@@ -31,9 +30,13 @@ public class ClientAuthenticator extends AsyncTask {
             ObjectOutputStream outputStream = new ObjectOutputStream(clientSocket.getOutputStream());
             ObjectInputStream inputStream = new ObjectInputStream(clientSocket.getInputStream());
             outputStream.writeObject("authenticate");
-            outputStream.writeObject(this.usernameAuthenticate);
-            outputStream.writeObject(this.passwordAuthenticate);
+            outputStream.writeObject(this.globalState.getUsername());
+            outputStream.writeObject(this.globalState.getPassword());
             isAuthenticated = (boolean) inputStream.readObject();
+            if (isAuthenticated){
+                this.globalState.setPreferences((Map<String, Boolean>) inputStream.readObject());
+            }
+
             clientSocket.close();
             Log.d("DEBUG:", "DEBUG - DID ASYNC SERVER READ");
         } catch (Exception e) {

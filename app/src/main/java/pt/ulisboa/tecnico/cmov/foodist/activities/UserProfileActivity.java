@@ -12,20 +12,25 @@ import android.text.TextWatcher;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.HashMap;
+import java.util.Map;
 
 import pt.ulisboa.tecnico.cmov.foodist.GlobalState;
 import pt.ulisboa.tecnico.cmov.foodist.R;
+import pt.ulisboa.tecnico.cmov.foodist.asynctasks.AddPreferencesRemotely;
 
 public class UserProfileActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
     private static final int GALLERY_REQUEST_CODE = 100;
     private GlobalState globalState;
+    private Map<String, Boolean> preferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +54,29 @@ public class UserProfileActivity extends AppCompatActivity implements AdapterVie
 
         if (this.globalState.getProfilePicture() != null){
             ((ImageView) findViewById(R.id.profilePicture)).setImageBitmap(this.globalState.getProfilePicture());
+        }
+
+        this.preferences = this.globalState.getPreferences();
+        ((CheckBox) findViewById(R.id.vegetarianCheckBox)).setChecked(this.preferences.get("Vegetarian"));
+        ((CheckBox) findViewById(R.id.glutenFreeCheckBox)).setChecked(this.preferences.get("Gluten-Free"));
+        ((CheckBox) findViewById(R.id.meatCheckBox)).setChecked(this.preferences.get("Meat"));
+        ((CheckBox) findViewById(R.id.fishCheckBox)).setChecked(this.preferences.get("Fish"));
+    }
+
+    @Override
+    protected void onPause(){
+        super.onPause();
+
+        Map<String, Boolean> actualPreferences = new HashMap<>();
+        actualPreferences.put("Vegetarian", ((CheckBox) findViewById(R.id.vegetarianCheckBox)).isChecked());
+        actualPreferences.put("Gluten-Free", ((CheckBox) findViewById(R.id.glutenFreeCheckBox)).isChecked());
+        actualPreferences.put("Meat", ((CheckBox) findViewById(R.id.meatCheckBox)).isChecked());
+        actualPreferences.put("Fish", ((CheckBox) findViewById(R.id.fishCheckBox)).isChecked());
+
+        if(!actualPreferences.equals(preferences)){
+            this.globalState.setPreferences(actualPreferences);
+            AddPreferencesRemotely addPreferencesRemotely = new AddPreferencesRemotely(this.globalState.getUsername(), actualPreferences);
+            addPreferencesRemotely.execute();
         }
     }
 

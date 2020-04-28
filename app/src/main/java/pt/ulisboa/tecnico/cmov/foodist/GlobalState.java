@@ -47,6 +47,8 @@ public class GlobalState extends Application {
     private int actualCategory;
     private String userCoordinates;
 
+    private Map<String, Boolean> preferences;
+
     private SimWifiP2pManager mManager = null;
     private SimWifiP2pManager.Channel mChannel = null;
     private boolean mBound = false;
@@ -57,13 +59,19 @@ public class GlobalState extends Application {
         this.categories = new String[] {"Student", "Researcher", "Professor", "Staff", "General Public"};
         this.actualCategory = 0;
         this.loggedIn = false;
+
+        this.preferences = new HashMap<>();
+        this.preferences.put("Vegetarian", true);
+        this.preferences.put("Gluten-Free", true);
+        this.preferences.put("Fish", true);
+        this.preferences.put("Meat", true);
     }
 
     public void login(String username, String password) {
         this.username = username;
         this.password = password;
 
-        ClientAuthenticator clientAuthenticator = new ClientAuthenticator(this.username, this.password);
+        ClientAuthenticator clientAuthenticator = new ClientAuthenticator(this);
 
         try{
             this.loggedIn = (boolean) clientAuthenticator.execute().get();
@@ -118,6 +126,10 @@ public class GlobalState extends Application {
             this.username = username;
             this.password = password;
             this.loggedIn = true;
+            this.preferences.put("Vegetarian", true);
+            this.preferences.put("Gluten-Free", true);
+            this.preferences.put("Fish", true);
+            this.preferences.put("Meat", true);
 
         } else {
             Toast.makeText(getApplicationContext(), "That username is already taken...", Toast.LENGTH_LONG).show();
@@ -344,6 +356,14 @@ public class GlobalState extends Application {
 
     public String getActualCategory(){
         return this.categories[this.actualCategory];
+    }
+
+    public Map<String, Boolean> getPreferences() {
+        return this.preferences;
+    }
+
+    public void setPreferences(Map<String, Boolean> preferences){
+        this.preferences = preferences;
     }
 
     public ArrayList<DiningPlace> getDiningOptions(String campus) { return this.diningOptions.get(campus); }

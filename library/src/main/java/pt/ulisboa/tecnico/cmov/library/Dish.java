@@ -17,6 +17,7 @@ public class Dish implements Serializable {
     private String cost;
     private Map<String, Float> voterRatings;
     private float rating;
+    private Map<String, Boolean> categories;
 
     private ArrayList<DishImage> dishImages;
 
@@ -27,6 +28,12 @@ public class Dish implements Serializable {
         this.voterRatings = new HashMap<>();
         this.voterRatings.put(userName,rating);
         this.dishImages = new ArrayList<>();
+
+        this.categories = new HashMap<>();
+        this.categories.put("Vegetarian", false);
+        this.categories.put("Gluten-Free", false);
+        this.categories.put("Fish", false);
+        this.categories.put("Meat", false);
     }
 
     public String getName() {
@@ -88,5 +95,13 @@ public class Dish implements Serializable {
         } else {
             return null;
         }
+    }
+
+    public Map<String, Boolean> getCategories() {
+        return this.categories;
+    }
+
+    public void setCategories(Map<String, Boolean> categories) {
+        this.categories = categories;
     }
 }

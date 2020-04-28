@@ -19,6 +19,7 @@ public class State {
     private ArrayList<DishesView> dishesViews;
 
     private Map<String, String> usernamesPasswords;
+    private Map<String, Map<String, Boolean>> usernamesPreferences;
     private Map<String, UserInQueue> userQueueMap;
     private Map<String, WaitInQueueStats> queueStatsMap;
 
@@ -30,6 +31,7 @@ public class State {
 
         this.dishesViews = new ArrayList<>();
         this.usernamesPasswords = new HashMap<>();
+        this.usernamesPreferences = new HashMap<>();
         this.userQueueMap = new HashMap<>();
         this.queueStatsMap = new HashMap<>();
         //FOR TEST PURPOSES:
@@ -51,20 +53,20 @@ public class State {
         // TODO
         this.dishesViews.add(new DishesView("Taguspark", "Panorâmico by Marlene Vieira", new ArrayList<Dish>()));
         // TODO
-        this.usernamesPasswords.put("", "");
-        this.usernamesPasswords.put("johny", "1234567890");
-        this.usernamesPasswords.put("Maria", "0987654321");
+        createAccount("", "");
+        createAccount("johny", "1234567890");
+        createAccount("Maria", "0987654321");
 
     }
 
-    public boolean authenticate(String usernameAuthenticate, String passwordAuthenticate){
+    public Map<String, Boolean> authenticate(String usernameAuthenticate, String passwordAuthenticate){
 
         String password = this.usernamesPasswords.get(usernameAuthenticate);
         if (password == null || !password.equals(passwordAuthenticate)){
-            return false;
+            return null;
         }
 
-        return true;
+        return this.usernamesPreferences.get(usernameAuthenticate);
     }
 
     public void addDish(Dish dish){
@@ -107,8 +109,18 @@ public class State {
             return false;
         } else{
             usernamesPasswords.put(newUsername, newPassword);
+            Map<String, Boolean> defaultPreferences = new HashMap<>();
+            defaultPreferences.put("Vegetarian", true);
+            defaultPreferences.put("Gluten-Free", true);
+            defaultPreferences.put("Fish", true);
+            defaultPreferences.put("Meat", true);
+            usernamesPreferences.put(newUsername, defaultPreferences);
             return true;
         }
+    }
+
+    public void setPreferences(String username, Map<String, Boolean> preferences){
+        this.usernamesPreferences.put(username, preferences);
     }
 
     public synchronized void joinQueue(String usernameIn, String beaconNameIn, long timestampIn){
