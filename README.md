@@ -36,3 +36,5 @@ X - Detetar se utilizador não está perto de nenhum dos campuses.
 X - Não há thumbnails obrigatórias nos dishes.
 X - Corrigir BUG: Sempre que um cliente entra na página de um prato, o rating é "readicionado" ao server. Embora seja idempotente, está a gastar recursos ao fazer pedidos desnecessários.
  - Autorização: negar acesso a users já logados (nao pode estar logado em dois telemoveis)
+ - Dishes can have only one category
+ - Scratch "Gluten-Free" and add "Vegetarian"
