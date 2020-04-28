@@ -40,6 +40,8 @@ public class DishActivity extends AppCompatActivity implements AdapterView.OnIte
     private String diningOptionName;
     private String campus;
     private RatingBar.OnRatingBarChangeListener listener;
+    private float inRating;
+    private float outRating;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -103,9 +105,7 @@ public class DishActivity extends AppCompatActivity implements AdapterView.OnIte
 
             @Override
             public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
-                dish.addRating(globalState.getUsername(),rating);
-                AddRatingRemotely addRating = new AddRatingRemotely(diningOptionName,dish.getName(),globalState.getUsername(),rating);
-                addRating.execute();
+                outRating = rating;
             }
         };
 
@@ -147,6 +147,14 @@ public class DishActivity extends AppCompatActivity implements AdapterView.OnIte
 
     }
 
+    @Override
+    protected void onPause(){
+        super.onPause();
+
+        updateRating();
+
+    }
+
     public void optionsButtonOnClick(View view) {
 
         Intent intent = new Intent(DishActivity.this, UserProfileActivity.class);
@@ -162,10 +170,13 @@ public class DishActivity extends AppCompatActivity implements AdapterView.OnIte
         ((TextView) findViewById(R.id.dishName)).setText(dishName);
         ((TextView) findViewById(R.id.dishCost)).setText(this.dish.getCost());
 
+        this.inRating = this.dish.getUserRating(this.globalState.getUsername());
+        this.outRating = this.dish.getUserRating(this.globalState.getUsername());
         RatingBar ratingBar = (RatingBar) findViewById(R.id.ratingBar);
         ratingBar.setOnRatingBarChangeListener(null);
-        ratingBar.setRating(this.dish.getUserRating(this.globalState.getUsername()));
+        ratingBar.setRating(this.inRating);
         ratingBar.setOnRatingBarChangeListener(this.listener);
+
 
         Map<String, Boolean> categories = this.dish.getCategories();
         ((CheckBox) findViewById(R.id.vegetarianCheckBox)).setChecked(categories.get("Vegetarian"));
@@ -181,6 +192,7 @@ public class DishActivity extends AppCompatActivity implements AdapterView.OnIte
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
+        updateRating();
         populateActivity(this.campus, this.diningOptionName, parent.getSelectedItem().toString());
 
     }
@@ -199,4 +211,11 @@ public class DishActivity extends AppCompatActivity implements AdapterView.OnIte
         }
     }
 
+    public void updateRating(){
+        if (outRating != inRating){
+            dish.addRating(globalState.getUsername(),outRating);
+            AddRatingRemotely addRating = new AddRatingRemotely(diningOptionName,dish.getName(),globalState.getUsername(),outRating);
+            addRating.execute();
+        }
+    }
 }
