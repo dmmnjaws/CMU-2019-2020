@@ -70,7 +70,7 @@ public class DishUploadActivity extends Activity {
         float dishRating = ((RatingBar) findViewById(R.id.ratingBar)).getRating();
 
         boolean isVegetarian = ((CheckBox) findViewById(R.id.vegetarianCheckBox)).isChecked();
-        boolean isGlutenFree = ((CheckBox) findViewById(R.id.glutenFreeCheckBox)).isChecked();
+        boolean isVegan = ((CheckBox) findViewById(R.id.veganCheckBox)).isChecked();
         boolean isMeat = ((CheckBox) findViewById(R.id.meatCheckBox)).isChecked();
         boolean isFish = ((CheckBox) findViewById(R.id.fishCheckBox)).isChecked();
 
@@ -84,8 +84,8 @@ public class DishUploadActivity extends Activity {
             return;
         }
 
-        if(!isVegetarian && !isGlutenFree && !isFish && !isMeat){
-            Toast.makeText(getApplicationContext(), "The dish must be of at least one category!", Toast.LENGTH_SHORT).show();
+        if(!isVegetarian && !isVegan && !isFish && !isMeat){
+            Toast.makeText(getApplicationContext(), "You must indicate the category of the dish!", Toast.LENGTH_SHORT).show();
             return;
         }
 
@@ -94,7 +94,7 @@ public class DishUploadActivity extends Activity {
             newDish.addImage(new DishImage(this.globalState.getUsername(), this.dishImage, diningOptionName, dishName));
         }
 
-        newDish.setCategories(isVegetarian, isGlutenFree, isMeat, isFish);
+        newDish.setCategories(isVegetarian, isVegan, isMeat, isFish);
         this.globalState.addDish(this.campus, this.diningOptionName, newDish);
 
         AddDishRemotely addDishRemotely = new AddDishRemotely(newDish);
@@ -119,4 +119,28 @@ public class DishUploadActivity extends Activity {
         }
     }
 
+    public void onCheckboxClicked(View view) {
+
+        CheckBox isVegetarian = (CheckBox) findViewById(R.id.vegetarianCheckBox);
+        CheckBox isVegan = (CheckBox) findViewById(R.id.veganCheckBox);
+        CheckBox isMeat = (CheckBox) findViewById(R.id.meatCheckBox);
+        CheckBox isFish = (CheckBox) findViewById(R.id.fishCheckBox);
+
+        if (isVegetarian != view){
+            isVegetarian.setChecked(false);
+        }
+
+        if (isVegan != view){
+            isVegan.setChecked(false);
+        }
+
+        if (isMeat != view){
+            isMeat.setChecked(false);
+        }
+
+        if (isFish != view){
+            isFish.setChecked(false);
+        }
+
+    }
 }

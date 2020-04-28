@@ -58,7 +58,7 @@ public class UserProfileActivity extends AppCompatActivity implements AdapterVie
 
         this.preferences = this.globalState.getPreferences();
         ((CheckBox) findViewById(R.id.vegetarianCheckBox)).setChecked(this.preferences.get("Vegetarian"));
-        ((CheckBox) findViewById(R.id.glutenFreeCheckBox)).setChecked(this.preferences.get("Gluten-Free"));
+        ((CheckBox) findViewById(R.id.veganCheckBox)).setChecked(this.preferences.get("Vegan"));
         ((CheckBox) findViewById(R.id.meatCheckBox)).setChecked(this.preferences.get("Meat"));
         ((CheckBox) findViewById(R.id.fishCheckBox)).setChecked(this.preferences.get("Fish"));
     }
@@ -69,7 +69,7 @@ public class UserProfileActivity extends AppCompatActivity implements AdapterVie
 
         Map<String, Boolean> actualPreferences = new HashMap<>();
         actualPreferences.put("Vegetarian", ((CheckBox) findViewById(R.id.vegetarianCheckBox)).isChecked());
-        actualPreferences.put("Gluten-Free", ((CheckBox) findViewById(R.id.glutenFreeCheckBox)).isChecked());
+        actualPreferences.put("Vegan", ((CheckBox) findViewById(R.id.veganCheckBox)).isChecked());
         actualPreferences.put("Meat", ((CheckBox) findViewById(R.id.meatCheckBox)).isChecked());
         actualPreferences.put("Fish", ((CheckBox) findViewById(R.id.fishCheckBox)).isChecked());
 

@@ -31,7 +31,7 @@ public class Dish implements Serializable {
 
         this.categories = new HashMap<>();
         this.categories.put("Vegetarian", false);
-        this.categories.put("Gluten-Free", false);
+        this.categories.put("Vegan", false);
         this.categories.put("Fish", false);
         this.categories.put("Meat", false);
     }
@@ -105,9 +105,9 @@ public class Dish implements Serializable {
         this.categories = categories;
     }
 
-    public void setCategories(boolean isVegetarian, boolean isGlutenFree, boolean isMeat, boolean isFish){
+    public void setCategories(boolean isVegetarian, boolean isVegan, boolean isMeat, boolean isFish){
         this.categories.put("Vegetarian", isVegetarian);
-        this.categories.put("Gluten-Free", isGlutenFree);
+        this.categories.put("Vegan", isVegan);
         this.categories.put("Fish", isFish);
         this.categories.put("Meat", isMeat);
     }

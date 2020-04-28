@@ -60,7 +60,7 @@ public class DiningPlace implements Serializable {
         for (Dish dish : this.dishes){
             Map<String, Boolean> categories = dish.getCategories();
             if ((!preferences.get("Vegetarian") && categories.get("Vegetarian")) ||
-                    (!preferences.get("Gluten-Free") && categories.get("Gluten-Free")) ||
+                    (!preferences.get("Vegan") && categories.get("Vegan")) ||
                     (!preferences.get("Meat") && categories.get("Meat")) ||
                     (!preferences.get("Fish") && categories.get("Fish"))){
 

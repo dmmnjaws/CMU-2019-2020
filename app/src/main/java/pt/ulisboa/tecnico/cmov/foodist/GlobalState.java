@@ -62,7 +62,7 @@ public class GlobalState extends Application {
 
         this.preferences = new HashMap<>();
         this.preferences.put("Vegetarian", true);
-        this.preferences.put("Gluten-Free", true);
+        this.preferences.put("Vegan", true);
         this.preferences.put("Fish", true);
         this.preferences.put("Meat", true);
     }
@@ -127,7 +127,7 @@ public class GlobalState extends Application {
             this.password = password;
             this.loggedIn = true;
             this.preferences.put("Vegetarian", true);
-            this.preferences.put("Gluten-Free", true);
+            this.preferences.put("Vegan", true);
             this.preferences.put("Fish", true);
             this.preferences.put("Meat", true);
 

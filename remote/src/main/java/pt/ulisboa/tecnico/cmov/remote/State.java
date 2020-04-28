@@ -111,7 +111,7 @@ public class State {
             usernamesPasswords.put(newUsername, newPassword);
             Map<String, Boolean> defaultPreferences = new HashMap<>();
             defaultPreferences.put("Vegetarian", true);
-            defaultPreferences.put("Gluten-Free", true);
+            defaultPreferences.put("Vegan", true);
             defaultPreferences.put("Fish", true);
             defaultPreferences.put("Meat", true);
             usernamesPreferences.put(newUsername, defaultPreferences);

@@ -169,7 +169,7 @@ public class DishActivity extends AppCompatActivity implements AdapterView.OnIte
 
         Map<String, Boolean> categories = this.dish.getCategories();
         ((CheckBox) findViewById(R.id.vegetarianCheckBox)).setChecked(categories.get("Vegetarian"));
-        ((CheckBox) findViewById(R.id.glutenFreeCheckBox)).setChecked(categories.get("Gluten-Free"));
+        ((CheckBox) findViewById(R.id.veganCheckBox)).setChecked(categories.get("Vegan"));
         ((CheckBox) findViewById(R.id.meatCheckBox)).setChecked(categories.get("Meat"));
         ((CheckBox) findViewById(R.id.fishCheckBox)).setChecked(categories.get("Fish"));
 

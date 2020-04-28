@@ -85,12 +85,13 @@
         app:layout_constraintVertical_bias="0.57" />
 
     <CheckBox
-        android:id="@+id/glutenFreeCheckBox"
+        android:id="@+id/veganCheckBox"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Gluten-Free Dish"
+        android:text="Vegan Dish"
         app:layout_constraintLeft_toLeftOf="@+id/categoriesTextView"
-        app:layout_constraintTop_toBottomOf="@+id/vegetarianCheckBox" />
+        app:layout_constraintTop_toBottomOf="@+id/vegetarianCheckBox"
+        android:onClick="onCheckboxClicked"/>
 
     <CheckBox
         android:id="@+id/fishCheckBox"
@@ -98,7 +99,8 @@
         android:layout_height="wrap_content"
         android:text="Fish Dish"
         app:layout_constraintLeft_toLeftOf="@+id/categoriesTextView"
-        app:layout_constraintTop_toBottomOf="@+id/meatCheckBox" />
+        app:layout_constraintTop_toBottomOf="@+id/meatCheckBox"
+        android:onClick="onCheckboxClicked"/>
 
     <CheckBox
         android:id="@+id/meatCheckBox"
@@ -106,7 +108,8 @@
         android:layout_height="wrap_content"
         android:text="Meat Dish"
         app:layout_constraintLeft_toLeftOf="@+id/categoriesTextView"
-        app:layout_constraintTop_toBottomOf="@+id/glutenFreeCheckBox" />
+        app:layout_constraintTop_toBottomOf="@+id/veganCheckBox"
+        android:onClick="onCheckboxClicked"/>
 
     <CheckBox
         android:id="@+id/vegetarianCheckBox"
@@ -114,7 +117,8 @@
         android:layout_height="wrap_content"
         android:text="Vegetarian Dish"
         app:layout_constraintLeft_toLeftOf="@+id/categoriesTextView"
-        app:layout_constraintTop_toBottomOf="@+id/categoriesTextView" />
+        app:layout_constraintTop_toBottomOf="@+id/categoriesTextView"
+        android:onClick="onCheckboxClicked"/>
 
     <Button
         android:id="@+id/addDishButton"

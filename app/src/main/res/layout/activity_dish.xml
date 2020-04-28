@@ -52,11 +52,11 @@
         app:layout_constraintTop_toBottomOf="@+id/meatCheckBox" />
 
     <CheckBox
-        android:id="@+id/glutenFreeCheckBox"
+        android:id="@+id/veganCheckBox"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:enabled="false"
-        android:text="Gluten-Free"
+        android:text="Vegan"
         app:layout_constraintLeft_toLeftOf="@+id/categoriesTextView"
         app:layout_constraintTop_toBottomOf="@+id/vegetarianCheckBox" />
 
@@ -92,7 +92,7 @@
         android:enabled="false"
         android:text="Meat"
         app:layout_constraintLeft_toLeftOf="@+id/categoriesTextView"
-        app:layout_constraintTop_toBottomOf="@+id/glutenFreeCheckBox" />
+        app:layout_constraintTop_toBottomOf="@+id/veganCheckBox" />
 
     <CheckBox
         android:id="@+id/vegetarianCheckBox"

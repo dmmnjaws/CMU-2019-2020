@@ -21,11 +21,11 @@
         app:srcCompat="@mipmap/ic_default_profile_picture" />
 
     <CheckBox
-        android:id="@+id/glutenFreeCheckBox"
+        android:id="@+id/veganCheckBox"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:checked="true"
-        android:text="Show Gluten-Free Dishes"
+        android:text="Show Vegan Dishes"
         app:layout_constraintLeft_toLeftOf="@+id/usernameTextView"
         app:layout_constraintTop_toBottomOf="@+id/vegetarianCheckBox" />
 
@@ -36,7 +36,7 @@
         android:checked="true"
         android:text="Show Meat Dishes"
         app:layout_constraintLeft_toLeftOf="@+id/usernameTextView"
-        app:layout_constraintTop_toBottomOf="@+id/glutenFreeCheckBox" />
+        app:layout_constraintTop_toBottomOf="@+id/veganCheckBox" />
 
     <CheckBox
         android:id="@+id/vegetarianCheckBox"
