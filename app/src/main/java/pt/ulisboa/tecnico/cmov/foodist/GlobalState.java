@@ -314,6 +314,23 @@ public class GlobalState extends Application {
         return index;
     }
 
+    public int getDishBasedOnPreferenceIndex(String campus, String diningOptionName, String dishName){
+        int index = 0;
+
+        for (DiningPlace diningPlace : this.diningOptions.get(campus)) {
+            if(diningPlace.getName().equals(diningOptionName)){
+                for (Dish dish: diningPlace.getDishesBasedOnPreference(this.preferences)) {
+                    if(dish.getName().equals(dishName)){
+                        return index;
+                    }
+                    index++;
+                }
+            }
+        }
+
+        return index;
+    }
+
     public String[] getDiningOptionNames(String campus){
         String[] result = new String[diningOptions.get(campus).size()];
         int index = 0;

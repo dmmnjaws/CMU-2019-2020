@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.RatingBar;
@@ -20,6 +21,7 @@ import android.widget.TextView;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Map;
 
 import pt.ulisboa.tecnico.cmov.foodist.asynctasks.AddDishImageRemotely;
 import pt.ulisboa.tecnico.cmov.foodist.asynctasks.AddRatingRemotely;
@@ -94,7 +96,7 @@ public class DishActivity extends AppCompatActivity implements AdapterView.OnIte
 
         final String dishName = (String) getIntent().getSerializableExtra("dishName");
 
-        spinner.setSelection(this.globalState.getDishIndex(this.campus, this.diningOptionName, dishName));
+        spinner.setSelection(this.globalState.getDishBasedOnPreferenceIndex(this.campus, this.diningOptionName, dishName));
         spinner.setOnItemSelectedListener(this);
 
         this.listener = new RatingBar.OnRatingBarChangeListener() {
@@ -164,6 +166,12 @@ public class DishActivity extends AppCompatActivity implements AdapterView.OnIte
         ratingBar.setOnRatingBarChangeListener(null);
         ratingBar.setRating(this.dish.getUserRating(this.globalState.getUsername()));
         ratingBar.setOnRatingBarChangeListener(this.listener);
+
+        Map<String, Boolean> categories = this.dish.getCategories();
+        ((CheckBox) findViewById(R.id.vegetarianCheckBox)).setChecked(categories.get("Vegetarian"));
+        ((CheckBox) findViewById(R.id.glutenFreeCheckBox)).setChecked(categories.get("Gluten-Free"));
+        ((CheckBox) findViewById(R.id.meatCheckBox)).setChecked(categories.get("Meat"));
+        ((CheckBox) findViewById(R.id.fishCheckBox)).setChecked(categories.get("Fish"));
 
         DishImageAdapter dishImageAdapter = new DishImageAdapter(getApplicationContext(), R.layout.list_item_dish_image, this.dish.getImages());
         listOfDishImages.setAdapter(dishImageAdapter);

@@ -104,4 +104,11 @@ public class Dish implements Serializable {
     public void setCategories(Map<String, Boolean> categories) {
         this.categories = categories;
     }
+
+    public void setCategories(boolean isVegetarian, boolean isGlutenFree, boolean isMeat, boolean isFish){
+        this.categories.put("Vegetarian", isVegetarian);
+        this.categories.put("Gluten-Free", isGlutenFree);
+        this.categories.put("Fish", isFish);
+        this.categories.put("Meat", isMeat);
+    }
 }

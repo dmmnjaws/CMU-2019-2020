@@ -7,6 +7,7 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RatingBar;
@@ -68,8 +69,23 @@ public class DishUploadActivity extends Activity {
         String dishPrice = ((EditText) findViewById(R.id.insertPrice)).getText().toString();
         float dishRating = ((RatingBar) findViewById(R.id.ratingBar)).getRating();
 
-        if(dishName.equals("") || dishPrice.equals("")) {
-            Toast.makeText(getApplicationContext(), "You forgot one or more parameters!", Toast.LENGTH_SHORT).show();
+        boolean isVegetarian = ((CheckBox) findViewById(R.id.vegetarianCheckBox)).isChecked();
+        boolean isGlutenFree = ((CheckBox) findViewById(R.id.glutenFreeCheckBox)).isChecked();
+        boolean isMeat = ((CheckBox) findViewById(R.id.meatCheckBox)).isChecked();
+        boolean isFish = ((CheckBox) findViewById(R.id.fishCheckBox)).isChecked();
+
+        if(dishName.equals("")) {
+            Toast.makeText(getApplicationContext(), "You must indicate the name of the dish!", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        if(dishPrice.equals("")) {
+            Toast.makeText(getApplicationContext(), "You must indicate the cost of the dish!", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        if(!isVegetarian && !isGlutenFree && !isFish && !isMeat){
+            Toast.makeText(getApplicationContext(), "The dish must be of at least one category!", Toast.LENGTH_SHORT).show();
             return;
         }
 
@@ -77,6 +93,8 @@ public class DishUploadActivity extends Activity {
         if (this.dishImage != null){
             newDish.addImage(new DishImage(this.globalState.getUsername(), this.dishImage, diningOptionName, dishName));
         }
+
+        newDish.setCategories(isVegetarian, isGlutenFree, isMeat, isFish);
         this.globalState.addDish(this.campus, this.diningOptionName, newDish);
 
         AddDishRemotely addDishRemotely = new AddDishRemotely(newDish);
@@ -94,6 +112,7 @@ public class DishUploadActivity extends Activity {
                 Uri selectedImage = data.getData();
                 InputStream imageStream = getContentResolver().openInputStream(selectedImage);
                 this.dishImage = BitmapFactory.decodeStream(imageStream);
+                ((ImageView) findViewById(R.id.dishPicture)).setScaleType(ImageView.ScaleType.CENTER_CROP);
             } catch (IOException exception) {
                 exception.printStackTrace();
             }

@@ -6,17 +6,57 @@
     android:layout_height="match_parent"
     tools:context=".activities.DishUploadActivity">
 
+    <EditText
+        android:id="@+id/insertDishName"
+        android:layout_width="392dp"
+        android:layout_height="60dp"
+        android:gravity="center_horizontal"
+        android:inputType="text"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.473"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.353" />
+
     <TextView
         android:id="@+id/insertDishNameTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Insert dish name:"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.274"
+        app:layout_constraintHorizontal_bias="0.271"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.523" />
+        app:layout_constraintVertical_bias="0.308" />
+
+    <ImageView
+        android:id="@+id/dishPicture"
+        android:layout_width="415dp"
+        android:layout_height="140dp"
+        android:layout_gravity="left|center_horizontal"
+        android:onClick="addImageOnClick"
+        android:src="@mipmap/ic_default_profile_picture_foreground"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.056" />
+
+    <EditText
+        android:id="@+id/insertPrice"
+        android:layout_width="392dp"
+        android:layout_height="60dp"
+        android:gravity="center_horizontal"
+        android:inputType="numberDecimal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.473"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.487" />
 
     <TextView
         android:id="@+id/insertPriceTextView"
@@ -29,58 +69,52 @@
         app:layout_constraintLeft_toLeftOf="@+id/insertDishNameTextView"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.662" />
+        app:layout_constraintVertical_bias="0.432" />
 
-    <EditText
-        android:id="@+id/insertDishName"
-        android:layout_width="392dp"
-        android:layout_height="60dp"
-        android:gravity="center_horizontal"
-        android:inputType="text"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.584" />
-
-    <ImageView
-        android:id="@+id/dishPicture"
-        android:layout_width="160dp"
-        android:layout_height="169dp"
-        android:layout_gravity="left|center_horizontal"
-        android:onClick="addImageOnClick"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.208"
-        android:src="@mipmap/ic_default_profile_picture_foreground" />
-
-    <EditText
-        android:id="@+id/insertPrice"
-        android:layout_width="392dp"
-        android:layout_height="60dp"
-        android:gravity="center_horizontal"
-        android:inputType="numberDecimal"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.731" />
-
-    <RatingBar
-        android:id="@+id/ratingBar"
+    <TextView
+        android:id="@+id/categoriesTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginRight="216dp"
+        android:text="Choose dish categories:"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintLeft_toLeftOf="@+id/insertDishNameTextView"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.859" />
+        app:layout_constraintVertical_bias="0.57" />
+
+    <CheckBox
+        android:id="@+id/glutenFreeCheckBox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Gluten-Free Dish"
+        app:layout_constraintLeft_toLeftOf="@+id/categoriesTextView"
+        app:layout_constraintTop_toBottomOf="@+id/vegetarianCheckBox" />
+
+    <CheckBox
+        android:id="@+id/fishCheckBox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Fish Dish"
+        app:layout_constraintLeft_toLeftOf="@+id/categoriesTextView"
+        app:layout_constraintTop_toBottomOf="@+id/meatCheckBox" />
+
+    <CheckBox
+        android:id="@+id/meatCheckBox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Meat Dish"
+        app:layout_constraintLeft_toLeftOf="@+id/categoriesTextView"
+        app:layout_constraintTop_toBottomOf="@+id/glutenFreeCheckBox" />
+
+    <CheckBox
+        android:id="@+id/vegetarianCheckBox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Vegetarian Dish"
+        app:layout_constraintLeft_toLeftOf="@+id/categoriesTextView"
+        app:layout_constraintTop_toBottomOf="@+id/categoriesTextView" />
 
     <Button
         android:id="@+id/addDishButton"
@@ -94,5 +128,16 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.976" />
+
+    <RatingBar
+        android:id="@+id/ratingBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.87" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

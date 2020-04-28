@@ -134,7 +134,7 @@ public class DiningPlaceActivity extends AppCompatActivity implements AdapterVie
         ((TextView) findViewById(R.id.diningOptionSchedule)).setText("Schedule: " + this.diningPlace.getSchedule(this.globalState.getActualCategoryIndex()));
         ((TextView) findViewById(R.id.diningOptionQueueTime)).setText("Average queue time: " + this.diningPlace.getQueueTime());
 
-        ArrayList<Dish> dishes = this.diningPlace.getDishes();
+        ArrayList<Dish> dishes = this.diningPlace.getDishesBasedOnPreference(this.globalState.getPreferences());
         DishAdapter dishAdapter = new DishAdapter(getApplicationContext(), R.layout.list_row_dish, dishes);
         listOfDishes.setAdapter(dishAdapter);
 

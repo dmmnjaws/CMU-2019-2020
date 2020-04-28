@@ -8,6 +8,7 @@ import com.google.android.gms.maps.model.LatLng;
 import java.io.ByteArrayOutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Map;
 
 public class DiningPlace implements Serializable {
 
@@ -51,7 +52,26 @@ public class DiningPlace implements Serializable {
     }
 
     public Bitmap getThumbnail(){ return BitmapFactory.decodeByteArray(this.thumbnail, 0, this.thumbnail.length); }
+
     public ArrayList<Dish> getDishes() { return this.dishes; }
+
+    public ArrayList<Dish> getDishesBasedOnPreference(Map<String, Boolean> preferences){
+        ArrayList<Dish> selection = new ArrayList<>();
+        for (Dish dish : this.dishes){
+            Map<String, Boolean> categories = dish.getCategories();
+            if ((!preferences.get("Vegetarian") && categories.get("Vegetarian")) ||
+                    (!preferences.get("Gluten-Free") && categories.get("Gluten-Free")) ||
+                    (!preferences.get("Meat") && categories.get("Meat")) ||
+                    (!preferences.get("Fish") && categories.get("Fish"))){
+
+                break;
+
+            }
+            selection.add(dish);
+
+        }
+        return selection;
+    }
 
     public Dish getDish(String dishName){
 
