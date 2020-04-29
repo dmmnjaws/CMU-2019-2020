@@ -77,6 +77,11 @@ public class DiningOptionsActivity extends AppCompatActivity implements AdapterV
         stateLoader.execute();
     }
 
+    @Override
+    protected void onPause(){
+        super.onPause();
+    }
+
     public void optionsButtonOnClick(View view) {
 
         Intent intent = new Intent(DiningOptionsActivity.this, UserProfileActivity.class);

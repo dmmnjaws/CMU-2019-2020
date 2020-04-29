@@ -55,6 +55,8 @@ public class GlobalState extends Application {
     private SimWifiP2pBroadcastReceiver mReceiver;
     private String lastKnownBeacon;
 
+    private boolean shouldSeeWarning;
+
     public GlobalState(){
         this.categories = new String[] {"Student", "Researcher", "Professor", "Staff", "General Public"};
         this.actualCategory = 0;
@@ -65,6 +67,8 @@ public class GlobalState extends Application {
         this.preferences.put("Vegan", true);
         this.preferences.put("Fish", true);
         this.preferences.put("Meat", true);
+
+        this.shouldSeeWarning = true;
     }
 
     public void login(String username, String password) {
@@ -393,6 +397,19 @@ public class GlobalState extends Application {
 
     public void setPreferences(Map<String, Boolean> preferences){
         this.preferences = preferences;
+    }
+
+    public boolean getShouldSeeWarning(){
+
+        if(!this.preferences.get("Vegetarian") || !this.preferences.get("Vegan") || !this.preferences.get("Meat") || !this.preferences.get("Fish")){
+            return this.shouldSeeWarning;
+        }
+
+        return false;
+    }
+
+    public void changeShouldSeeWarning(boolean shouldSeeWarning){
+        this.shouldSeeWarning = shouldSeeWarning;
     }
 
     public ArrayList<DiningPlace> getDiningOptions(String campus) { return this.diningOptions.get(campus); }

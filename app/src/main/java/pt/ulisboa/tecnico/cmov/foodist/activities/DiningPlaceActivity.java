@@ -2,6 +2,8 @@ package pt.ulisboa.tecnico.cmov.foodist.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -111,12 +113,29 @@ public class DiningPlaceActivity extends AppCompatActivity implements AdapterVie
 
     @Override
     public void onPause() {
+
         super.onPause();
+
     }
 
     @Override
     protected void onResume () {
         super.onResume();
+
+        if (this.globalState.getShouldSeeWarning()){
+
+            new AlertDialog.Builder(this)
+                    .setTitle("Your preferences...")
+                    .setMessage("Some dishes are hidden according to the preferences you selected in your profile.")
+                    .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                        }
+                    })
+                    .show();
+
+            this.globalState.changeShouldSeeWarning(false);
+
+        }
 
         String diningOptionName = ((Spinner) findViewById(R.id.chooseDiningPlaceSpinner)).getSelectedItem().toString();
 
