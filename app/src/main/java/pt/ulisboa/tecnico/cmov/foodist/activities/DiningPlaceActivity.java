@@ -3,6 +3,7 @@ package pt.ulisboa.tecnico.cmov.foodist.activities;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -15,6 +16,10 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.github.mikephil.charting.charts.BarChart;
+import com.github.mikephil.charting.data.BarData;
+import com.github.mikephil.charting.data.BarDataSet;
+import com.github.mikephil.charting.data.BarEntry;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
@@ -42,6 +47,11 @@ public class DiningPlaceActivity extends AppCompatActivity implements AdapterVie
     private GlobalState globalState;
     private String campus;
     private GoogleMap mMap;
+    private RatingBar.OnRatingBarChangeListener listener;
+    private float inRating;
+    private float outRating;
+
+    private BarChart barChart;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -140,6 +150,59 @@ public class DiningPlaceActivity extends AppCompatActivity implements AdapterVie
 
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+
+        this.inRating = this.diningPlace.getRating();
+        this.outRating = this.diningPlace.getRating();
+        RatingBar ratingBar = (RatingBar) findViewById(R.id.ratingBar);
+        ratingBar.setOnRatingBarChangeListener(null);
+        ratingBar.setRating(this.inRating);
+        ratingBar.setOnRatingBarChangeListener(this.listener);
+
+        barChart = (BarChart) findViewById(R.id.bargraph);
+
+        ArrayList<BarEntry> barEntries = new ArrayList<>();
+        int numOfOnes = 0;
+        int numOfTwos = 0;
+        int numOfThrees = 0;
+        int numOfFours = 0;
+        int numOfFives = 0;
+        for(Dish dish: diningPlace.getDishes()) {
+            if (dish.getRating() == 0.5 || dish.getRating() == 1) {
+                numOfOnes++;
+            }
+            if (dish.getRating() == 1.5 || dish.getRating() == 2) {
+                numOfTwos++;
+            }
+            if (dish.getRating() == 2.5 || dish.getRating() == 3) {
+                numOfThrees++;
+            }
+            if (dish.getRating() == 3.5 || dish.getRating() == 4) {
+                numOfFours++;
+            }
+            if (dish.getRating() == 4.5 || dish.getRating() == 5) {
+                numOfFives++;
+            }
+        }
+
+        barEntries.add(new BarEntry(1f, numOfOnes));
+        barEntries.add(new BarEntry(2f, numOfTwos));
+        barEntries.add(new BarEntry(3f, numOfThrees));
+        barEntries.add(new BarEntry(4f, numOfFours));
+        barEntries.add(new BarEntry(5f, numOfFives));
+
+        BarDataSet barDataSet = new BarDataSet(barEntries, "Ratings");
+
+        BarData theData = new BarData(barDataSet);
+        theData.setBarWidth(0.9f);
+        barChart.setData(theData);
+        barChart.setFitBars(false);
+        barChart.getLegend().setEnabled(false);
+        barChart.getAxisRight().setEnabled(false);
+        barChart.getAxisLeft().setEnabled(false);
+        barChart.getXAxis().setEnabled(false);
+        barChart.getDescription().setEnabled(false);
+        barChart.getBarData().setValueTextColor(Color.WHITE);
+        barChart.invalidate();
     }
 
     @Override
@@ -152,8 +215,6 @@ public class DiningPlaceActivity extends AppCompatActivity implements AdapterVie
     public void onNothingSelected(AdapterView<?> parent) {
 
     }
-
-
 
     public void authenticateCheck(Button addDishButton){
         if (!this.globalState.isLoggedIn()){
