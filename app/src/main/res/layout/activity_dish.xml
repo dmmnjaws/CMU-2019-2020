@@ -123,4 +123,11 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent" />
 
+    <com.github.mikephil.charting.charts.BarChart
+        android:id="@+id/bargraph"
+        android:layout_width="234dp"
+        android:layout_height="59dp"
+        tools:layout_editor_absoluteX="21dp"
+        tools:layout_editor_absoluteY="205dp"></com.github.mikephil.charting.charts.BarChart>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

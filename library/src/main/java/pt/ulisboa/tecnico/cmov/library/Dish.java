@@ -25,7 +25,7 @@ public class Dish implements Serializable {
         this.name = name;
         this.cost = cost + " €";
         this.rating = rating;
-        this.voterRatings = new HashMap<>();
+        this.voterRatings = new HashMap<String, Float>();
         this.voterRatings.put(userName,rating);
         this.dishImages = new ArrayList<>();
 
@@ -49,6 +49,8 @@ public class Dish implements Serializable {
     public void setDiningPlace(String name){ this.diningPlace = name; }
 
     public String getDiningPlace(){ return this.diningPlace; }
+
+    public Map<String, Float> getVoterRatings(){ return this.voterRatings; }
 
     public void addRating(String user, float rating){
         if(voterRatings.containsKey(user)){
