@@ -125,5 +125,14 @@ public class DiningPlace implements Serializable {
 
     public float getRating(){
         calculateRating();
-        return this.rating / this.dishes.size(); }
+
+        int dishesWithRating = 0;
+
+        for(Dish dish : this.dishes){
+            if(dish.getRating() != 0){
+                dishesWithRating++;
+            }
+        }
+
+        return this.rating / dishesWithRating; }
 }
