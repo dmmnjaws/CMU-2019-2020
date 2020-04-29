@@ -103,7 +103,7 @@ public class DishActivity extends AppCompatActivity implements AdapterView.OnIte
         this.diningOptionName = (String) getIntent().getSerializableExtra("diningOptionName");
         this.campus = (String) getIntent().getSerializableExtra("campus");
 
-        String[] dishNames = this.globalState.getDishNames(this.globalState.getDiningOption(this.campus, this.diningOptionName));
+        String[] dishNames = this.globalState.getDishNamesByPreference(this.globalState.getDiningOption(this.campus, this.diningOptionName));
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, dishNames);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);

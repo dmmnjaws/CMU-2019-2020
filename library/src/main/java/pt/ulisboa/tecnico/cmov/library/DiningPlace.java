@@ -59,15 +59,14 @@ public class DiningPlace implements Serializable {
         ArrayList<Dish> selection = new ArrayList<>();
         for (Dish dish : this.dishes){
             Map<String, Boolean> categories = dish.getCategories();
-            if ((!preferences.get("Vegetarian") && categories.get("Vegetarian")) ||
-                    (!preferences.get("Vegan") && categories.get("Vegan")) ||
-                    (!preferences.get("Meat") && categories.get("Meat")) ||
-                    (!preferences.get("Fish") && categories.get("Fish"))){
+            if ((categories.get("Vegetarian") && preferences.get("Vegetarian")) ||
+                    (categories.get("Vegan") && preferences.get("Vegan")) ||
+                    (categories.get("Meat") && preferences.get("Meat")) ||
+                    (categories.get("Fish") && preferences.get("Fish"))){
 
-                break;
+                selection.add(dish);
 
             }
-            selection.add(dish);
 
         }
         return selection;

@@ -355,6 +355,18 @@ public class GlobalState extends Application {
         return result;
     }
 
+    public String[] getDishNamesByPreference(DiningPlace diningPlace){
+        String[] result = new String[diningPlace.getDishesBasedOnPreference(this.preferences).size()];
+        int index = 0;
+
+        for(Dish dish: diningPlace.getDishesBasedOnPreference(this.preferences)) {
+            result[index] = dish.getName();
+            index++;
+        }
+
+        return result;
+    }
+
     public String[] getCategories(){
         return this.categories;
     }

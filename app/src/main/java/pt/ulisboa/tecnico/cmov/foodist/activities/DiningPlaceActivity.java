@@ -145,6 +145,7 @@ public class DiningPlaceActivity extends AppCompatActivity implements AdapterVie
         ArrayList<Dish> dishes = this.diningPlace.getDishesBasedOnPreference(this.globalState.getPreferences());
         DishAdapter dishAdapter = new DishAdapter(getApplicationContext(), R.layout.list_row_dish, dishes);
         listOfDishes.setAdapter(dishAdapter);
+        dishAdapter.notifyDataSetChanged();
 
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
