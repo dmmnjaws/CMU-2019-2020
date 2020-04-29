@@ -47,9 +47,7 @@ public class DiningPlaceActivity extends AppCompatActivity implements AdapterVie
     private GlobalState globalState;
     private String campus;
     private GoogleMap mMap;
-    private RatingBar.OnRatingBarChangeListener listener;
     private float inRating;
-    private float outRating;
 
     private BarChart barChart;
 
@@ -152,11 +150,8 @@ public class DiningPlaceActivity extends AppCompatActivity implements AdapterVie
         mapFragment.getMapAsync(this);
 
         this.inRating = this.diningPlace.getRating();
-        this.outRating = this.diningPlace.getRating();
         RatingBar ratingBar = (RatingBar) findViewById(R.id.ratingBar);
-        ratingBar.setOnRatingBarChangeListener(null);
         ratingBar.setRating(this.inRating);
-        ratingBar.setOnRatingBarChangeListener(this.listener);
 
         barChart = (BarChart) findViewById(R.id.bargraph);
 
