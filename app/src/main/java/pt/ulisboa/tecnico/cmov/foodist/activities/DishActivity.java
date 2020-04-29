@@ -222,6 +222,7 @@ public class DishActivity extends AppCompatActivity implements AdapterView.OnIte
         barEntries.add(new BarEntry(5f, numOfFives));
 
         BarDataSet barDataSet = new BarDataSet(barEntries, "Ratings");
+        barDataSet.setColors(new int[] {Color.LTGRAY, Color.LTGRAY, Color.LTGRAY, Color.LTGRAY, Color.LTGRAY});
 
         BarData theData = new BarData(barDataSet);
         theData.setBarWidth(0.9f);
