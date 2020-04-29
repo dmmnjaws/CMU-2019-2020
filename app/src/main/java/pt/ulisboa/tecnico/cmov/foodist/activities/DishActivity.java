@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
@@ -19,8 +20,17 @@ import android.widget.RatingBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.github.mikephil.charting.charts.BarChart;
+import com.github.mikephil.charting.components.LimitLine;
+import com.github.mikephil.charting.components.YAxis;
+import com.github.mikephil.charting.data.BarData;
+import com.github.mikephil.charting.data.BarDataSet;
+import com.github.mikephil.charting.data.BarEntry;
+import com.github.mikephil.charting.interfaces.datasets.IBarDataSet;
+
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.Map;
 
 import pt.ulisboa.tecnico.cmov.foodist.asynctasks.AddDishImageRemotely;
@@ -32,6 +42,7 @@ import pt.ulisboa.tecnico.cmov.foodist.adapters.DishImageAdapter;
 import pt.ulisboa.tecnico.cmov.foodist.GlobalState;
 import pt.ulisboa.tecnico.cmov.foodist.R;
 
+
 public class DishActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
     private static final int GALLERY_REQUEST_CODE = 100;
@@ -42,6 +53,7 @@ public class DishActivity extends AppCompatActivity implements AdapterView.OnIte
     private RatingBar.OnRatingBarChangeListener listener;
     private float inRating;
     private float outRating;
+    private BarChart barChart;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -186,6 +198,44 @@ public class DishActivity extends AppCompatActivity implements AdapterView.OnIte
 
         DishImageAdapter dishImageAdapter = new DishImageAdapter(getApplicationContext(), R.layout.list_item_dish_image, this.dish.getImages());
         listOfDishImages.setAdapter(dishImageAdapter);
+
+        barChart = (BarChart) findViewById(R.id.bargraph);
+
+        ArrayList<BarEntry> barEntries = new ArrayList<>();
+        int numOfOnes = 0;
+        int numOfTwos = 0;
+        int numOfThrees = 0;
+        int numOfFours = 0;
+        int numOfFives = 0;
+        for (Float rating : dish.getVoterRatings().values()) {
+            if(rating == 0.5 || rating == 1){ numOfOnes++; }
+            if(rating == 1.5 || rating == 2){ numOfTwos++; }
+            if(rating == 2.5 || rating == 3){ numOfThrees++; }
+            if(rating == 3.5 || rating == 4){ numOfFours++; }
+            if(rating == 4.5 || rating == 5){ numOfFives++; }
+        }
+
+        barEntries.add(new BarEntry(1f, numOfOnes));
+        barEntries.add(new BarEntry(2f, numOfTwos));
+        barEntries.add(new BarEntry(3f, numOfThrees));
+        barEntries.add(new BarEntry(4f, numOfFours));
+        barEntries.add(new BarEntry(5f, numOfFives));
+
+        BarDataSet barDataSet = new BarDataSet(barEntries, "Ratings");
+
+        BarData theData = new BarData(barDataSet);
+        theData.setBarWidth(0.9f);
+        barChart.setData(theData);
+        barChart.setFitBars(false);
+        barChart.getLegend().setEnabled(false);
+        barChart.getAxisRight().setEnabled(false);
+        barChart.getAxisLeft().setEnabled(false);
+        barChart.getXAxis().setEnabled(false);
+        barChart.getDescription().setEnabled(false);
+        barChart.getBarData().setValueTextColor(Color.WHITE);
+        barChart.invalidate();
+
+
 
     }
 
