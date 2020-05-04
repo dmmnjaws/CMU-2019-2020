@@ -28,6 +28,7 @@ import pt.inesc.termite.wifidirect.service.SimWifiP2pService;
 
 import pt.ulisboa.tecnico.cmov.foodist.asynctasks.ClientAuthenticator;
 import pt.ulisboa.tecnico.cmov.foodist.asynctasks.CreateAccount;
+import pt.ulisboa.tecnico.cmov.foodist.asynctasks.GetWalkTime;
 import pt.ulisboa.tecnico.cmov.foodist.asynctasks.StateLoader;
 import pt.ulisboa.tecnico.cmov.library.DiningPlace;
 import pt.ulisboa.tecnico.cmov.library.Dish;
@@ -90,6 +91,8 @@ public class GlobalState extends Application {
             stateLoader.execute();
         }
 
+        GetWalkTime getWalkTime = new GetWalkTime(this);
+        getWalkTime.execute();
         prepareWiFiDirect();
 
     }

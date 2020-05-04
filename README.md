@@ -20,14 +20,14 @@ X Database e e afins
 X Formatar imagens de restaurantes de forma a que fiquem quadradas e corretas
 Formatar imagem de perfil de forma a que fique sempre redonda
 X Corrigir populações duplicadas do estado local
-Tempo esperado de espera nas filas dos restaurantes.
+XTempo esperado de espera nas filas dos restaurantes.
 
 CHECKLIST DEPOIS DO FEEDBACK:
 
 X - Ratings dos restaurantes
-- Histogramas com ratings para os pratos e restaurantes
+X Histogramas com ratings para os pratos e restaurantes
 - Cache (Oh boy...)
-- Corrigir Wi-Fi direct com os bluetooth beacons (Oh boy... pt2)
+X Corrigir Wi-Fi direct com os bluetooth beacons (Oh boy... pt2)
 X - Waiting Time na DiningOptionsActivity
 X - Walking Time na DiniingOptionsActivity (Ainda não funciona)
 X - Correções ao mapa: mapa mostra a "pequeno" onde fica o restaurante, e clicamos neste mapa para obter as "direções"
@@ -36,5 +36,6 @@ X - Detetar se utilizador não está perto de nenhum dos campuses.
 X - Não há thumbnails obrigatórias nos dishes.
 X - Corrigir BUG: Sempre que um cliente entra na página de um prato, o rating é "readicionado" ao server. Embora seja idempotente, está a gastar recursos ao fazer pedidos desnecessários.
  - Autorização: negar acesso a users já logados (nao pode estar logado em dois telemoveis)
- - Dishes can have only one category
- - Scratch "Gluten-Free" and add "Vegetarian"
+X - Dishes can have only one category
+X - Scratch "Gluten-Free" and add "Vegetarian"
+ - Pictogramas
