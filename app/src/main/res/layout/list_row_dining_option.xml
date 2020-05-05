@@ -27,7 +27,7 @@
         android:textSize="18dp"
         app:layout_constraintBottom_toTopOf="@id/walkingTime"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintLeft_toRightOf="@id/arrowImageView"
+        app:layout_constraintLeft_toRightOf="@id/queueTimePictogram"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="1.0" />
@@ -40,10 +40,37 @@
         android:textSize="18dp"
         app:layout_constraintBottom_toBottomOf="@id/arrowImageView"
         app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintLeft_toRightOf="@id/walkingTimePictogram"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <TextView
+        android:id="@+id/queueTimePictogram"
+        android:layout_width="29dp"
+        android:layout_height="29dp"
+        android:text="\u231b"
+        android:textSize="18dp"
+        app:layout_constraintBottom_toTopOf="@id/walkingTimePictogram"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintLeft_toRightOf="@id/arrowImageView"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="1.0" />
+
+    <TextView
+        android:id="@+id/walkingTimePictogram"
+        android:layout_width="29dp"
+        android:layout_height="29dp"
+        android:text="🚶‍"
+        android:textSize="18dp"
+        app:layout_constraintBottom_toBottomOf="@id/arrowImageView"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintLeft_toRightOf="@id/arrowImageView"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0" />
+        <!-- that character actually worked... -->
 
     <RatingBar
         android:id="@+id/diningPlaceRatingBar"
