@@ -479,8 +479,8 @@ public class GlobalState extends Application {
         addDiningOption(new DiningPlace("Tagus Cafeteria", "Av. Prof. Dr. Cavaco Silva 13", customBitMapper(R.drawable.bolo1), schedule2, "Taguspark", 38.737802, -9.303223));
         addDiningOption(new DiningPlace("Central Bar", "Av. de António José de Almeida 14", customBitMapper(R.drawable.bolo2), schedule1, "Alameda", 38.736606, -9.139532));
         addDiningOption(new DiningPlace("Civil Bar", "Av. de António José de Almeida 14", customBitMapper(R.drawable.bolo3), schedule1, "Alameda", 38.736988, -9.139955));
-        addDiningOption(new DiningPlace("Sena - Pastelaria e Restaurante", "Av. de António José de Almeida 14", customBitMapper(R.drawable.sena), schedule3, "Alameda", 38.737650, -9.140384));
-        addDiningOption(new DiningPlace("Civil Cafeteria", "Av. de António José de Almeida 14", customBitMapper(R.drawable.bolo4), schedule2, "Alameda", 38.737677, -9.138672));
+        addDiningOption(new DiningPlace("Sena - Pastelaria e Restaurante", "Av. de António José de Almeida 14", customBitMapper(R.drawable.sena), schedule3, "Alameda", 38.737677, -9.138672));
+        addDiningOption(new DiningPlace("Civil Cafeteria", "Av. de António José de Almeida 14", customBitMapper(R.drawable.bolo4), schedule2, "Alameda", 38.737650, -9.140384));
         addDiningOption(new DiningPlace("Mechy Bar", "Av. de António José de Almeida 14", customBitMapper(R.drawable.bolo5), schedule1, "Alameda", 38.737247, -9.137434));
         addDiningOption(new DiningPlace("AEIST Bar", "Av. de António José de Almeida 14", customBitMapper(R.drawable.bolo6), schedule1, "Alameda", 	38.736542, -9.137226));
         addDiningOption(new DiningPlace("AEIST Esplanade", "Av. de António José de Almeida 14", customBitMapper(R.drawable.bolo7), schedule1, "Alameda", 38.736318, -9.137820));
