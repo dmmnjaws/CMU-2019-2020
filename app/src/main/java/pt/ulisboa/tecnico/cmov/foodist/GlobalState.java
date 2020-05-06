@@ -475,7 +475,7 @@ public class GlobalState extends Application {
         String[] schedule7 = new String[] {"13:30-15:00", "12:00-15:00", "12:00-15:00", "12:00-15:00", "13:30-15:00"};
         String[] schedule8 = new String[] {"9:00-12:00, 14:00-17:00", "9:00-17:00", "9:00-17:00", "9:00-17:00", "9:00-12:00, 14:00-17:00"};
         addDiningOption(new DiningPlace("Red Bar", "Av. Prof. Dr. Cavaco Silva 13", customBitMapper(R.drawable.redbar), schedule4, "Taguspark", 38.736578,-9.302192));
-        addDiningOption(new DiningPlace("GreenBar Tagus", "Av. Prof. Dr. Cavaco Silva 13", customBitMapper(R.drawable.greenbar), schedule5, "Taguspark", 38.738004, -9.303058));
+        addDiningOption(new DiningPlace("Green Bar", "Av. Prof. Dr. Cavaco Silva 13", customBitMapper(R.drawable.greenbar), schedule5, "Taguspark", 38.738004, -9.303058));
         addDiningOption(new DiningPlace("Tagus Cafeteria", "Av. Prof. Dr. Cavaco Silva 13", customBitMapper(R.drawable.bolo1), schedule2, "Taguspark", 38.737802, -9.303223));
         addDiningOption(new DiningPlace("Central Bar", "Av. de António José de Almeida 14", customBitMapper(R.drawable.bolo2), schedule1, "Alameda", 38.736606, -9.139532));
         addDiningOption(new DiningPlace("Civil Bar", "Av. de António José de Almeida 14", customBitMapper(R.drawable.bolo3), schedule1, "Alameda", 38.736988, -9.139955));

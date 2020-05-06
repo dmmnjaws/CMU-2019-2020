@@ -41,8 +41,8 @@ public class State {
         this.queueStatsMap.put("civilbar", new WaitInQueueStats("civilbar","Civil Bar"));
         this.dishesViews.add(new DishesView("Alameda", "Civil Cafeteria", new ArrayList<Dish>()));
         this.queueStatsMap.put("civilcafeteria", new WaitInQueueStats("civilcafeteria","Civil Cafeteria"));
-        this.dishesViews.add(new DishesView("Alameda", "Sena Pastry Shop", new ArrayList<Dish>()));
-        this.queueStatsMap.put("senapastryshop", new WaitInQueueStats("senapastryshop","Sena Pastry Shop"));
+        this.dishesViews.add(new DishesView("Alameda", "Sena - Pastelaria e Restaurante", new ArrayList<Dish>()));
+        this.queueStatsMap.put("sena", new WaitInQueueStats("sena","Sena - Pastelaria e Restaurante"));
         this.dishesViews.add(new DishesView("Alameda", "Mechy Bar", new ArrayList<Dish>()));
         this.queueStatsMap.put("mechybar", new WaitInQueueStats("mechybar","Mechy Bar"));
         this.dishesViews.add(new DishesView("Alameda", "AEIST Bar", new ArrayList<Dish>()));
