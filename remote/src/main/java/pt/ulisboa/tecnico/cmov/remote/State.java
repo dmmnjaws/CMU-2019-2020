@@ -35,24 +35,38 @@ public class State {
         this.userQueueMap = new HashMap<>();
         this.queueStatsMap = new HashMap<>();
         //FOR TEST PURPOSES:
-        this.dishesViews.add(new DishesView("Alameda", "Frankie Hot Dogs", new ArrayList<Dish>()));
-        this.queueStatsMap.put("frankie", new WaitInQueueStats("frankie","Frankie Hot Dogs"));
-        this.dishesViews.add(new DishesView("Alameda", "Ali Baba Kebab Haus", new ArrayList<Dish>()));
-        // TODO
+        this.dishesViews.add(new DishesView("Alameda", "Central Bar", new ArrayList<Dish>()));
+        this.queueStatsMap.put("CentralBar", new WaitInQueueStats("CentralBar","Central Bar"));
+        this.dishesViews.add(new DishesView("Alameda", "Civil Bar", new ArrayList<Dish>()));
+        this.queueStatsMap.put("CivilBar", new WaitInQueueStats("CivilBar","Civil Bar"));
+        this.dishesViews.add(new DishesView("Alameda", "Civil Cafeteria", new ArrayList<Dish>()));
+        this.queueStatsMap.put("CivilCafeteria", new WaitInQueueStats("CivilCafeteria","Civil Cafeteria"));
         this.dishesViews.add(new DishesView("Alameda", "Sena - Pastelaria e Restaurante", new ArrayList<Dish>()));
-        // TODO
-        this.dishesViews.add(new DishesView("Alameda", "Santorini Coffee", new ArrayList<Dish>()));
-        // TODO
-        this.dishesViews.add(new DishesView("Alameda", "Kokoro Ramen Bar", new ArrayList<Dish>()));
-        // TODO
+        this.queueStatsMap.put("Sena", new WaitInQueueStats("Sena","Sena - Pastelaria e Restaurante"));
+        this.dishesViews.add(new DishesView("Alameda", "Mechy Bar", new ArrayList<Dish>()));
+        this.queueStatsMap.put("MechyBar", new WaitInQueueStats("Mechybar","Mechy Bar"));
+        this.dishesViews.add(new DishesView("Alameda", "AEIST Bar", new ArrayList<Dish>()));
+        this.queueStatsMap.put("AEISTbar", new WaitInQueueStats("AEISTbar","AEIST Bar"));
+        this.dishesViews.add(new DishesView("Alameda", "AEIST Esplanade", new ArrayList<Dish>()));
+        this.queueStatsMap.put("AEISTEsplanade", new WaitInQueueStats("AEISTEsplanade","AEIST Esplanade"));
+        this.dishesViews.add(new DishesView("Alameda", "Chemy Bar", new ArrayList<Dish>()));
+        this.queueStatsMap.put("ChemyBar", new WaitInQueueStats("ChemyBar","Chemy Bar"));
+        this.dishesViews.add(new DishesView("Alameda", "SAS Cafeteria", new ArrayList<Dish>()));
+        this.queueStatsMap.put("SASCafeteria", new WaitInQueueStats("SASCafeteria","SAS Cafeteria"));
+        this.dishesViews.add(new DishesView("Alameda", "Math Cafeteria", new ArrayList<Dish>()));
+        this.queueStatsMap.put("MathCafeteria", new WaitInQueueStats("MathCafeteria","Math Cafeteria"));
+        this.dishesViews.add(new DishesView("Alameda", "Complex Bar", new ArrayList<Dish>()));
+        this.queueStatsMap.put("ComplexBar", new WaitInQueueStats("ComplexBar","Complex Bar"));
+        this.dishesViews.add(new DishesView("Taguspark", "Tagus Cafeteria", new ArrayList<Dish>()));
+        this.queueStatsMap.put("TagusCafeteria", new WaitInQueueStats("TagusCafeteria","Tagus Cafeteria"));
         this.dishesViews.add(new DishesView("Taguspark", "Red Bar", new ArrayList<Dish>()));
-        // TODO
-        this.dishesViews.add(new DishesView("Taguspark", "GreenBar Tagus", new ArrayList<Dish>()));
-        // TODO
-        this.dishesViews.add(new DishesView("Taguspark", "Momentum", new ArrayList<Dish>()));
-        // TODO
-        this.dishesViews.add(new DishesView("Taguspark", "Panorâmico by Marlene Vieira", new ArrayList<Dish>()));
-        // TODO
+        this.queueStatsMap.put("RedBar", new WaitInQueueStats("RedBar","Red Bar"));
+        this.dishesViews.add(new DishesView("Taguspark", "Green Bar", new ArrayList<Dish>()));
+        this.queueStatsMap.put("GreenBar", new WaitInQueueStats("GreenBar","Green Bar"));
+        this.dishesViews.add(new DishesView("CTN", "CTN Cafeteria", new ArrayList<Dish>()));
+        this.queueStatsMap.put("CTNCafeteria", new WaitInQueueStats("CTNCafeteria", "CTN Cafeteria"));
+        this.dishesViews.add(new DishesView("CTN", "CTN Bar", new ArrayList<Dish>()));
+        this.queueStatsMap.put("CTNBar", new WaitInQueueStats("CTNBar", "CTN Bar"));
         createAccount("", "");
         createAccount("johny", "1234567890");
         createAccount("Maria", "0987654321");

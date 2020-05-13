@@ -95,6 +95,8 @@ public class GlobalState extends Application {
         getWalkTime.execute();
         prepareWiFiDirect();
 
+        this.shouldSeeWarning = true;
+
     }
 
     public void logWithoutAccount(){
@@ -107,6 +109,8 @@ public class GlobalState extends Application {
         }
 
         prepareWiFiDirect();
+
+        this.shouldSeeWarning = false;
     }
 
     public synchronized void setState(ArrayList<DishesView> dishesViews){
@@ -182,14 +186,20 @@ public class GlobalState extends Application {
         double tagusLat = Double.parseDouble(this.campusCoordinates.get("Taguspark").split(",")[0]);
         double tagusLong = Double.parseDouble(this.campusCoordinates.get("Taguspark").split(",")[1]);
 
+        double ctnLat = Double.parseDouble(this.campusCoordinates.get("CTN").split(",")[0]);
+        double ctnLong = Double.parseDouble(this.campusCoordinates.get("CTN").split(",")[1]);
+
         double distAlameda = distance(userLat, alamedaLat, userLong, alamedaLong);
         double distTagus = distance(userLat, tagusLat, userLong, tagusLong);
+        double distCTN = distance(userLat, ctnLat, userLong, ctnLong);
 
-        if(distAlameda >= 8 && distTagus >= 8){
-            return 2;
+        if(distAlameda >= 8 && distTagus >= 8 && distCTN >= 8){
+            return 3;
         }
 
-        if(distAlameda > distTagus){
+        if(distCTN > distTagus && distCTN > distAlameda){
+            return 2;
+        }else if(distAlameda > distTagus && distAlameda > distCTN){
             return 1;
         }else{
             return 0;
@@ -464,22 +474,40 @@ public class GlobalState extends Application {
         this.diningOptions = new HashMap<>();
         this.diningOptions.put("Alameda", new ArrayList<DiningPlace>());
         this.diningOptions.put("Taguspark", new ArrayList<DiningPlace>());
-        this.campuses = new String[] {"Alameda", "Taguspark"};
+        this.diningOptions.put("CTN", new ArrayList<DiningPlace>());
+        this.campuses = new String[] {"Alameda", "Taguspark", "CTN"};
 
-        String[] defaultSchedule = new String[] {"Mon - Fri, 11:00 - 22:00", "Mon - Fri, 8:00 - 22:00", "Mon - Fri, 8:00 - 00:00", "Mon - Fri, 11:00 - 17:00", "Mon, - Fri, 8:00 - 22:00"};
-        addDiningOption(new DiningPlace("Red Bar", "Av. Prof. Dr. Cavaco Silva 13", customBitMapper(R.drawable.redbar), defaultSchedule, "Taguspark", 38.736578,-9.302192));
-        addDiningOption(new DiningPlace("GreenBar Tagus", "Av. Prof. Dr. Cavaco Silva 13", customBitMapper(R.drawable.greenbar), defaultSchedule, "Taguspark", 38.738011, -9.303076));
-        addDiningOption(new DiningPlace("Momentum", "Parque de Ciências e Tecnologia Núcleo Central", customBitMapper(R.drawable.momentum), defaultSchedule, "Taguspark", 38.740156, -9.304929));
-        addDiningOption(new DiningPlace("Panorâmico by Marlene Vieira", "Avenida Dr, Av. Jacques Delors 1 401", customBitMapper(R.drawable.panoramico), defaultSchedule, "Taguspark", 38.740261, -9.304023));
-        addDiningOption(new DiningPlace("Frankie Hot Dogs", "R. Alves Redol 13", customBitMapper(R.drawable.frankie), defaultSchedule, "Alameda", 38.736957, -9.140762));
-        addDiningOption(new DiningPlace("Ali Baba Kebab Haus", "R. Alves Redol 3", customBitMapper(R.drawable.kebab), defaultSchedule, "Alameda", 38.735676, -9.140726));
-        addDiningOption(new DiningPlace("Sena - Pastelaria e Restaurante", "Av. de António José de Almeida 14", customBitMapper(R.drawable.sena), defaultSchedule, "Alameda", 38.737964, -9.138673));
-        addDiningOption(new DiningPlace("Santorini Coffee", "Av. Manuel da Maia 19 a", customBitMapper(R.drawable.santorini), defaultSchedule, "Alameda", 38.735667, -9.136884));
-        addDiningOption(new DiningPlace("Kokoro Ramen Bar", "Av. Rovisco Pais 30A", customBitMapper(R.drawable.ramen), defaultSchedule, "Alameda", 38.735341, -9.137885));
+        String[] schedule1 = new String[] {"9:00-17:00", "9:00-17:00", "9:00-17:00", "9:00-17:00", "9:00-17:00"};
+        String[] schedule2 = new String[] {"12:00-15:00", "12:00-15:00", "12:00-15:00", "12:00-15:00", "12:00-15:00"};
+        String[] schedule3 = new String[] {"8:00-19:00","8:00-19:00","8:00-19:00","8:00-19:00","8:00-19:00"};
+        String[] schedule4 = new String[] {"8:00-22:00", "8:00-22:00", "8:00-22:00", "8:00-22:00", "8:00-22:00"};
+        String[] schedule5 = new String[] {"7:00-19:00", "7:00-19:00", "7:00-19:00", "7:00-19:00", "7:00-19:00"};
+        String[] schedule6 = new String[] {"9:00-21:00", "9:00-21:00", "9:00-21:00", "9:00-21:00", "9:00-21:00"};
+        String[] schedule7 = new String[] {"13:30-15:00", "12:00-15:00", "12:00-15:00", "12:00-15:00", "13:30-15:00"};
+        String[] schedule8 = new String[] {"9:00-12:00, 14:00-17:00", "9:00-17:00", "9:00-17:00", "9:00-17:00", "9:00-12:00, 14:00-17:00"};
+        String[] schedule9 = new String[] {"13:30-14:00", "12:00-14:00", "12:00-14:00", "12:00-14:00", "13:30-14:00"};
+        String[] schedule10 = new String[] {"8:30-12:00, 15:30-16:30", "8:30-12:00, 15:30-16:30", "8:30-12:00, 15:30-16:30", "8:30-12:00, 15:30-16:30", "8:30-12:00, 15:30-16:30"};
+        addDiningOption(new DiningPlace("Red Bar", "Av. Prof. Dr. Cavaco Silva 13", customBitMapper(R.drawable.redbar), schedule4, "Taguspark", 38.736578,-9.302192));
+        addDiningOption(new DiningPlace("Green Bar", "Av. Prof. Dr. Cavaco Silva 13", customBitMapper(R.drawable.greenbar), schedule5, "Taguspark", 38.738004, -9.303058));
+        addDiningOption(new DiningPlace("Tagus Cafeteria", "Av. Prof. Dr. Cavaco Silva 13", customBitMapper(R.drawable.bolo1), schedule2, "Taguspark", 38.737802, -9.303223));
+        addDiningOption(new DiningPlace("Central Bar", "Av. Rovisco Pais 1", customBitMapper(R.drawable.bolo2), schedule1, "Alameda", 38.736606, -9.139532));
+        addDiningOption(new DiningPlace("Civil Bar", "Av. Rovisco Pais 1", customBitMapper(R.drawable.bolo3), schedule1, "Alameda", 38.736988, -9.139955));
+        addDiningOption(new DiningPlace("Sena - Pastelaria e Restaurante", "Av. Rovisco Pais 1", customBitMapper(R.drawable.sena), schedule3, "Alameda", 38.737677, -9.138672));
+        addDiningOption(new DiningPlace("Civil Cafeteria", "Av. Rovisco Pais 1", customBitMapper(R.drawable.bolo4), schedule2, "Alameda", 38.737650, -9.140384));
+        addDiningOption(new DiningPlace("Mechy Bar", "Av. Rovisco Pais 1", customBitMapper(R.drawable.bolo5), schedule1, "Alameda", 38.737247, -9.137434));
+        addDiningOption(new DiningPlace("AEIST Bar", "Av. Rovisco Pais 1", customBitMapper(R.drawable.bolo6), schedule1, "Alameda", 	38.736542, -9.137226));
+        addDiningOption(new DiningPlace("AEIST Esplanade", "Av. Rovisco Pais 1", customBitMapper(R.drawable.bolo7), schedule1, "Alameda", 38.736318, -9.137820));
+        addDiningOption(new DiningPlace("Chemy Bar", "Av. Rovisco Pais 1", customBitMapper(R.drawable.bolo8), schedule1, "Alameda", 38.736240, -9.138302));
+        addDiningOption(new DiningPlace("SAS Cafeteria", "Av. Rovisco Pais 1", customBitMapper(R.drawable.bolo9), schedule6, "Alameda", 38.736571, -9.137036));
+        addDiningOption(new DiningPlace("Math Cafeteria", "Av. Rovisco Pais 1", customBitMapper(R.drawable.bolo10), schedule7, "Alameda", 38.735508, -9.139645));
+        addDiningOption(new DiningPlace("Complex Bar", "Av. Rovisco Pais 1", customBitMapper(R.drawable.bolo12), schedule8, "Alameda", 38.736050, -9.140156));
+        addDiningOption(new DiningPlace("CTN Cafeteria", "RW74+2F Bobadela", customBitMapper(R.drawable.bolo3), schedule9, "CTN", 38.812522, -9.093773));
+        addDiningOption(new DiningPlace("CTN Bar", "RW74+2F Bobadela", customBitMapper(R.drawable.bolo6), schedule10, "CTN", 38.812522, -9.093773));
 
         this.campusCoordinates = new HashMap<>();
         this.campusCoordinates.put("Alameda","38.736796,-9.138670");
         this.campusCoordinates.put("Taguspark","38.737333,-9.302568");
+        this.campusCoordinates.put("CTN", "38.812522,-9.093773");
 
     }
 
