@@ -10,6 +10,7 @@ import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -123,6 +124,7 @@ public class DishActivity extends AppCompatActivity implements AdapterView.OnIte
 
         authenticateCheck(uploadButton);
 
+
     }
 
     @Override
@@ -171,6 +173,18 @@ public class DishActivity extends AppCompatActivity implements AdapterView.OnIte
 
         Intent intent = new Intent(DishActivity.this, UserProfileActivity.class);
         startActivity(intent);
+    }
+
+    public void shareButtonOnClick(View view) {
+
+        Intent myIntend = new Intent(Intent.ACTION_SEND);
+        myIntend.setType("text/plain");
+        String shareSub = this.dish.getName();
+        String shareBody = this.dish.getDiningPlace();
+        myIntend.putExtra(Intent.EXTRA_SUBJECT, shareSub);
+        myIntend.putExtra(Intent.EXTRA_TEXT, shareBody);
+        startActivity(Intent.createChooser(myIntend, "Share using:"));
+
     }
 
     public void populateActivity (String campus, String diningOptionName, String dishName){
