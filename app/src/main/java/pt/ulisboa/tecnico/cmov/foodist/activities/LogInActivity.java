@@ -60,7 +60,7 @@ public class LogInActivity extends AppCompatActivity {
     protected void onResume(){
         super.onResume();
         this.globalState.setLoggedIn(false);
-        this.globalState.changeShouldSeeWarning(true);
+        this.globalState.changeShouldSeeWarning(false);
     }
 
     @SuppressLint("MissingPermission")

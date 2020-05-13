@@ -137,19 +137,24 @@ public class DiningOptionsActivity extends AppCompatActivity implements AdapterV
 
         int closestCampus = this.globalState.getNearestCampus();
 
-        if (closestCampus == 2){
+        if (closestCampus == 3){
 
             new AlertDialog.Builder(this)
                     .setTitle("Where are you?")
                     .setMessage("We could not detect you to be close to a campus. Which campus would you like to see?")
-                    .setNeutralButton("Alameda", new DialogInterface.OnClickListener() {
+                    .setPositiveButton("Alameda", new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int which) {
                             spinner.setSelection(0);
                         }
                     })
-                    .setPositiveButton("Taguspark", new DialogInterface.OnClickListener() {
+                    .setNegativeButton("Taguspark", new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int which) {
                             spinner.setSelection(1);
+                        }
+                    })
+                    .setNeutralButton("CTN", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            spinner.setSelection(2);
                         }
                     })
                     .show();

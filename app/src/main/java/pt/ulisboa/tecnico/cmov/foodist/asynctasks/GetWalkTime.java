@@ -32,6 +32,7 @@ public class GetWalkTime extends AsyncTask {
 
         walkTimeRequest("Alameda", this.globalState.getUserCoordinates());
         walkTimeRequest("Taguspark", this.globalState.getUserCoordinates());
+        walkTimeRequest("CTN", this.globalState.getUserCoordinates());
 
         return null;
     }

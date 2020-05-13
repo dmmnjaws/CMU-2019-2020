@@ -126,7 +126,7 @@ public class DiningPlaceActivity extends AppCompatActivity implements AdapterVie
 
             new AlertDialog.Builder(this)
                     .setTitle("Your preferences...")
-                    .setMessage("Some dishes are hidden according to the preferences you selected in your profile.")
+                    .setMessage("Some dishes may be hidden according to the preferences you selected in your profile.")
                     .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int which) {
                         }
