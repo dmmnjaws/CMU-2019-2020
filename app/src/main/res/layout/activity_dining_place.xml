@@ -54,7 +54,7 @@
         android:textColor="@android:color/darker_gray"
         android:textSize="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.169"
+        app:layout_constraintHorizontal_bias="0.525"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/diningOptionSchedule"
@@ -107,6 +107,21 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.218" />
+
+    <ImageButton
+        android:id="@+id/shareButton"
+        android:layout_width="41dp"
+        android:layout_height="60dp"
+        android:background="#0000"
+        android:onClick="shareButtonOnClick"
+        android:text="Share"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.043"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.117"
+        android:src="@android:drawable/ic_menu_share" />
 
     <com.github.mikephil.charting.charts.BarChart
         android:id="@+id/bargraph"

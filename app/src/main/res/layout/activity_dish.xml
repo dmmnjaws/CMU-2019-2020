@@ -83,7 +83,20 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.206" />
+        app:layout_constraintVertical_bias="0.225" />
+
+    <com.github.mikephil.charting.charts.BarChart
+        android:id="@+id/bargraph"
+        android:layout_width="271dp"
+        android:layout_height="65dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.007"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.315">
+
+    </com.github.mikephil.charting.charts.BarChart>
 
     <CheckBox
         android:id="@+id/meatCheckBox"
@@ -109,8 +122,8 @@
         android:layout_height="wrap_content"
         android:text="O preço do prato aqui."
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.059"
-        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintHorizontal_bias="0.037"
+        app:layout_constraintLeft_toRightOf="@id/shareButton"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.16" />
@@ -123,31 +136,20 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent" />
 
-    <Button
+    <ImageButton
         android:id="@+id/shareButton"
-        android:layout_width="77dp"
-        android:layout_height="35dp"
+        android:layout_width="41dp"
+        android:layout_height="60dp"
+        android:background="#0000"
         android:onClick="shareButtonOnClick"
         android:text="Share"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.823"
+        app:layout_constraintHorizontal_bias="0.043"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.329" />
-
-    <com.github.mikephil.charting.charts.BarChart
-        android:id="@+id/bargraph"
-        android:layout_width="271dp"
-        android:layout_height="65dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.007"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.295">
-
-    </com.github.mikephil.charting.charts.BarChart>
+        app:layout_constraintVertical_bias="0.117"
+        android:src="@android:drawable/ic_menu_share" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

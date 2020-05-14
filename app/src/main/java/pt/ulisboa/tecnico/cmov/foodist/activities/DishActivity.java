@@ -180,7 +180,7 @@ public class DishActivity extends AppCompatActivity implements AdapterView.OnIte
         Intent myIntend = new Intent(Intent.ACTION_SEND);
         myIntend.setType("text/plain");
         String shareSub = this.dish.getName();
-        String shareBody = this.dish.getDiningPlace();
+        String shareBody = "Hate this delicious dish at a restaurant called " + this.dish.getDiningPlace() + ". It costs " + this.dish.getCost() + ".";
         myIntend.putExtra(Intent.EXTRA_SUBJECT, shareSub);
         myIntend.putExtra(Intent.EXTRA_TEXT, shareBody);
         startActivity(Intent.createChooser(myIntend, "Share using:"));

@@ -251,4 +251,16 @@ public class DiningPlaceActivity extends AppCompatActivity implements AdapterVie
         thisMarker.showInfoWindow();
         this.mMap.setMinZoomPreference(16);
     }
+
+    public void shareButtonOnClick(View view) {
+
+        Intent myIntend = new Intent(Intent.ACTION_SEND);
+        myIntend.setType("text/plain");
+        String shareSub = this.diningPlace.getName();
+        String shareBody = "Found this really cool restaurant located at " + this.diningPlace.getAddress();
+        myIntend.putExtra(Intent.EXTRA_SUBJECT, shareSub);
+        myIntend.putExtra(Intent.EXTRA_TEXT, shareBody);
+        startActivity(Intent.createChooser(myIntend, "Share using:"));
+
+    }
 }
