@@ -51,6 +51,7 @@ public class LogInActivity extends AppCompatActivity {
 
         }
 
+        this.globalState.setNotificationChannel();
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
         getLocation();
 

@@ -2,6 +2,8 @@ package pt.ulisboa.tecnico.cmov.foodist;
 
 import android.app.Application;
 
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
@@ -11,10 +13,13 @@ import android.content.ServiceConnection;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 
+import android.os.Build;
 import android.os.IBinder;
 import android.os.Messenger;
 
 import android.widget.Toast;
+
+import androidx.core.app.NotificationCompat;
 
 import java.lang.Math;
 
@@ -237,6 +242,19 @@ public class GlobalState extends Application {
         bindService(intent, mConnection, Context.BIND_AUTO_CREATE);
         mBound = true;
 
+    }
+
+    public void setNotificationChannel(){
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+            CharSequence name = "FoodISTChannel";
+            String description = "Channel for FoodIST notifications";
+            int importance = NotificationManager.IMPORTANCE_DEFAULT;
+            NotificationChannel channel = new NotificationChannel("FoodIST", name, importance);
+            channel.setDescription(description);
+
+            NotificationManager notificationManager = getSystemService(NotificationManager.class);
+            notificationManager.createNotificationChannel(channel);
+        }
     }
 
     public SimWifiP2pBroadcastReceiver getMReceiver(){ return this.mReceiver; }
