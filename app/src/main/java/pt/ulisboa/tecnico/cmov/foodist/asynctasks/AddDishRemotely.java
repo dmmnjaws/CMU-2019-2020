@@ -10,14 +10,20 @@ import java.util.ArrayList;
 
 import pt.ulisboa.tecnico.cmov.foodist.GlobalState;
 import pt.ulisboa.tecnico.cmov.library.Dish;
+import pt.ulisboa.tecnico.cmov.library.DishImage;
 import pt.ulisboa.tecnico.cmov.library.DishesView;
 
 public class AddDishRemotely extends AsyncTask {
 
     private Dish dish;
+    private DishImage icon;
+    private byte[] imageBytes;
 
-    public AddDishRemotely(Dish dish){
+    public AddDishRemotely(Dish dish, DishImage icon, byte[] imageBytes)
+    {
         this.dish = dish;
+        this.icon = icon;
+        this.imageBytes = imageBytes;
     }
 
     protected Object doInBackground(Object[] objects) {
@@ -32,10 +38,19 @@ public class AddDishRemotely extends AsyncTask {
             Log.d("DEBUG:", "DEBUG - DID ASYNC SERVER READ");
         } catch (Exception e) {
             e.printStackTrace();
-
         }
 
         return null;
+    }
+
+    @Override
+    protected void onPostExecute(Object o) {
+        super.onPostExecute(o);
+        if(this.icon != null){
+            System.out.println("Icon: " + this.icon.getImageId());
+            AddDishImageRemotely newImage = new AddDishImageRemotely(this.icon, this.imageBytes);
+            newImage.execute();
+        }
     }
 }
 

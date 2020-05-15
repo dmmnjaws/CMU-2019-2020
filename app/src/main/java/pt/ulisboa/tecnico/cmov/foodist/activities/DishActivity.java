@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.net.Uri;
@@ -29,6 +30,7 @@ import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.interfaces.datasets.IBarDataSet;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -136,12 +138,18 @@ public class DishActivity extends AppCompatActivity implements AdapterView.OnIte
                 Uri selectedImage = data.getData();
                 InputStream imageStream = getContentResolver().openInputStream(selectedImage);
 
+                Bitmap imageToCache = BitmapFactory.decodeStream(imageStream);
+
                 DishImage newDishImage = new DishImage(this.globalState.getUsername(),
-                        BitmapFactory.decodeStream(imageStream), this.diningOptionName, this.dish.getName());
+                        this.diningOptionName, this.dish.getName());
 
                 this.globalState.addDishImage(this.dish, newDishImage);
 
-                AddDishImageRemotely newImage = new AddDishImageRemotely(newDishImage);
+                ByteArrayOutputStream stream = new ByteArrayOutputStream();
+                imageToCache.compress(Bitmap.CompressFormat.PNG, 100, stream);
+                this.globalState.getCache().insertImageCache(newDishImage, stream.toByteArray());
+
+                AddDishImageRemotely newImage = new AddDishImageRemotely(newDishImage, stream.toByteArray());
                 newImage.execute();
 
             } catch (IOException exception) {
@@ -210,7 +218,9 @@ public class DishActivity extends AppCompatActivity implements AdapterView.OnIte
         ((CheckBox) findViewById(R.id.meatCheckBox)).setChecked(categories.get("Meat"));
         ((CheckBox) findViewById(R.id.fishCheckBox)).setChecked(categories.get("Fish"));
 
-        DishImageAdapter dishImageAdapter = new DishImageAdapter(getApplicationContext(), R.layout.list_item_dish_image, this.dish.getImages());
+        DishImageAdapter dishImageAdapter = new DishImageAdapter(getApplicationContext(),
+                R.layout.list_item_dish_image, this.dish.getImages(), this.globalState.getCache());
+
         listOfDishImages.setAdapter(dishImageAdapter);
 
         barChart = (BarChart) findViewById(R.id.bargraph);

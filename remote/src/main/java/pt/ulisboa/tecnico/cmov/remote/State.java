@@ -22,6 +22,7 @@ public class State {
     private Map<String, Map<String, Boolean>> usernamesPreferences;
     private Map<String, UserInQueue> userQueueMap;
     private Map<String, WaitInQueueStats> queueStatsMap;
+    private Map<String, byte[]> imageStorageMap;
 
     public State(){
         populate();
@@ -34,6 +35,7 @@ public class State {
         this.usernamesPreferences = new HashMap<>();
         this.userQueueMap = new HashMap<>();
         this.queueStatsMap = new HashMap<>();
+        this.imageStorageMap = new HashMap<>();
         //FOR TEST PURPOSES:
         this.dishesViews.add(new DishesView("Alameda", "Central Bar", new ArrayList<Dish>()));
         this.queueStatsMap.put("CentralBar", new WaitInQueueStats("CentralBar","Central Bar"));
@@ -83,17 +85,24 @@ public class State {
         return this.usernamesPreferences.get(usernameAuthenticate);
     }
 
-    public void addDish(Dish dish){
+    public synchronized void addDish(Dish dish){
 
         for (DishesView dishesView: dishesViews){
             if (dishesView.getDiningPlace().equals(dish.getDiningPlace())){
                 dishesView.AddDish(dish);
+                System.out.println(dish.getImages().size());
             }
         }
     }
 
-    public void addDishImage(DishImage newDishImage){
+    public synchronized void addDishImage(DishImage newDishImage, byte[] imageBytes){
         getDish(newDishImage.getDiningPlace(),newDishImage.getDishName()).addImage(newDishImage);
+
+        //add to Image Map
+        System.out.println("Image added: " + newDishImage.getDiningPlace() + newDishImage.getDishName() + newDishImage.getImageId());
+        this.imageStorageMap.put(newDishImage.getDiningPlace() + newDishImage.getDishName() + newDishImage.getImageId(),
+                imageBytes);
+
     }
 
     public void addRating(String diningOptionName, String dishName, String username, float rating){
@@ -158,4 +167,7 @@ public class State {
         this.queueStatsMap.get(beaconNameOut).addStatisticData(userEntryData, timestampOut);
     }
 
+    public synchronized byte[] getImage(String imageId) {
+        return this.imageStorageMap.get(imageId);
+    }
 }
