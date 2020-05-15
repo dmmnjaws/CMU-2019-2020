@@ -35,13 +35,21 @@ public class FoodISTServerThread implements Runnable {
                     System.out.println("LoadState: State sent to client");
                     break;
 
+                case "getImage":
+                    String imageId = (String) inputStream.readObject();
+                    outputStream.writeObject(this.state.getImage(imageId));
+                    System.out.println("GetImage: Image " + imageId + " sent to client");
+                    break;
+
                 case "addDish":
                     this.state.addDish( (Dish) inputStream.readObject() );
                     System.out.println("AddDish: Dish added to server");
                     break;
 
                 case "addDishImage":
-                    this.state.addDishImage((DishImage) inputStream.readObject());
+                    DishImage dI = (DishImage) inputStream.readObject();
+                    byte[] iB = (byte[]) inputStream.readObject();
+                    this.state.addDishImage(dI, iB);
                     System.out.println("AddDishImage: Added dish image to server");
                     break;
 

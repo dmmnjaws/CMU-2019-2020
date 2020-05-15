@@ -14,6 +14,7 @@ import android.graphics.BitmapFactory;
 import android.os.IBinder;
 import android.os.Messenger;
 
+import android.util.LruCache;
 import android.widget.Toast;
 
 import java.lang.Math;
@@ -58,6 +59,8 @@ public class GlobalState extends Application {
 
     private boolean shouldSeeWarning;
 
+    private Cache cache;
+
     public GlobalState(){
         this.categories = new String[] {"Student", "Researcher", "Professor", "Staff", "General Public"};
         this.actualCategory = 0;
@@ -70,6 +73,8 @@ public class GlobalState extends Application {
         this.preferences.put("Meat", true);
 
         this.shouldSeeWarning = true;
+
+        this.cache = new Cache();
     }
 
     public void login(String username, String password) {
@@ -450,6 +455,10 @@ public class GlobalState extends Application {
 
     public void addDishImage(Dish dish, DishImage newDishImage){
         dish.addImage(newDishImage);
+    }
+
+    public Cache getCache(){
+        return this.cache;
     }
 
     public boolean isLoggedIn(){

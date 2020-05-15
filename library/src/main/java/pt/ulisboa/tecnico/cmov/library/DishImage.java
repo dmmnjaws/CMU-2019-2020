@@ -41,4 +41,8 @@ public class DishImage implements Serializable {
     }
 
     public Bitmap getBitmap(){ return BitmapFactory.decodeByteArray(this.image, 0, this.image.length); }
+
+    public byte[] getImageBytes() {
+        return this.image;
+    }
 }

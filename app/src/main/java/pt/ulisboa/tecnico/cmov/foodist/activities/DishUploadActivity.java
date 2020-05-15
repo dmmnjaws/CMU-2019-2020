@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.CheckBox;
@@ -13,9 +14,11 @@ import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.Toast;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
+import pt.ulisboa.tecnico.cmov.foodist.asynctasks.AddDishImageRemotely;
 import pt.ulisboa.tecnico.cmov.foodist.asynctasks.AddDishRemotely;
 import pt.ulisboa.tecnico.cmov.foodist.asynctasks.StateLoader;
 import pt.ulisboa.tecnico.cmov.library.Dish;
@@ -90,14 +93,24 @@ public class DishUploadActivity extends Activity {
         }
 
         Dish newDish = new Dish(dishName, dishPrice, dishRating, this.globalState.getUsername());
+        Dish sendDish = new Dish(dishName, dishPrice, dishRating, this.globalState.getUsername());
+        DishImage icon = null;
+        byte[] imageBytes = null;
         if (this.dishImage != null){
-            newDish.addImage(new DishImage(this.globalState.getUsername(), this.dishImage, diningOptionName, dishName));
+            icon = new DishImage(this.globalState.getUsername(), this.dishImage, this.diningOptionName, dishName);
+            newDish.addImage(icon);
+
+            ByteArrayOutputStream stream = new ByteArrayOutputStream();
+            this.dishImage.compress(Bitmap.CompressFormat.PNG, 100, stream);
+            imageBytes = stream.toByteArray();
+            this.globalState.getCache().insertImageCache(icon, imageBytes);
         }
 
         newDish.setCategories(isVegetarian, isVegan, isMeat, isFish);
+        sendDish.setCategories(isVegetarian, isVegan, isMeat, isFish);
+        sendDish.setDiningPlace(this.diningOptionName);
         this.globalState.addDish(this.campus, this.diningOptionName, newDish);
-
-        AddDishRemotely addDishRemotely = new AddDishRemotely(newDish);
+        AddDishRemotely addDishRemotely = new AddDishRemotely(sendDish, icon, imageBytes);
         addDishRemotely.execute();
 
         finish();

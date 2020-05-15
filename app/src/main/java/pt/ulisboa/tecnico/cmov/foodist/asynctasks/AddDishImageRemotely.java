@@ -14,9 +14,11 @@ import pt.ulisboa.tecnico.cmov.library.DishImage;
 public class AddDishImageRemotely extends AsyncTask {
 
     private DishImage newDishImage;
+    private byte[] imageBytes;
 
-    public AddDishImageRemotely(DishImage newDishImage){
+    public AddDishImageRemotely(DishImage newDishImage, byte[] imageBytes){
         this.newDishImage = newDishImage;
+        this.imageBytes = imageBytes;
     }
 
     protected Object doInBackground(Object[] objects) {
@@ -27,6 +29,7 @@ public class AddDishImageRemotely extends AsyncTask {
             ObjectInputStream inputStream = new ObjectInputStream(clientSocket.getInputStream());
             outputStream.writeObject("addDishImage");
             outputStream.writeObject(this.newDishImage);
+            outputStream.writeObject(this.imageBytes);
             clientSocket.close();
             Log.d("DEBUG:", "DEBUG - DID ASYNC SERVER READ");
         } catch (Exception e) {
