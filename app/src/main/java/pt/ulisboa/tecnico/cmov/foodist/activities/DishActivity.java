@@ -139,7 +139,7 @@ public class DishActivity extends AppCompatActivity implements AdapterView.OnIte
                 Bitmap imageToCache = BitmapFactory.decodeStream(imageStream);
 
                 DishImage newDishImage = new DishImage(this.globalState.getUsername(),
-                        imageToCache, this.diningOptionName, this.dish.getName());
+                        this.diningOptionName, this.dish.getName());
 
                 this.globalState.addDishImage(this.dish, newDishImage);
 

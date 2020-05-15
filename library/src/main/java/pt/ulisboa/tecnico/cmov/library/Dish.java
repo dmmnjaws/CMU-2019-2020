@@ -90,15 +90,6 @@ public class Dish implements Serializable {
         return null;
     }
 
-    public Bitmap getThumbnail(){
-
-        if(dishImages.size() != 0){
-            return Bitmap.createScaledBitmap(dishImages.get(0).getBitmap(), 50, 50, false);
-        } else {
-            return null;
-        }
-    }
-
     public Map<String, Boolean> getCategories() {
         return this.categories;
     }

@@ -51,9 +51,6 @@ public class DishImageAdapter extends ArrayAdapter<DishImage> {
             dishImageView.setImageBitmap(imageFromCache);
         }
 
-        //dishImageView.setImageBitmap(dishImage.getBitmap());
-
-
         return convertView;
     }
 }

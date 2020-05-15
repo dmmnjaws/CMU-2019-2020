@@ -8,18 +8,12 @@ import java.io.Serializable;
 
 public class DishImage implements Serializable {
 
-    //TO DO: ADD BITMAP
-    private byte[] image;
     private int imageId;
     private String dishName;
     private String diningPlace;
     private String uploaderUsername;
 
-    public DishImage(String uploaderUsername, Bitmap image, String diningPlace, String dishName){
-
-        ByteArrayOutputStream stream = new ByteArrayOutputStream();
-        image.compress(Bitmap.CompressFormat.PNG, 100, stream);
-        this.image = stream.toByteArray();
+    public DishImage(String uploaderUsername, String diningPlace, String dishName){
 
         this.uploaderUsername = uploaderUsername;
         this.diningPlace = diningPlace;
@@ -40,9 +34,4 @@ public class DishImage implements Serializable {
         return this.uploaderUsername;
     }
 
-    public Bitmap getBitmap(){ return BitmapFactory.decodeByteArray(this.image, 0, this.image.length); }
-
-    public byte[] getImageBytes() {
-        return this.image;
-    }
 }

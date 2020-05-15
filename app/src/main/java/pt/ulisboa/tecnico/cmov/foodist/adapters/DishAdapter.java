@@ -64,8 +64,6 @@ public class DishAdapter extends ArrayAdapter<Dish> {
             }
         }
 
-        //dishImage.setImageBitmap(dish.getThumbnail());
-
         return convertView;
     }
 }

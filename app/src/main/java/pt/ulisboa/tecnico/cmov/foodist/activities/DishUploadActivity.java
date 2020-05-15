@@ -97,7 +97,7 @@ public class DishUploadActivity extends Activity {
         DishImage icon = null;
         byte[] imageBytes = null;
         if (this.dishImage != null){
-            icon = new DishImage(this.globalState.getUsername(), this.dishImage, this.diningOptionName, dishName);
+            icon = new DishImage(this.globalState.getUsername(), this.diningOptionName, dishName);
             newDish.addImage(icon);
 
             ByteArrayOutputStream stream = new ByteArrayOutputStream();
