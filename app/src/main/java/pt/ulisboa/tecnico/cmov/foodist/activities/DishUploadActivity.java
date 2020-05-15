@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.CheckBox;
@@ -18,9 +17,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
-import pt.ulisboa.tecnico.cmov.foodist.asynctasks.AddDishImageRemotely;
 import pt.ulisboa.tecnico.cmov.foodist.asynctasks.AddDishRemotely;
-import pt.ulisboa.tecnico.cmov.foodist.asynctasks.StateLoader;
 import pt.ulisboa.tecnico.cmov.library.Dish;
 import pt.ulisboa.tecnico.cmov.foodist.GlobalState;
 import pt.ulisboa.tecnico.cmov.foodist.R;

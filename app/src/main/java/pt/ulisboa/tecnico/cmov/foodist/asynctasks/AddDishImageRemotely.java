@@ -1,6 +1,5 @@
 package pt.ulisboa.tecnico.cmov.foodist.asynctasks;
 
-import android.graphics.Bitmap;
 import android.os.AsyncTask;
 import android.util.Log;
 
@@ -8,7 +7,6 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 
-import pt.ulisboa.tecnico.cmov.library.Dish;
 import pt.ulisboa.tecnico.cmov.library.DishImage;
 
 public class AddDishImageRemotely extends AsyncTask {

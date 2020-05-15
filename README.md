@@ -26,7 +26,7 @@ CHECKLIST DEPOIS DO FEEDBACK:
 
 X Ratings dos restaurantes
 X Histogramas com ratings para os pratos e restaurantes
-- Cache (Oh boy...)
+X Cache 
 X Corrigir Wi-Fi direct com os bluetooth beacons (Oh boy... pt2)
 X Waiting Time na DiningOptionsActivity
 X Walking Time na DiniingOptionsActivity (Ainda não funciona)

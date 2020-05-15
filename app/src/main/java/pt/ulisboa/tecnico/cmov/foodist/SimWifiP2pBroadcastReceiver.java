@@ -1,14 +1,11 @@
 package pt.ulisboa.tecnico.cmov.foodist;
 
-import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.widget.Toast;
 
 import pt.inesc.termite.wifidirect.SimWifiP2pBroadcast;
 import pt.inesc.termite.wifidirect.SimWifiP2pInfo;
-import pt.ulisboa.tecnico.cmov.foodist.activities.DiningPlaceActivity;
 import pt.ulisboa.tecnico.cmov.foodist.asynctasks.BluetoothBeaconDetector;
 
 public class SimWifiP2pBroadcastReceiver extends BroadcastReceiver {

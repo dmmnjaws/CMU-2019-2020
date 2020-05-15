@@ -11,12 +11,10 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.RatingBar;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.data.BarData;
@@ -24,7 +22,6 @@ import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
@@ -33,9 +30,6 @@ import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.util.ArrayList;
 
-import pt.inesc.termite.wifidirect.SimWifiP2pDevice;
-import pt.inesc.termite.wifidirect.SimWifiP2pDeviceList;
-import pt.inesc.termite.wifidirect.SimWifiP2pManager;
 import pt.ulisboa.tecnico.cmov.foodist.asynctasks.StateLoader;
 import pt.ulisboa.tecnico.cmov.library.DiningPlace;
 import pt.ulisboa.tecnico.cmov.library.Dish;
@@ -90,7 +84,6 @@ public class DiningPlaceActivity extends AppCompatActivity implements AdapterVie
         spinner.setSelection(this.globalState.getDiningOptionIndex(this.campus, diningOptionName));
         spinner.setOnItemSelectedListener(this);
 
-
         View buttonInflater = (View) getLayoutInflater().inflate(R.layout.upload_button,null);
         Button addDishButton = (Button) buttonInflater.findViewById(R.id.upload);
         addDishButton.setText("Upload Dish");
@@ -112,11 +105,7 @@ public class DiningPlaceActivity extends AppCompatActivity implements AdapterVie
     }
 
     @Override
-    public void onPause() {
-
-        super.onPause();
-
-    }
+    public void onPause() { super.onPause(); }
 
     @Override
     protected void onResume () {
@@ -219,18 +208,18 @@ public class DiningPlaceActivity extends AppCompatActivity implements AdapterVie
         barChart.getDescription().setEnabled(false);
         barChart.getBarData().setValueTextColor(Color.WHITE);
         barChart.invalidate();
+
     }
 
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
         populateActivity(parent.getSelectedItem().toString());
+
     }
 
     @Override
-    public void onNothingSelected(AdapterView<?> parent) {
-
-    }
+    public void onNothingSelected(AdapterView<?> parent) { }
 
     public void authenticateCheck(Button addDishButton){
         if (!this.globalState.isLoggedIn()){

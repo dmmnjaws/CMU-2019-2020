@@ -1,8 +1,6 @@
 package pt.ulisboa.tecnico.cmov.foodist.activities;
 
-
 import androidx.appcompat.app.AppCompatActivity;
-
 
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -11,24 +9,19 @@ import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.RatingBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.github.mikephil.charting.charts.BarChart;
-import com.github.mikephil.charting.components.LimitLine;
-import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
-import com.github.mikephil.charting.interfaces.datasets.IBarDataSet;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -38,13 +31,11 @@ import java.util.Map;
 
 import pt.ulisboa.tecnico.cmov.foodist.asynctasks.AddDishImageRemotely;
 import pt.ulisboa.tecnico.cmov.foodist.asynctasks.AddRatingRemotely;
-import pt.ulisboa.tecnico.cmov.foodist.asynctasks.StateLoader;
 import pt.ulisboa.tecnico.cmov.library.Dish;
 import pt.ulisboa.tecnico.cmov.library.DishImage;
 import pt.ulisboa.tecnico.cmov.foodist.adapters.DishImageAdapter;
 import pt.ulisboa.tecnico.cmov.foodist.GlobalState;
 import pt.ulisboa.tecnico.cmov.foodist.R;
-
 
 public class DishActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 

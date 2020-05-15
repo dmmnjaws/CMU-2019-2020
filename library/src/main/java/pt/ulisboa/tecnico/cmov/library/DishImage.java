@@ -1,9 +1,5 @@
 package pt.ulisboa.tecnico.cmov.library;
 
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-
-import java.io.ByteArrayOutputStream;
 import java.io.Serializable;
 
 public class DishImage implements Serializable {

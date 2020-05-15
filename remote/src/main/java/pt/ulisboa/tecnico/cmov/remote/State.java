@@ -1,15 +1,9 @@
 package pt.ulisboa.tecnico.cmov.remote;
 
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-
-import java.io.File;
-import java.io.FileInputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-import pt.ulisboa.tecnico.cmov.library.DiningPlace;
 import pt.ulisboa.tecnico.cmov.library.Dish;
 import pt.ulisboa.tecnico.cmov.library.DishImage;
 import pt.ulisboa.tecnico.cmov.library.DishesView;
@@ -98,8 +92,6 @@ public class State {
     public synchronized void addDishImage(DishImage newDishImage, byte[] imageBytes){
         getDish(newDishImage.getDiningPlace(),newDishImage.getDishName()).addImage(newDishImage);
 
-        //add to Image Map
-        System.out.println("Image added: " + newDishImage.getDiningPlace() + newDishImage.getDishName() + newDishImage.getImageId());
         this.imageStorageMap.put(newDishImage.getDiningPlace() + newDishImage.getDishName() + newDishImage.getImageId(),
                 imageBytes);
 

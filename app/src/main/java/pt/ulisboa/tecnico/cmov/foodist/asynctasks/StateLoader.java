@@ -7,11 +7,8 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.util.ArrayList;
-import java.util.Map;
 
 import pt.ulisboa.tecnico.cmov.foodist.GlobalState;
-import pt.ulisboa.tecnico.cmov.library.DiningPlace;
-import pt.ulisboa.tecnico.cmov.library.Dish;
 import pt.ulisboa.tecnico.cmov.library.DishesView;
 
 public class StateLoader extends AsyncTask {
